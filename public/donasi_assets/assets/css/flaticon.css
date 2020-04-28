@@ -1,0 +1,55 @@
+	/*
+  	Flaticon icon font: Flaticon
+  	Creation date: 09/11/2019 07:58
+  	*/
+
+@font-face {
+  font-family: "Flaticon";
+  src: url("../fonts/Flaticon.eot");
+  src: url("../fonts/Flaticond41d.eot?#iefix") format("embedded-opentype"),
+       url("../fonts/Flaticon.woff2") format("woff2"),
+       url("../fonts/Flaticon.woff") format("woff"),
+       url("../fonts/Flaticon.ttf") format("truetype"),
+       url("../fonts/Flaticon.html#Flaticon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "Flaticon";
+    src: url("../fonts/Flaticon.html#Flaticon") format("svg");
+  }
+}
+
+[class^="flaticon-"]:before, [class*=" flaticon-"]:before,
+[class^="flaticon-"]:after, [class*=" flaticon-"]:after {   
+  font-family: Flaticon;
+  font-style: normal;
+}
+.flaticon-magnifying-glass:before { content: "\f100"; }
+.flaticon-magnifying-glass-1:before { content: "\f101"; }
+.flaticon-envelope:before { content: "\f102"; }
+.flaticon-envelope-1:before { content: "\f103"; }
+.flaticon-gift:before { content: "\f104"; }
+.flaticon-customer:before { content: "\f105"; }
+.flaticon-heart:before { content: "\f106"; }
+.flaticon-harvest:before { content: "\f107"; }
+.flaticon-smile:before { content: "\f108"; }
+.flaticon-family:before { content: "\f109"; }
+.flaticon-coin:before { content: "\f10a"; }
+.flaticon-check-mark:before { content: "\f10b"; }
+.flaticon-maps-and-flags:before { content: "\f10c"; }
+.flaticon-clock-circular-outline:before { content: "\f10d"; }
+.flaticon-clock:before { content: "\f10e"; }
+.flaticon-calendar:before { content: "\f10f"; }
+.flaticon-left-quote:before { content: "\f110"; }
+.flaticon-right-quote:before { content: "\f111"; }
+.flaticon-speech-bubbles-comment-option:before { content: "\f112"; }
+.flaticon-man-user:before { content: "\f113"; }
+.flaticon-drop:before { content: "\f114"; }
+.flaticon-volunteer:before { content: "\f115"; }
+.flaticon-human-outline-with-heart:before { content: "\f116"; }
+.flaticon-play-button:before { content: "\f117"; }
+.flaticon-home:before { content: "\f118"; }
+.flaticon-water-bottle:before { content: "\f119"; }
