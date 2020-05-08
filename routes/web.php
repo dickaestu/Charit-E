@@ -83,11 +83,7 @@ use Illuminate\Support\Facades\Route;
             ->name('donasi-masuk-logistik');
       Route::get('/donasi-masuk/{id}/verifikasi-barang', 'DonasiMasukController@verifikasibarang')
             ->name('verifikasi-barang');
-      Route::post('/donasi-masuk/verifikasi-barang/create/{id_barang_masuk}', 'DonasiMasukController@tambahbarang')
-            ->name('tambah-barang');
-      Route::get('/donasi-masuk/verifikasi-barang/delete/{id_barang_masuk}', 'DonasiMasukController@hapusbarang')
-            ->name('hapus-barang');
-      Route::get('/donasi-masuk/verifikasi-barang/sukses/{id}', 'DonasiMasukController@sukses')
+      Route::post('/donasi-masuk/{id}/verifikasi-barang/sukses', 'DonasiMasukController@sukses')
             ->name('verifikasi-sukses');
       Route::get('/donasi-masuk/{id}/verifikasi-uang', 'DonasiMasukController@verifikasiuang')
             ->name('verifikasi-uang');
