@@ -5,108 +5,67 @@
 
    <!-- Begin Page Content -->
 <div class="container-fluid">
-  @if (session('tambah'))
-  <div class="alert alert-success" role="alert">
-      {{session('tambah')}}
-    </div>    
-  @endif
-  @if (session('hapus'))
-  <div class="alert alert-success" role="alert">
-      {{session('hapus')}}
-    </div>    
-  @endif
-    
-    <h5 >Silahkan lakukan penginputan</h5>
-<form action="{{route('tambah-barang', $donasi)}}" method="post">
-      @csrf
-    <table class="table table-responsive table-borderless">
-      <thead>
-        <tr>
-          <th>Nama Barang</th>
-          <th>Quantity</th>
-          <th><button type="submit" id="tambah" class="btn btn-sm btn-success mt-3"><i
-            class="fas fa-plus"> Tambah</i></button></th>
-        </tr>
-      </thead>
-    
-             
-      <tbody>
-        <tr>
-            <td>  <select class="form-control form-control-sm @error('id_stok_barang') is-invalid @enderror" id="id_stok_barang"
-                    name="id_stok_barang">
-                    <option >Silahkan pilih</option>
-                    @foreach ($stokbarang as $stok)
-                        <option value="{{$stok->id_stok_barang}}">{{$stok->nama_barang}}</option>    
-                  @endforeach
-              </select>
-              @error ('id_stok_barang')
-              <div class="invalid-feedback">
-                  {{$message}}
-              </div>
-              @enderror
-        </td>
-
-            <td>
-              <input type="number" class="form-control form-control-sm @error('jumlah') is-invalid @enderror" id="jumlah" name="jumlah">
-              @error ('jumlah')
-              <div class="invalid-feedback">
-                  {{$message}}
-              </div>
-              @enderror
-            </td>
-
-        </tr>
-      </tbody>
-    </table>
-
-                   
-                </form>
-
-                
-      <table class="table-responsive table-striped table-borderless text-center mb-5" cellpadding="15">
-          <thead>
-            <tr>
-              <th>Kode Barang</th>
-              <th>Nama Barang</th>
-              <th>Qty</th>
-              <th>Satuan</th>
-              <th>Aksi</th>
-            </tr>
-          </thead>
-          <tbody>
-              @if ($items->count() > 0)
-              @foreach ($items as $item)
-              <tr>
-              <td class="align-middle">{{$item->id_stok_barang}}</td>
-                <td class="align-middle">{{$item->stokbarang->nama_barang}}</td>
-                <td class="align-middle">{{$item->jumlah}}</td>
-                <td class="align-middle">{{$item->stokbarang->satuan}}</td>
-                <td class="align-middle"><a href="{{route('hapus-barang', $item->id_barang_masuk)}}" onclick="return confirm('Apakah data ingin dihapus?');" class="btn btn-sm btn-danger"><i
-                    class="fas fa-trash">
-                    Hapus</i></a></td>
-              </tr>
-              @endforeach
-              @else
-                 <tr>
-                     <td colspan="5" >data kosong</td>
-                </tr> 
-
-              @endif
-
-              
-          </tbody>
-      </table>
-       
-
-
-            
-      <div class="col-10 offset-1">
+  
  
-
-            <a href="{{route('verifikasi-sukses',$donasi)}}" onclick="return confirm('Apakah anda yakin data sudah benar?');" class="btn btn-block btn-success" >Submit</a>
-     
-      </div>
+  
+  <h5 class="mb-3">Silahkan Masukkan Barang</h5>
+  @if ($errors->any())
+  <div class="alert alert-danger">
+    <ul>
+      @foreach ($errors->all() as $error)
+      <li>{{$error}}</li>
+      @endforeach
+    </ul>
+  </div>       
+  @endif
+  
+    
+    <form action="{{ route('verifikasi-sukses',$donasi) }}" method="post">
+      @csrf
+      <table class="table table-responsive table-borderless">
+        <thead>
+          <tr>
+            <th>Nama Barang</th>
+            <th>Quantity</th>
+            <th><button type="button" id="tambah" class="btn btn-sm btn-success mt-3"><i
+              class="fas fa-plus"> Tambah</i></button></th>
+          <th><button type="button" id="reset-btn" class="btn btn-sm btn-danger mt-3"><i
+              class="fas fa-trash"> Reset</i></button></th>
+          </tr>
+        </thead>
+      
+               
+        <tbody>
+          <tr>
+              <td>  <select class="form-control form-control-sm " id="id_stok_barang"
+                      name="id_stok_barang[]">
+                      <option >Silahkan pilih</option>
+                      @foreach ($stokbarang as $stok)
+                          <option value="{{$stok->id_stok_barang}}">{{$stok->nama_barang}} / {{$stok->satuan}}</option>    
+                    @endforeach
+                </select>
+              
+          </td>
           
+              <td>                 
+              <input type="number" class="form-control form-control-sm" min="1"  id="jumlah" name="jumlah[]">               
+              </td>
+        
+          </tr>
+
+          
+        </tbody>
+      </table>   
+
+      <div id="insert-form"></div>
+      
+      
+      <div class="row d-flex justify-content-center mb-5">
+          <div class="col-auto col-md-6">
+              <button type="submit" onclick="return confirm('Pastikan barang yang diverifikasi sudah benar');" class="btn btn-primary btn-block">Kirim</button>
+          </div>
+      </div>
+</form>   
      
         
 
@@ -116,4 +75,49 @@
 @endsection
     
 
+@push('addon-script')
+<script>
+    $(document).ready(function(){
+        $("#tambah").click(function(){
+
+            var jumlah = parseInt($("#jumlah-form").val());
+            var nextform = jumlah+1;
+
+            $("#insert-form").append(
+            '<table class="table table-responsive table-borderless">'+
+            '<tr>'+
+            '<td><select class="form-control form-control-sm" id="id_stok_barang" name="id_stok_barang[]">'+
+            '<option>Silahkan pilih</option>'+
+            ' @foreach ($stokbarang as $stok) <option value="{{$stok->id_stok_barang}}">{{$stok->nama_barang}} / {{$stok->satuan}}</option> @endforeach'+
+            ' </select>'+
+            '</td>'+
+
+            '<td>'+
+            ' <input type="number" class="form-control form-control-sm " min="1" id="jumlah" name="jumlah[]">'+
+            ' </td>'+
+            '<td>'+ 
+            '<button type="button" class="btn remove">' +
+            '<i class="fas fa-trash-alt text-danger">'+
+            '</i>'+
+            '</button>'+
+            '</td>'+
+            '</tr>'+
+            '</table>');
+
+            $("$jumlah-form").val(nextform);
+        });
+
+        $("#reset-btn").click(function(){
+            $("#insert-form").html("");
+            $("#jumlah-form").val("1");
+        });
+
+        $("#insert-form").on("click", ".remove", function (event) {
+        $(this).closest("table").remove();     
+    });
+
+    });
+</script>
+    
+@endpush
    

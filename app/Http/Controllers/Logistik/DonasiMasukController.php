@@ -31,69 +31,91 @@ class DonasiMasukController extends Controller
 
     public function verifikasibarang(Request $request, $id)
     {
-        
-
         $donasi = $id;
-        $items = BarangMasuk::with(['donasi','stokbarang'])->where('id_donasi', $id)->get();
         $stokbarang = StokBarang::all();
         return view('pages.logistik.donasimasuk.verifikasi',[
             'stokbarang'=>$stokbarang,
-            'items'=>$items,
             'donasi'=>$donasi
         ]);
     }
 
-    public function tambahbarang(Request $request, $id)
-    {
-        $request->validate([
-            'id_stok_barang'=>['required','exists:stok_barang,id_stok_barang'],
-            'jumlah'=>['required','integer'],
-        ], [
-            'id_stok_barang.required' => 'Anda belum memilih barang',
-            'id_stok_barang.exists' => 'Anda belum memilih barang',
-            'jumlah.required'=> 'Tidak boleh kosong',
-            'jumlah.integer'=> 'Harus angka'
-        ]);
-        $id_user = Donasi::findOrFail($id);
-        $config=[
-            'table'=>'barang_masuk','field'=>'id_barang_masuk','length'=> 10,'prefix'=>'BRGMSK-'
-        ];
-        $id_barang = IdGenerator::generate($config);  
+    // public function tambahbarang(Request $request, $id)
+    // {
+    //     $request->validate([
+    //         'id_stok_barang'=>['required','exists:stok_barang,id_stok_barang'],
+    //         'jumlah'=>['required','integer'],
+    //     ], [
+    //         'id_stok_barang.required' => 'Anda belum memilih barang',
+    //         'id_stok_barang.exists' => 'Anda belum memilih barang',
+    //         'jumlah.required'=> 'Tidak boleh kosong',
+    //         'jumlah.integer'=> 'Harus angka'
+    //     ]);
+    //     $id_user = Donasi::findOrFail($id);
+    //     $config=[
+    //         'table'=>'barang_masuk','field'=>'id_barang_masuk','length'=> 10,'prefix'=>'BRGMSK-'
+    //     ];
+    //     $id_barang = IdGenerator::generate($config);  
 
-        $data = $request->all();
-        $data['id_barang_masuk'] = $id_barang.mt_rand(0,100).$id_user->user_id;
-        $data['id_donasi']= $id;
-        $data['tanggal_barang_masuk'] = Carbon::now();
+    //     $data = $request->all();
+    //     $data['id_barang_masuk'] = $id_barang.mt_rand(0,100).$id_user->user_id;
+    //     $data['id_donasi']= $id;
+    //     $data['tanggal_barang_masuk'] = Carbon::now();
 
-        BarangMasuk::create($data);
+    //     BarangMasuk::create($data);
 
-        $stokbarang = StokBarang::findOrFail($request->id_stok_barang);
+    //     $stokbarang = StokBarang::findOrFail($request->id_stok_barang);
 
-        $stokbarang->quantity += $request->jumlah;
+    //     $stokbarang->quantity += $request->jumlah;
 
-        $stokbarang->save();
+    //     $stokbarang->save();
 
         
-        return redirect()->route('verifikasi-barang',$id)->with('tambah','Data Berhasil Di Tambah');
-    }
-
-    public function hapusbarang(Request $request, $id_barang_masuk)
-    {
-        $item = BarangMasuk::findOrFail($id_barang_masuk);
-        
-        
-        $stokbarang = StokBarang::findOrFail($item->id_stok_barang);
-
-        $stokbarang->quantity -= $item->jumlah;
-        $stokbarang->save();
-
-        $item->delete();
-        return redirect()->route('verifikasi-barang', $item->id_donasi)->with('hapus','Data Berhasil Di Hapus');
-    
-    }
+    //     return redirect()->route('verifikasi-barang',$id)->with('tambah','Data Berhasil Di Tambah');
+    // }
 
     public function sukses(Request $request, $id)
     {
+       
+
+        $id_user = Donasi::findOrFail($id);
+
+        $config=[
+            'table'=>'barang_masuk','field'=>'id_barang_masuk','length'=> 10,'prefix'=>'BRGMSK-'
+        ];
+        $idBarangMasuk = IdGenerator::generate($config);  
+
+        if(count($request->id_stok_barang) > 0){
+
+            foreach ($request->id_stok_barang as $item=>$v)
+            {
+                $request->validate([
+                    'id_stok_barang'=>['required','exists:stok_barang,id_stok_barang'],
+                    'jumlah'=>['required'],
+                ], [
+                    'id_stok_barang.required' => 'Anda belum memilih barang',
+                    'id_stok_barang.exists' => 'Anda belum memilih barang',
+                    'jumlah.required'=> 'Tidak boleh kosong',
+                ]);
+                $detail[] = array(
+                    'id_barang_masuk' => $idBarangMasuk.mt_rand(100,999).$id_user->user_id, 
+                    'id_donasi' => $id,
+                    'id_stok_barang' => $request->id_stok_barang[$item],
+                    'jumlah' => $request->jumlah[$item],
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
+                );
+                
+                $stokbarang = StokBarang::where('id_stok_barang',$request->id_stok_barang[$item])->get();
+                
+                foreach($stokbarang as $stok){
+                $stok->quantity += $request->jumlah[$item];
+                $stok->save(); 
+                }
+
+            }
+            BarangMasuk::insert($detail);
+        }
+
         $donasi = Donasi::findOrFail($id);
 
         $donasi->status_verifikasi = true;
