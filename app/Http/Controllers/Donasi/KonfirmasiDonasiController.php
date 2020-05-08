@@ -48,7 +48,7 @@ class KonfirmasiDonasiController extends Controller
             'foto_bukti'=>['required','image','mimes:jpg,png,jpeg']
         ],[
             'foto_bukti.image'=> 'Yang anda masukkan bukan gambar',
-            'foto_bukti.mimes'=> 'Format harus jpeg/png/jpeg',
+            'foto_bukti.mimes'=> 'Format harus jpg/png/jpeg',
             'keterangan_donasi.required'=> 'Keterangan/nominal harus diisi',
             ]);
 
@@ -80,56 +80,5 @@ class KonfirmasiDonasiController extends Controller
         return view('pages.donasi.sukses');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+   
 }

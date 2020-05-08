@@ -23,9 +23,12 @@
             <select class="form-control form-control @error('id_info_posko') is-invalid @enderror" id="id_info_posko"
             name="id_info_posko">
             <option >Silahkan Pilih</option>
-            @foreach ($infoposko as $posko)
+            @forelse ($infoposko as $posko)
         <option value="{{$posko->id_info_posko}}">Lokasi: {{$posko->lokasi_bencana}} || Bencana: {{$posko->jenis_bencana->nama_bencana}}</option>    
-          @endforeach
+            @empty 
+            <option >Data Kosong, Silahkan Buat Info Posko Terlebih Dahulu</option>
+        @endforelse
+          
       </select>
             @error ('id_info_posko')
             <div class="invalid-feedback">

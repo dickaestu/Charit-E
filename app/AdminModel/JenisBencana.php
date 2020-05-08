@@ -22,6 +22,6 @@ class JenisBencana extends Model
     ];
 
     public function info_posko(){
-        return $this->hasMany(JenisBencana::class, 'id_jenis_bencana', 'id_jenis_bencana');
+        return $this->hasMany(InfoPosko::class, 'id_jenis_bencana', 'id_jenis_bencana');
     }
 }

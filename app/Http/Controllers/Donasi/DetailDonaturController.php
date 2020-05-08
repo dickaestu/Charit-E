@@ -18,8 +18,8 @@ class DetailDonaturController extends Controller
     {
       
         $item = AktivitasDonasi::findOrFail($id);
-        $uang = Donasi::with('aktivitasdonasi')->where('id_aktivitas_donasi', $id)->where('jenis_donasi', 'uang')->get();
-        $barang = Donasi::with('aktivitasdonasi')->where('id_aktivitas_donasi', $id)->where('jenis_donasi', 'pokok')->get();
+        $uang = Donasi::with('aktivitasdonasi')->where('status_verifikasi', true)->where('id_aktivitas_donasi', $id)->where('jenis_donasi', 'uang')->get();
+        $barang = Donasi::with('aktivitasdonasi')->where('status_verifikasi', true)->where('id_aktivitas_donasi', $id)->where('jenis_donasi', 'pokok')->get();
 
            
             return view('pages.donasi.detaildonatur',[

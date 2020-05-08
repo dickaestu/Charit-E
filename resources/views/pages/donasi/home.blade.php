@@ -150,7 +150,7 @@
                 <hr>
                 <h6>Total Donatur</h6>
                 <p style="color: #000; font-size:16px"  class="text-bold">
-                {{\App\Donasi::where('id_aktivitas_donasi',$item->id_aktivitas_donasi)->count()}} Donatur 
+                {{\App\Donasi::where('status_verifikasi', true)->where('id_aktivitas_donasi',$item->id_aktivitas_donasi)->count()}} Donatur 
                 <span class="float-right"><a href="{{route('detail-donatur',$item->id_aktivitas_donasi)}}">Detail</a></span>
                 </p>
               
@@ -158,12 +158,12 @@
 
                 <div class="bg-light py-2 px-1 shadow-sm rounded">
                     <p class="mx-1 text-dark text-bold "> Total Uang
-                        <span style="color:#1abc7c; font-size:15px;" class="float-right"> @currency(\App\Donasi::where('id_aktivitas_donasi',$item->id_aktivitas_donasi)->where('jenis_donasi','uang')->sum('keterangan_donasi'))</span>
+                        <span style="color:#1abc7c; font-size:15px;" class="float-right"> @currency(\App\Donasi::where('status_verifikasi', true)->where('id_aktivitas_donasi',$item->id_aktivitas_donasi)->where('jenis_donasi','uang')->sum('keterangan_donasi'))</span>
                     </p>
                 </div>
                 <div class="bg-light py-2 px-1 shadow-sm rounded mt-2">
                     <p  class="mx-1  text-dark text-bold "> Total Barang
-                        <span style="color:#fd3c65; font-size:15px;" class="float-right"> {{\App\Donasi::where('id_aktivitas_donasi',$item->id_aktivitas_donasi)->where('jenis_donasi','pokok')->count()}}</span>
+                        <span style="color:#fd3c65; font-size:15px;" class="float-right"> {{\App\Donasi::where('status_verifikasi', true)->where('id_aktivitas_donasi',$item->id_aktivitas_donasi)->where('jenis_donasi','pokok')->count()}}</span>
                     </p>
                 </div>
                 

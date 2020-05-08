@@ -49,12 +49,12 @@
             <span aria-hidden="true">×</span>
           </button>
         </div>
-        <div class="modal-body"></div>
+        <div class="modal-body">Silahkan pilih "Ya" jika anda ingin keluar</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
        <form action="{{url('logout')}}" method="POST">
         @csrf
-         <button class="btn btn-primary mt-3" type="submit">Ya</button>
+         <button class="btn btn-primary" type="submit">Ya</button>
         </form>
         </div>
       </div>
