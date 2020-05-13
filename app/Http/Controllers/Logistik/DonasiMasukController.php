@@ -103,19 +103,27 @@ class DonasiMasukController extends Controller
                     'id_donasi' => $id,
                     'id_stok_barang' => $request->id_stok_barang[$item],
                     'jumlah' => $request->jumlah[$item],
+                    'tanggal_barang_masuk' => Carbon::now(),
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now()
                 );
                 
-                $stokbarang = StokBarang::where('id_stok_barang',$request->id_stok_barang[$item])->get();
+                // $stokbarang = StokBarang::where('id_stok_barang',$request->id_stok_barang[$item])->get();
                 
-                foreach($stokbarang as $stok){
-                $stok->quantity += $request->jumlah[$item];
-                $stok->save(); 
-                }
+                // foreach($stokbarang as $stok){
+                // $stok->quantity += $request->jumlah[$item];
+                // $stok->save(); 
+                // }
 
             }
             BarangMasuk::insert($detail);
+        }
+        foreach($request->id_stok_barang as $item=>$v){
+            $stokbarang = StokBarang::where('id_stok_barang',$request->id_stok_barang[$item])->get();
+            foreach($stokbarang as $stok){
+            $stok->quantity += $request->jumlah[$item];
+            $stok->save(); 
+            }
         }
 
         $donasi = Donasi::findOrFail($id);
