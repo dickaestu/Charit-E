@@ -60,6 +60,9 @@ class DataPengirimanController extends Controller
 
     public function prosestambah(Request $request, $id_permintaan, $id_pengiriman)
     {   
+        
+
+
         $request->validate([
             'id_stok_barang'=>['required','exists:stok_barang,id_stok_barang'],
             'jumlah'=>['required','min:1'],
@@ -72,8 +75,8 @@ class DataPengirimanController extends Controller
             
         ]);
 
-        $max = StokBarang::where('id_stok_barang', $request->id_stok_barang)->first();
-        $nilai_max = $max->quantity;
+        // $max = StokBarang::where('id_stok_barang', $request->id_stok_barang)->first();
+        // $nilai_max = $max->quantity;
 
         if(count($request->id_stok_barang) > 0){
 
@@ -96,18 +99,33 @@ class DataPengirimanController extends Controller
                     'updated_at' => Carbon::now()
                 );
 
-                if ($request->jumlah[$item] > $nilai_max ){
-                    return back()->with(['error'=> 'Jumlah yang diinput melebihi jumlah stok']);
-                } 
-                
-                
+               
+                // if ($request->jumlah[$item] > $nilai_max ){
+                //     return back()->with(['error'=> 'Jumlah yang diinput melebihi jumlah stok']);
+                // } 
+              
+            }
+
+          
+            for($i=0; $i < count($detail); $i++){
+                 $max = StokBarang::where('id_stok_barang', $detail[$i]['id_stok_barang'])->first();
+
+                if ($detail[$i]['jumlah'] > $max->quantity ){
+                return back()->with(['error'=> 'Jumlah yang diinput melebihi jumlah stok']);
+              
+              } 
+            
+            }
+         
+          
+
+          
+            foreach($request->id_stok_barang as $item=>$v){
                 $stokbarang = StokBarang::where('id_stok_barang',$request->id_stok_barang[$item])->get();
-                
                 foreach($stokbarang as $stok){
                 $stok->quantity -= $request->jumlah[$item];
                 $stok->save(); 
                 }
-           
             }
 
             $data = new PengirimanBarang;

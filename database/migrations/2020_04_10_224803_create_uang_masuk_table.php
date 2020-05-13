@@ -17,7 +17,7 @@ class CreateUangMasukTable extends Migration
             $table->string('id_uang_masuk')->primary();
             $table->string('id_donasi');
             $table->integer('nominal');
-            $table->timestamp('tanggal_masuk');
+            $table->dateTime('tanggal_masuk');
             $table->softDeletes();
             $table->timestamps();
 

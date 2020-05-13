@@ -1736,3 +1736,102 @@ Page Title Area Style
 .login-regist{
   margin-top: 120px;
 }
+
+
+/*
+Contact Area CSS
+=======================*/
+.contact-area .contact-form form {
+  text-align: center;
+}
+
+.contact-area .contact-form form .form-control {
+  background-color: #ffffff;
+  border: none;
+  -webkit-box-shadow: 0px 5px 28.5px 1.5px rgba(149, 152, 200, 0.2) !important;
+          box-shadow: 0px 5px 28.5px 1.5px rgba(149, 152, 200, 0.2) !important;
+  height: 57px;
+  color: #fd3c65;
+  border: 1px solid #ffffff;
+}
+
+.contact-area .contact-form form .form-control:focus {
+  border: 1px solid #fd3c65;
+}
+
+.contact-area .contact-form form .form-group {
+  text-align: left;
+}
+
+.contact-area .contact-form form .row {
+  margin-left: -7px;
+  margin-right: -7px;
+}
+
+.contact-area .contact-form form .row .col-lg-12 {
+  padding-left: 7px;
+  padding-right: 7px;
+}
+
+.contact-area .contact-form form .row .col-lg-6 {
+  padding-left: 7px;
+  padding-right: 7px;
+}
+
+.contact-area .contact-form form textarea.form-control {
+  height: auto;
+  padding-top: 15px;
+}
+
+.contact-area .contact-form .default-btn {
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+#map {
+  width: 100%;
+  height: 535px;
+}
+
+.single-contact-box {
+  text-align: center;
+  background-color: #ffffff;
+  -webkit-box-shadow: 0 0 11px 3px rgba(0, 0, 0, 0.05);
+          box-shadow: 0 0 11px 3px rgba(0, 0, 0, 0.05);
+  padding: 30px;
+  margin-bottom: 30px;
+}
+
+.single-contact-box i {
+  line-height: 50px;
+  width: 50px;
+  height: 50px;
+  border: 1px dashed #e22b64;
+  border-radius: 50%;
+  font-size: 20px;
+  display: inline-block;
+  color: #e22b64;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+  margin-bottom: 10px;
+}
+
+.single-contact-box:hover i {
+  background-color: #e22b64;
+  color: #ffffff;
+}
+
+.single-contact-box .contect-title h3 {
+  margin-bottom: 10px;
+}
+
+.single-contact-box .contect-title a {
+  display: block;
+  font-size: 15px;
+  color: #747171;
+}
+
+.single-contact-box .contect-title a:hover {
+  color: #e22b64;
+}
+

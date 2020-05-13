@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Donasi;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+use PDF;
 
 class DonasiMasukController extends Controller
 {
@@ -13,7 +16,7 @@ class DonasiMasukController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
         $items = Donasi::with(['user'])->get();
         return view('pages.admin.laporandonasimasuk',[
@@ -21,69 +24,40 @@ class DonasiMasukController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function getdatadonasi()
     {
-        //
+       return \DataTables::eloquent(Donasi::with(['aktivitasdonasi'])->select('donasi.*')->where('status_verifikasi',true))
+       ->editColumn('tanggal_donasi',function($d){
+        return Carbon::create($d->tanggal_donasi)->format('d-m-Y');
+       })
+       ->editColumn('status_verifikasi',function($d){
+        return $d->status_verifikasi ?'<font class="text-success"> Verified </font>' : 'Pending';
+       })
+       ->editColumn('lokasi_bencana',function($d){
+        return $d->aktivitasdonasi->info_posko->lokasi_bencana;
+       })
+       ->rawColumns(['tanggal_donasi','status_verifikasi','lokasi_bencana'])
+       ->toJson();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function export()
     {
-        //
+        $donasi = Donasi::where('status_verifikasi',true)->get();
+        $pdf = PDF::loadView('exports.admin.donasimasuk',['items'=>$donasi]);
+        return $pdf->download('donasimasuk.pdf');
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function exportBulan(Request $request)
     {
-        //
+
+        $startDate =  Carbon::create($request->from);
+        $endDate   = Carbon::create($request->to)->addDays(1) ;
+        $donasi = Donasi::where('status_verifikasi',true)->whereBetween('created_at',[$startDate,$endDate])->get();
+        $pdf = PDF::loadView('exports.admin.donasimasuk',['items'=>$donasi]);
+        return $pdf->download('donasimasuk.pdf');
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+   
 }

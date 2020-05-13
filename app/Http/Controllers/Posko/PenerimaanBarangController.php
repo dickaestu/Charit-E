@@ -25,7 +25,7 @@ class PenerimaanBarangController extends Controller
         $id_pengiriman = PengirimanBarang::where('id_permintaan_barang',$id_permintaan)->get();
         foreach($id_pengiriman as $id){
         if ($id->id_permintaan_barang == $id_permintaan){
-            $stok = StokBarang::where('quantity','>', 0)->get();
+            $stok = StokBarang::all();
 
             $config=[
                 'table'=>'penerimaan_barang','field'=>'id_penerimaan_barang','length'=> 10,'prefix'=>'CONF-'
@@ -64,7 +64,7 @@ class PenerimaanBarangController extends Controller
         $data->id_penerimaan_barang = $id;
         $data->id_pengiriman_barang= $request->id_pengiriman_barang;
         $data->keterangan_penerimaan= $request->keterangan_penerimaan;
-        $data->tanggal_penerimaan = Carbon::now();
+        $data->tanggal_penerimaan = $request->tanggal_penerimaan;
         $data->save();
 
         $config=[
@@ -112,37 +112,4 @@ class PenerimaanBarangController extends Controller
        
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

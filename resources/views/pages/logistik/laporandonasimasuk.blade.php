@@ -1,33 +1,36 @@
 @extends('layouts.logistik.logistik')
 @section('title','Laporan Donasi Masuk')
-
 @push('addon-style')
-<link rel="stylesheet" href="{{url('backend_assets/vendor/gijgo/css/gijgo.min.css')}}">
+    <!-- Custom styles for this page -->
+<link href="{{url('backend_assets/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
 @endpush
     
 @section('content')
    <!-- Begin Page Content -->
    <div class="container-fluid">
 
-    <button class="btn btn-primary mb-2">Cetak Semua</button>
-    <div class="col col-md-5">
-        <div class="card mb-2">
-            <div class="card-body">
-                <label for="dariTanggal">Dari Tanggal :</label>
-                <div class="input-group mb-2 mr-sm-2">
-                    <input type="text" class="form-control datepicker" id="dariTanggal"
-                        placeholder="Pilih Tanggal">
+    <a href="{{ route('export-donasi-masuk') }}" class="btn btn-primary mb-2">Cetak Semua</a>
+    <form action="{{ route('export-donasi-masuk-bulan') }}" method="post">
+        @csrf
+        <div class="col col-md-5">
+            <div class="card mb-2">
+                <div class="card-body">
+                    <label for="from">Dari Tanggal :</label>
+                    <div class="input-group mb-2 mr-sm-2">
+                        <input required style="cursor: pointer;" type="date" class="form-control datepicker" name="from" id="from"
+                            placeholder="Pilih Tanggal">
+                    </div>
+    
+                    <label for="to">Sampai Tanggal :</label>
+                    <div class="input-group mb-2 mr-sm-2">
+                        <input required style="cursor: pointer;" type="date" class="form-control datepicker" name="to" id="to"
+                            placeholder="Pilih Tanggal">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-secondary">Cetak</button>
                 </div>
-
-                <label for="sampaiTanggal">Sampai Tanggal :</label>
-                <div class="input-group mb-2 mr-sm-2">
-                    <input type="text" class="form-control datepicker2" id="sampaiTanggal"
-                        placeholder="Pilih Tanggal">
-                </div>
-                <a href="#" class="btn btn-primary btn-secondary">Cetak</a>
             </div>
         </div>
-    </div>
+    </form>
     <!-- DataTales Example -->
      <!-- DataTales Example -->
      <div class="card shadow mb-4">
@@ -36,32 +39,21 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="tableDonasi" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>ID Ref</th>
-                            <th>Tanggal Masuk</th>
-                            <th>Nama</th>
-
+                            <th>ID Donasi</th>
+                            <th>Tanggal Donasi</th>
+                            <th>Lokasi Bencana</th>
+                            <th>Nama Donatur</th>
+                            <th>Status Verifikasi</th>
                             <th>Jenis Donasi</th>
                             <th>keterangan</th>
-                            <th>Status</th>
 
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>REF00001</td>
-                            <td>2020/03/27</td>
-                            <td>Dicka Estu Saputra</td>
-
-                            <td>Uang</td>
-                            <td>20000000</td>
-                            <td>Pending</td>
-                        </tr>
-
-
-
+                      
                     </tbody>
                 </table>
             </div>
@@ -77,20 +69,27 @@
 @endsection
      
 @push('addon-script')
-<script src="{{url('backend_assets/vendor/gijgo/js/gijgo.min.js')}}"></script>
+    <!-- Page level plugins -->
+    <script src="{{url('backend_assets/vendor/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{url('backend_assets/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
+
+    <!-- Page level custom scripts -->
     <script>
-        $(document).ready(function () {
-            $('.datepicker').datepicker({
-                uiLibrary: 'bootstrap4',
-                icons: {
-                    rightIcon: '<i class="fas fa-calendar-alt"></i>'
-                }
-            });
-            $('.datepicker2').datepicker({
-                uiLibrary: 'bootstrap4',
-                icons: {
-                    rightIcon: '<i class="fas fa-calendar-alt"></i>'
-                }
+        $(document).ready(function(){
+            $('#tableDonasi').DataTable({
+                processing:true,
+                serverside:true,
+                ajax:"{{ route('ajax.donasi.masuk') }}",
+                columns:[
+                  
+                    {data:'id_donasi',name:'id_donasi'},
+                    {data:'tanggal_donasi',name:'tanggal_donasi'}, 
+                    {data:'lokasi_bencana',name:'lokasi_bencana'},
+                    {data:'nama_donatur',name:'nama_donatur'},
+                    {data:'status_verifikasi',name:'status_verifikasi'},
+                    {data:'jenis_donasi',name:'jenis_donasi'},
+                    {data:'keterangan_donasi',name:'keterangan_donasi'},
+                ]
             });
         });
     </script>

@@ -9,25 +9,8 @@
 @section('content')
 <div class="container-fluid">
 
-    <button class="btn btn-primary mb-2">Cetak Semua</button>
-    <div class="col col-md-5">
-        <div class="card mb-2">
-            <div class="card-body">
-                <label for="dariTanggal">Dari Tanggal :</label>
-                <div class="input-group mb-2 mr-sm-2">
-                    <input type="date" class="form-control datepicker" id="dariTanggal"
-                        placeholder="Pilih Tanggal">
-                </div>
-
-                <label for="dariTanggal">Sampai Tanggal :</label>
-                <div class="input-group mb-2 mr-sm-2">
-                    <input type="date" class="form-control datepicker" id="dariTanggal"
-                        placeholder="Pilih Tanggal">
-                </div>
-                <a href="#" class="btn btn-primary btn-secondary">Cetak</a>
-            </div>
-        </div>
-    </div>
+    <a href="{{ route('export-jumlah-stok-barang-admin') }}" class="btn btn-primary mb-2">Cetak</a>
+   
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -35,7 +18,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="tableStok" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>ID Stok Barang</th>
@@ -47,21 +30,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                       @forelse ($items as $item)
-                            <tr>
-                                <td class="text-center">{{$item->id_stok_barang}}</td>
-                                <td class="text-center">{{$item->nama_barang}}</td>
-                                <td class="text-center">{{$item->quantity}}</td>
-                                <td class="text-center">{{$item->satuan}}</td>
-
-                            </tr>
-                       @empty
-                           <tr>
-                               <td colspan="4" class="text-center">Data Kosong</td>
-                           </tr>
-                       @endforelse
-
-
 
                     </tbody>
                 </table>
@@ -79,5 +47,20 @@
     <script src="{{url('backend_assets/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
 
     <!-- Page level custom scripts -->
-    <script src="{{url('backend_assets/js/demo/datatables-demo.js')}}"></script>
+    <script>
+        $(document).ready(function(){
+            $('#tableStok').DataTable({
+                processing:true,
+                serverside:true,
+                ajax:"{{ route('ajax.get.jumlah.stok.barang') }}",
+                columns:[
+                  
+                    {data:'id_stok_barang',name:'id_stok_barang'},
+                    {data:'nama_barang',name:'nama_barang'}, 
+                    {data:'quantity',name:'quantity'},
+                    {data:'satuan',name:'satuan'},
+                ]
+            });
+        });
+    </script>
 @endpush

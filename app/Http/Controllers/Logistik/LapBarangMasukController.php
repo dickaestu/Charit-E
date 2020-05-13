@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Logistik;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\LogistikModel\BarangMasuk;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+use PDF;
 
 class LapBarangMasukController extends Controller
 {
@@ -17,69 +21,40 @@ class LapBarangMasukController extends Controller
         return view('pages.logistik.laporanbarangmasuk');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function getbarangmasuk()
     {
-        //
+       return \DataTables::eloquent(BarangMasuk::with(['donasi'])->select('barang_masuk.*'))
+       ->editColumn('tanggal_masuk',function($d){
+        return Carbon::create($d->tanggal_barang_masuk)->format('d-m-Y');
+       })
+       ->editColumn('name',function($d){
+        return $d->donasi->nama_donatur;
+       })   
+       ->editColumn('nama_barang',function($d){
+        return $d->stokbarang->nama_barang;
+       }) 
+       ->editColumn('satuan_barang',function($d){
+        return $d->stokbarang->satuan;
+       }) 
+       ->rawColumns(['tanggal_masuk','name','nama_barang','satuan_barang'])
+       ->toJson();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function export()
     {
-        //
+        $items = BarangMasuk::with(['donasi','stokbarang'])->get();
+        $pdf = PDF::loadView('exports.logistik.barangmasuk',['items'=>$items]);
+        return $pdf->download('barangmasuk.pdf');
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function exportBulan(Request $request)
     {
-        //
-    }
+        $startDate =  Carbon::create($request->from);
+        $endDate   = Carbon::create($request->to)->addDays(1) ;
+        $items = BarangMasuk::with(['donasi','stokbarang'])->whereBetween('created_at',[$startDate,$endDate])->get();
+        $pdf = PDF::loadView('exports.logistik.barangmasuk',['items'=>$items]);
+        return $pdf->download('barangmasuk.pdf');
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

@@ -17,7 +17,7 @@ class CreatePenerimaanBarangTable extends Migration
             $table->string('id_penerimaan_barang')->primary();
             $table->string('id_pengiriman_barang')->unique();
             $table->longText('keterangan_penerimaan');
-            $table->timestamp('tanggal_penerimaan');
+            $table->dateTime('tanggal_penerimaan');
             $table->softDeletes();
             $table->timestamps();
 

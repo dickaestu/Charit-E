@@ -18,7 +18,7 @@ class CreateBarangMasukTable extends Migration
             $table->string('id_donasi');
             $table->string('id_stok_barang');
             $table->integer('jumlah');
-            $table->timestamp('tanggal_barang_masuk');
+            $table->dateTime('tanggal_barang_masuk');
             $table->softDeletes();
             $table->timestamps();
 

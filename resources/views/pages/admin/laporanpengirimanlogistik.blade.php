@@ -9,57 +9,50 @@
 @section('content')
 <div class="container-fluid">
 
-    <button class="btn btn-primary mb-2">Cetak Semua</button>
-    <div class="col col-md-5">
-        <div class="card mb-2">
-            <div class="card-body">
-                <label for="dariTanggal">Dari Tanggal :</label>
-                <div class="input-group mb-2 mr-sm-2">
-                    <input type="date" class="form-control datepicker" id="dariTanggal"
-                        placeholder="Pilih Tanggal">
+    <a href="{{ route('export-pengiriman-logistik-admin') }}" class="btn btn-primary mb-2">Cetak Semua</a>
+    <form action="{{ route('export-pengiriman-logistik-admin-bulan') }}" method="post">
+        @csrf
+        <div class="col col-md-5">
+            <div class="card mb-2">
+                <div class="card-body">
+                    <label for="from">Dari Tanggal :</label>
+                    <div class="input-group mb-2 mr-sm-2">
+                        <input required style="cursor: pointer;" type="date" class="form-control datepicker" name="from" id="from"
+                            placeholder="Pilih Tanggal">
+                    </div>
+    
+                    <label for="to">Sampai Tanggal :</label>
+                    <div class="input-group mb-2 mr-sm-2">
+                        <input required style="cursor: pointer;" type="date" class="form-control datepicker" name="to" id="to"
+                            placeholder="Pilih Tanggal">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-secondary">Cetak</button>
                 </div>
-
-                <label for="dariTanggal">Sampai Tanggal :</label>
-                <div class="input-group mb-2 mr-sm-2">
-                    <input type="date" class="form-control datepicker" id="dariTanggal"
-                        placeholder="Pilih Tanggal">
-                </div>
-                <a href="#" class="btn btn-primary btn-secondary">Cetak</a>
             </div>
         </div>
-    </div>
+    </form>
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Laporan Pengiriman</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Laporan Pengiriman Logistik</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered text-center" id="tablePengiriman" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>ID Pengiriman</th>
-                            <th>Tanggal Keluar</th>
-                            <th>ID Posko</th>
+                            <th>ID Permintaan</th>
+                            <th>Tanggal Pengiriman</th>
                             <th>Nama Posko</th>
-                            <th>Detail</th>
-
-
-
+                            <th>Alamat Posko</th>
+                            <th>Bencana</th>
+                            <th>Keterangan Pengiriman</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>TRK-00001</td>
-                            <td>2020/03/30</td>
-                            <td>POS-0001</td>
-                            <td>Posko Meruya Utara</td>
-                            <td>
-                                <p>- Pakaian Atas <span>20</span> <span>dus</span></p>
-                            </td>
-                        </tr>
-
-
+                    
 
                     </tbody>
                 </table>
@@ -76,6 +69,23 @@
     <script src="{{url('backend_assets/vendor/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{url('backend_assets/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
 
-    <!-- Page level custom scripts -->
-    <script src="{{url('backend_assets/js/demo/datatables-demo.js')}}"></script>
+    <script>
+        $(document).ready(function(){
+            $('#tablePengiriman').DataTable({
+                processing:true,
+                serverside:true,
+                ajax:"{{ route('ajax.get.pengiriman.logistik') }}",
+                columns:[
+                    {data:'id_pengiriman_barang',name:'id_pengiriman_barang'},
+                    {data:'id_permintaan_barang',name:'id_permintaan_barang'}, 
+                    {data:'tanggal_pengiriman',name:'tanggal_pengiriman'},
+                    {data:'name',name:'name'},
+                    {data:'alamat_posko',name:'alamat_posko'},
+                    {data:'nama_bencana',name:'nama_bencana'},
+                    {data:'keterangan_pengiriman',name:'keterangan_pengiriman'},
+                    {data:'detail_pengiriman',name:'detail_pengiriman'},
+                ]
+            });
+        });
+    </script>
 @endpush

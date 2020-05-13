@@ -9,25 +9,28 @@
 @section('content')
 <div class="container-fluid">
 
-    <button class="btn btn-primary mb-2">Cetak Semua</button>
-    <div class="col col-md-5">
-        <div class="card mb-2">
-            <div class="card-body">
-                <label for="dariTanggal">Dari Tanggal :</label>
-                <div class="input-group mb-2 mr-sm-2">
-                    <input type="date" class="form-control datepicker" id="dariTanggal"
-                        placeholder="Pilih Tanggal">
+    <a href="{{ route('export-data-uang-masuk-admin') }}" class="btn btn-primary mb-2">Cetak Semua</a>
+    <form action="{{ route('export-data-uang-masuk-admin-bulan') }}" method="post">
+        @csrf
+        <div class="col col-md-5">
+            <div class="card mb-2">
+                <div class="card-body">
+                    <label for="from">Dari Tanggal :</label>
+                    <div class="input-group mb-2 mr-sm-2">
+                        <input required style="cursor: pointer;" type="date" class="form-control datepicker" name="from" id="from"
+                            placeholder="Pilih Tanggal">
+                    </div>
+    
+                    <label for="to">Sampai Tanggal :</label>
+                    <div class="input-group mb-2 mr-sm-2">
+                        <input required style="cursor: pointer;" type="date" class="form-control datepicker" name="to" id="to"
+                            placeholder="Pilih Tanggal">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-secondary">Cetak</button>
                 </div>
-
-                <label for="dariTanggal">Sampai Tanggal :</label>
-                <div class="input-group mb-2 mr-sm-2">
-                    <input type="date" class="form-control datepicker" id="dariTanggal"
-                        placeholder="Pilih Tanggal">
-                </div>
-                <a href="#" class="btn btn-primary btn-secondary">Cetak</a>
             </div>
         </div>
-    </div>
+    </form>
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -35,7 +38,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="tableUang" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>ID Uang Masuk</th>
@@ -47,25 +50,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                      @forelse ($items as $item)
-                      <tr>
-                        <td>{{$item->id_uang_masuk}}</td>
-                        <td>{{$item->id_donasi}}</td>
-                        <td>{{$item->tanggal_masuk}}</td>
-                        <td>{{$item->donasi->user->name}}</td>
-                        <td>@currency($item->nominal)</td>
-
-                    </tr>
-
-                      @empty
-                          
-                      <tr>
-                          <td colspan="5" class="text-center"> Data Kosong</td>
-                      </tr>
-
-                      @endforelse
-
-
+                   
                     </tbody>
                 </table>
             </div>
@@ -82,5 +67,20 @@
     <script src="{{url('backend_assets/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
 
     <!-- Page level custom scripts -->
-    <script src="{{url('backend_assets/js/demo/datatables-demo.js')}}"></script>
+    <script>
+        $(document).ready(function(){
+            $('#tableUang').DataTable({
+                processing:true,
+                serverside:true,
+                ajax:"{{ route('ajax.get.data.uang.masuk') }}",
+                columns:[
+                    {data:'id_uang_masuk',name:'id_uang_masuk'},
+                    {data:'id_donasi',name:'id_donasi'}, 
+                    {data:'tanggal_masuk',name:'tanggal_masuk'},
+                    {data:'name',name:'name'},
+                    {data:'nominal',name:'nominal'},
+                ]
+            });
+        });
+    </script>
 @endpush

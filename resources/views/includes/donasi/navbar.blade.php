@@ -29,7 +29,7 @@
                                     <a href="{{route('riwayat-donasi')}}" class="nav-link {{Request::is('riwayat-donasi') ? ' active' : '' }}">Riwayat Donasi</a>
                                 </li>
                                 <li class="nav-item">
-                                <a href="" class="nav-link">Bantuan</a>
+                                <a href="{{route('bantuan')}}" class="nav-link {{Request::is('bantuan') ? ' active' : '' }}">Bantuan</a>
                                 </li>
                                 @guest
                                 <li class="nav-item">

@@ -53,7 +53,7 @@
 
     <!-- Nav Item - Laporan Collapse Menu -->
     <li class="nav-item {{Request::is('admin/laporan-donasi-masuk',
-    'admin/laporan-permintaa',
+    'admin/laporan-permintaan',
     'admin/laporan-pengiriman',
     'admin/laporan-penerimaa',
     'admin/laporan-data-uang-donasi',
@@ -74,7 +74,7 @@
           <a class="collapse-item {{Request::is('admin/laporan-pengiriman') ? ' active' : '' }}" href="{{route('laporan-pengiriman')}}">Pengiriman Logistik</a>
           <a class="collapse-item {{Request::is('admin/laporan-penerimaan') ? ' active' : '' }}" href="{{route('laporan-penerimaan')}}">Penerimaan Logistik</a>
           <h6 class="collapse-header">Keuangan</h6>
-          <a class="collapse-item {{Request::is('admin/laporan-data-uang-donasi') ? ' active' : '' }}" href="{{route('laporan-data-uang-donasi')}}">Data Uang Donasi</a>
+          <a class="collapse-item {{Request::is('admin/laporan-data-uang-donasi') ? ' active' : '' }}" href="{{route('laporan-data-uang-donasi')}}">Data Uang Masuk</a>
           <h6 class="collapse-header">Stok Barang</h6>
           <a class="collapse-item {{Request::is('admin/laporan-jumlah-stok') ? ' active' : '' }}" href="{{route('laporan-jumlah-stok')}}">Jumlah Stok</a>
           <a class="collapse-item {{Request::is('admin/laporan-barang-masuk') ? ' active' : '' }}" href="{{route('laporan-barang-masuk')}}">Barang Masuk</a>

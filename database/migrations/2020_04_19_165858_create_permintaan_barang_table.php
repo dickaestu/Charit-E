@@ -20,7 +20,7 @@ class CreatePermintaanBarangTable extends Migration
             $table->enum('status_permintaan',['PENDING','VERIFIED','BATAL']);
             $table->boolean('status_pengiriman');
             $table->boolean('status_penerimaan');
-            $table->timestamp('tanggal_permintaan');
+            $table->dateTime('tanggal_permintaan');
             $table->softDeletes();
             $table->timestamps();
 

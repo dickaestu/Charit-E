@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 */    
       Route::get('/', 'Donasi\HomeController@index')
       ->name('home');
+      Route::get('/bantuan', 'Donasi\HomeController@bantuan')
+      ->name('bantuan');
 
       Route::middleware(['auth','user'])->group(function () {
       Route::resource('detail-donasi', 'Donasi\DetailDonasiController');
@@ -34,7 +36,7 @@ use Illuminate\Support\Facades\Route;
       ->namespace('Admin')
        ->middleware(['auth','admin'])
       ->group(function() {
-        Route::get('/', 'DashboardController@index')
+      Route::get('/', 'DashboardController@index')
             ->name('dashboard');
       Route::resource('data-user', 'DataUserController');
       Route::resource('data-aktivitas', 'DataAktivitasController');
@@ -70,7 +72,75 @@ use Illuminate\Support\Facades\Route;
             ->name('laporan-pembelian-barang'); 
       Route::get('/laporan-jumlah-posko', 'LapJumlahPoskoController@index')
             ->name('laporan-jumlah-posko'); 
-      }); 
+
+      // Export PDF
+      Route::get('/export-pdf-donasi-masuk','DonasiMasukController@export')
+            ->name('export-donasi-masuk-admin');
+      Route::get('/export-pdf-permintaan-logistik','LapPermintaanLogistikController@export')
+            ->name('export-permintaan-logistik-admin');
+      Route::get('/export-pdf-pengiriman-logistik','LapPengirimanLogistikController@export')
+            ->name('export-pengiriman-logistik-admin');
+      Route::get('/export-pdf-penerimaan-logistik','LapPenerimaanLogistikController@export')
+            ->name('export-penerimaan-logistik-admin');
+      Route::get('/export-pdf-data-uang-masuk','LapDataUangDonasiController@export')
+            ->name('export-data-uang-masuk-admin');
+      Route::get('/export-pdf-stok-barang','LapJumlahStokController@export')
+            ->name('export-jumlah-stok-barang-admin');      
+      Route::get('/export-pdf-barang-masuk','LapBarangMasukController@export')
+            ->name('export-barang-masuk-admin');   
+
+      // Export PDF berdasarkan bulan
+      Route::post('/export-pdf-donasi-masuk-bulan','DonasiMasukController@exportBulan')
+            ->name('export-donasi-masuk-admin-bulan');
+      Route::post('/export-pdf-permintaan-logistik-bulan','LapPermintaanLogistikController@exportBulan')
+            ->name('export-permintaan-logistik-bulan-admin');
+      Route::post('/export-pdf-pengiriman-logistik-bulan','LapPengirimanLogistikController@exportBulan')
+            ->name('export-pengiriman-logistik-admin-bulan');
+      Route::post('/export-pdf-penerimaan-logistik-bulan','LapPenerimaanLogistikController@exportBulan')
+            ->name('export-penerimaan-logistik-admin-bulan');
+      Route::post('/export-pdf-data-uang-masuk-bulan','LapDataUangDonasiController@exportBulan')
+            ->name('export-data-uang-masuk-admin-bulan');
+      Route::post('/export-pdf-barang-masuk-bulan','LapBarangMasukController@exportBulan')
+            ->name('export-barang-masuk-admin-bulan');
+      
+      // Export Detail
+      Route::get('/export-detail-permintaan/{id}','LapPermintaanLogistikController@exportDetail')
+      ->name('print-detail-permintaan-admin');
+      Route::get('/export-detail-pengiriman/{id}','LapPengirimanLogistikController@exportDetail')
+      ->name('print-detail-pengiriman-admin');
+      Route::get('/export-detail-penerimaan/{id}','LapPenerimaanLogistikController@exportDetail')
+      ->name('print-detail-penerimaan-admin');
+
+      // Ajax Url
+      Route::get('getdatadonasi',[
+            'uses'=>'DonasiMasukController@getdatadonasi',
+            'as'=>'ajax.get.data.donasi'
+      ]);
+      Route::get('getpermintaanlogistik',[
+            'uses'=>'LapPermintaanLogistikController@getpermintaan',
+            'as'=>'ajax.get.permintaan.logistik'
+      ]);
+      Route::get('getpengirimanlogistik',[
+            'uses'=>'LapPengirimanLogistikController@getpengiriman',
+            'as'=>'ajax.get.pengiriman.logistik'
+      ]);
+      Route::get('getpenerimaanlogistik',[
+            'uses'=>'LapPenerimaanLogistikController@getpenerimaan',
+            'as'=>'ajax.get.penerimaan.logistik'
+      ]);
+      Route::get('getdatauangmasuk',[
+            'uses'=>'LapDataUangDonasiController@getdatauang',
+            'as'=>'ajax.get.data.uang.masuk'
+      ]);  
+      Route::get('getstokbarang',[
+            'uses'=>'LapJumlahStokController@getstokbarang',
+            'as'=>'ajax.get.jumlah.stok.barang'
+      ]);  
+      Route::get('getbarangmasuk',[
+            'uses'=>'LapBarangMasukController@getbarangmasuk',
+            'as'=>'ajax.get.barang.masuk'
+      ]); 
+}); 
 
 
       Route::prefix('logistik')
@@ -133,6 +203,66 @@ use Illuminate\Support\Facades\Route;
             ->name('laporan-pembelian-logistik');
       Route::get('/laporan-barang-masuk', 'LapBarangMasukController@index')
             ->name('laporan-barang-masuk-logistik');
+
+
+
+      // Export PDF
+      Route::get('/export-pdf-donasi-masuk','DonasiMasukController@export')
+            ->name('export-donasi-masuk');
+      Route::get('/export-pdf-permintaan-logistik','LapPermintaanController@export')
+            ->name('export-permintaan-logistik');
+      Route::get('/export-pdf-pengiriman-logistik','LapPengirimanController@export')
+            ->name('export-pengiriman-logistik');
+      Route::get('/export-pdf-uang-masuk','LapUangDonasiController@export')
+            ->name('export-uang-masuk');
+      Route::get('/export-pdf-stok-barang','LapStokBarangController@export')
+            ->name('export-stok-barang');      
+      Route::get('/export-pdf-barang-masuk','LapBarangMasukController@export')
+            ->name('export-barang-masuk');   
+
+        // Export PDF berdasarkan bulan
+      Route::post('/export-pdf-donasi-masuk-bulan','DonasiMasukController@exportBulan')
+            ->name('export-donasi-masuk-bulan');
+      Route::post('/export-pdf-permintaan-logistik-bulan','LapPermintaanController@exportBulan')
+            ->name('export-permintaan-logistik-bulan');
+      Route::post('/export-pdf-pengiriman-logistik-bulan','LapPengirimanController@exportBulan')
+            ->name('export-pengiriman-logistik-bulan');
+      Route::post('/export-pdf-uang-masuk-bulan','LapUangDonasiController@exportBulan')
+            ->name('export-uang-masuk-bulan');
+      Route::post('/export-pdf-barang-masuk-bulan','LapBarangMasukController@exportBulan')
+            ->name('export-barang-masuk-bulan');
+      
+      // Export Detail
+      Route::get('/export-detail-permintaan/{id}','LapPermintaanController@exportDetail')
+      ->name('print-detail-permintaan');
+      Route::get('/export-detail-pengiriman/{id}','LapPengirimanController@exportDetail')
+      ->name('print-detail-pengiriman');
+
+      // Ajax Url
+      Route::get('getdatadonasi',[
+            'uses'=>'DonasiMasukController@getdatadonasi',
+            'as'=>'ajax.donasi.masuk'
+      ]);
+      Route::get('getpermintaanlogistik',[
+            'uses'=>'LapPermintaanController@getpermintaan',
+            'as'=>'ajax.get.permintaan'
+      ]);
+      Route::get('getpengirimanlogistik',[
+            'uses'=>'LapPengirimanController@getpengiriman',
+            'as'=>'ajax.get.pengiriman'
+      ]);
+      Route::get('getdatauangmasuk',[
+            'uses'=>'LapUangDonasiController@getdatauang',
+            'as'=>'ajax.get.uang.masuk'
+      ]);  
+      Route::get('getstokbarang',[
+            'uses'=>'LapStokBarangController@getstokbarang',
+            'as'=>'ajax.get.stok.barang'
+      ]);  
+      Route::get('getbarangmasuk',[
+            'uses'=>'LapBarangMasukController@getbarangmasuk',
+            'as'=>'ajax.barang.masuk'
+      ]); 
       }); 
 
 

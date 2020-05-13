@@ -85,7 +85,7 @@
         <div class="bg-white py-2 collapse-inner rounded">
           <a class="collapse-item {{Request::is('logistik/laporan-permintaan') ? ' active' : '' }}" href="{{route('laporan-permintaan-logistik')}}">Permintaan Barang</a>
           <a class="collapse-item {{Request::is('logistik/laporan-donasi-masuk') ? ' active' : '' }}" href="{{route('laporan-donasi-masuk-logistik')}}">Donasi Masuk</a>
-          <a class="collapse-item {{Request::is('logistik/laporan-uang-donasi') ? ' active' : '' }}" href="{{route('laporan-uang-donasi-logistik')}}">Uang Donasi</a>
+          <a class="collapse-item {{Request::is('logistik/laporan-uang-donasi') ? ' active' : '' }}" href="{{route('laporan-uang-donasi-logistik')}}">Uang Masuk</a>
           <a class="collapse-item {{Request::is('logistik/laporan-stok-barang') ? ' active' : '' }}" href="{{route('laporan-stok-barang-logistik')}}">Stok Barang</a>
           <a class="collapse-item {{Request::is('logistik/laporan-pengiriman') ? ' active' : '' }}" href="{{route('laporan-pengiriman-logistik')}}">Pengiriman</a>
          

@@ -27,7 +27,8 @@
         <input type="text" value="{{Carbon\Carbon::create($id->tanggal_pengiriman)->format('d - m - Y')}}" class="form-control form-control-sm" readonly id="tanggal_pengiriman" name="tanggal_pengiriman">
   
         @endforeach
-        
+        <label class="mt-2" for="tanggal_penerimaan">Tanggal Penerimaan Barang</label>
+        <input type="date" class="form-control form-control-sm"  id="tanggal_penerimaan" name="tanggal_penerimaan">
       
     <div class="form-group"> 
             <label for="keterangan_penerimaan" class="mt-2">Keterangan penerimaan</label>

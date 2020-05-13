@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Logistik;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\LogistikModel\StokBarang;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+use PDF;
 
 class LapStokBarangController extends Controller
 {
@@ -17,69 +21,17 @@ class LapStokBarangController extends Controller
         return view('pages.logistik.laporanstokbarang');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function getstokbarang()
     {
-        //
+       return \DataTables::eloquent(StokBarang::select('stok_barang.*'))
+       ->toJson();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function export()
     {
-        //
-    }
+        $items = StokBarang::all();
+        $pdf = PDF::loadView('exports.logistik.stokbarang',['items'=>$items]);
+        return $pdf->download('stok_barang.pdf');
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
