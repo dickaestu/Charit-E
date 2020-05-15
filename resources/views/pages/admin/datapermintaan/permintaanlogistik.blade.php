@@ -26,7 +26,7 @@
                             <th>Tanggal Permintaan</th>
                             <th>Nama Posko</th>
                             <th>Alamat Posko</th>
-                            <th>Status</th>
+                            <th>Status Verifikasi</th>
                             <th>Status Penerimaan</th>
                             <th>Aksi</th>
 

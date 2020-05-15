@@ -26,17 +26,20 @@ class DonasiMasukController extends Controller
 
     public function getdatadonasi()
     {
-       return \DataTables::eloquent(Donasi::with(['aktivitasdonasi'])->select('donasi.*')->where('status_verifikasi',true))
+       return \DataTables::eloquent(Donasi::with(['aktivitasdonasi','aktivitasdonasi.info_posko.jenis_bencana'])->select('donasi.*')->where('status_verifikasi',true))
        ->editColumn('tanggal_donasi',function($d){
         return Carbon::create($d->tanggal_donasi)->format('d-m-Y');
        })
        ->editColumn('status_verifikasi',function($d){
         return $d->status_verifikasi ?'<font class="text-success"> Verified </font>' : 'Pending';
        })
+       ->editColumn('nama_bencana',function($d){
+        return $d->aktivitasdonasi->info_posko->jenis_bencana->nama_bencana;
+       })
        ->editColumn('lokasi_bencana',function($d){
         return $d->aktivitasdonasi->info_posko->lokasi_bencana;
        })
-       ->rawColumns(['tanggal_donasi','status_verifikasi','lokasi_bencana'])
+       ->rawColumns(['tanggal_donasi','status_verifikasi','lokasi_bencana','nama_bencana'])
        ->toJson();
     }
 

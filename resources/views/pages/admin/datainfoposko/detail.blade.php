@@ -6,6 +6,7 @@
       <!-- Begin Page Content -->
       <div class="container-fluid ">
      
+      <a href="{{ route('print-sub-posko-admin',$id) }}" class="btn btn-sm btn-primary ml-2 mb-2 shadow-sm">Cetak</a>
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -17,27 +18,23 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama Posko</th>
+                                <th>Nama Sub Posko</th>
                                 <th>Nama Penanggung Jawab</th>
                            
                             </tr>
                         </thead>
                         <tbody>
               
-                        @forelse ($items as $item)
+                        @foreach ($items as $item)
                         <tr>
                             <td>{{$loop->iteration}}</td>
                             <td>{{$item->nama_sub_posko}}</td>
                             <td>{{$item->nama_penanggung_jawab}}</td>
                         
                         </tr>
-                        @empty
-                            
-                        <tr>
-                            <td colspan="3" class="text-center">Data Kosong</td>
-                        </tr>
+                     
 
-                        @endforelse
+                        @endforeach
                         </tbody>
                     </table>
                 </div>

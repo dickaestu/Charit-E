@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+\Debugbar::disable();
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -70,14 +71,14 @@ use Illuminate\Support\Facades\Route;
             ->name('laporan-barang-masuk');  
       Route::get('/laporan-pembelian-barang', 'LapPembelianBarangController@index')
             ->name('laporan-pembelian-barang'); 
-      Route::get('/laporan-jumlah-posko', 'LapJumlahPoskoController@index')
-            ->name('laporan-jumlah-posko'); 
+      Route::get('/laporan-aktivitas-donasi', 'LapAktivitasDonasiController@index')
+            ->name('laporan-aktivitas-donasi'); 
 
       // Export PDF
-      Route::get('/export-pdf-donasi-masuk','DonasiMasukController@export')
-            ->name('export-donasi-masuk-admin');
-      Route::get('/export-pdf-permintaan-logistik','LapPermintaanLogistikController@export')
-            ->name('export-permintaan-logistik-admin');
+      // Route::get('/export-pdf-donasi-masuk','DonasiMasukController@export')
+      //       ->name('export-donasi-masuk-admin');
+      // Route::get('/export-pdf-permintaan-logistik','LapPermintaanLogistikController@export')
+      //       ->name('export-permintaan-logistik-admin');
       Route::get('/export-pdf-pengiriman-logistik','LapPengirimanLogistikController@export')
             ->name('export-pengiriman-logistik-admin');
       Route::get('/export-pdf-penerimaan-logistik','LapPenerimaanLogistikController@export')
@@ -88,6 +89,10 @@ use Illuminate\Support\Facades\Route;
             ->name('export-jumlah-stok-barang-admin');      
       Route::get('/export-pdf-barang-masuk','LapBarangMasukController@export')
             ->name('export-barang-masuk-admin');   
+      Route::get('/export-pdf-info-posko','InfoPoskoController@export')
+            ->name('export-info-posko-admin');  
+      Route::get('/export-pdf-aktivitas-donasi','LapAktivitasDonasiController@export')
+            ->name('export-aktivitas-donasi-admin');  
 
       // Export PDF berdasarkan bulan
       Route::post('/export-pdf-donasi-masuk-bulan','DonasiMasukController@exportBulan')
@@ -102,6 +107,8 @@ use Illuminate\Support\Facades\Route;
             ->name('export-data-uang-masuk-admin-bulan');
       Route::post('/export-pdf-barang-masuk-bulan','LapBarangMasukController@exportBulan')
             ->name('export-barang-masuk-admin-bulan');
+      Route::post('/export-pdf-info-posko-bulan','InfoPoskoController@exportBulan')
+            ->name('export-info-posko-admin-bulan');
       
       // Export Detail
       Route::get('/export-detail-permintaan/{id}','LapPermintaanLogistikController@exportDetail')
@@ -110,6 +117,12 @@ use Illuminate\Support\Facades\Route;
       ->name('print-detail-pengiriman-admin');
       Route::get('/export-detail-penerimaan/{id}','LapPenerimaanLogistikController@exportDetail')
       ->name('print-detail-penerimaan-admin');
+
+      // Export Lain-lain
+      Route::get('/export-sub-posko/{id}','InfoPoskoController@exportSubPosko')
+      ->name('print-sub-posko-admin');
+      Route::post('/export-aktivitas-donasi-bencana','LapAktivitasDonasiController@exportBencana')
+      ->name('print-aktivitas-donasi-bencana-admin');
 
       // Ajax Url
       Route::get('getdatadonasi',[
@@ -140,6 +153,15 @@ use Illuminate\Support\Facades\Route;
             'uses'=>'LapBarangMasukController@getbarangmasuk',
             'as'=>'ajax.get.barang.masuk'
       ]); 
+
+      Route::get('getinfoposko',[
+            'uses'=>'InfoPoskoController@getinfoposko',
+            'as'=>'ajax.get.info.posko'
+      ]); 
+      Route::get('getdataaktivitas',[
+            'uses'=>'LapAktivitasDonasiController@getdataaktivitas',
+            'as'=>'ajax.get.data.aktivitas.donasi'
+      ]);
 }); 
 
 

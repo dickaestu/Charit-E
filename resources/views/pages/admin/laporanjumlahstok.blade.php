@@ -9,7 +9,7 @@
 @section('content')
 <div class="container-fluid">
 
-    <a href="{{ route('export-jumlah-stok-barang-admin') }}" class="btn btn-primary mb-2">Cetak</a>
+    {{-- <a href="{{ route('export-jumlah-stok-barang-admin') }}" class="btn btn-primary mb-2">Cetak</a> --}}
    
     <!-- DataTales Example -->
     <div class="card shadow mb-4">

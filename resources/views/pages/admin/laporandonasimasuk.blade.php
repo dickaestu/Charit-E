@@ -9,7 +9,7 @@
 @section('content')
 <div class="container-fluid">
 
-    <a href="{{ route('export-donasi-masuk-admin') }}" class="btn btn-primary mb-2">Cetak Semua</a>
+    {{-- <a href="{{ route('export-donasi-masuk-admin') }}" class="btn btn-primary mb-2">Cetak Semua</a>
     <form action="{{ route('export-donasi-masuk-admin-bulan') }}" method="post">
         @csrf
         <div class="col col-md-5">
@@ -30,7 +30,7 @@
                 </div>
             </div>
         </div>
-    </form>
+    </form> --}}
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -43,6 +43,7 @@
                         <tr>
                             <th>ID Donasi</th>
                             <th>Tanggal Donasi</th>
+                            <th>Nama Bencana</th>
                             <th>Lokasi Bencana</th>
                             <th>Nama Donatur</th>
                             <th>Status Verifikasi</th>
@@ -80,6 +81,7 @@
                   
                     {data:'id_donasi',name:'id_donasi'},
                     {data:'tanggal_donasi',name:'tanggal_donasi'}, 
+                    {data:'nama_bencana',name:'nama_bencana'}, 
                     {data:'lokasi_bencana',name:'lokasi_bencana'},
                     {data:'nama_donatur',name:'nama_donatur'},
                     {data:'status_verifikasi',name:'status_verifikasi'},

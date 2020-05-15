@@ -59,7 +59,8 @@
     'admin/laporan-data-uang-donasi',
     'admin/laporan-jumlah-stok',
     'admin/laporan-barang-masuk',
-    'admin/laporan-jumlah-posko') ? ' active' : '' }}">
+    'admin/laporan-jumlah-posko',
+    'admin/laporan-aktivitas-donasi') ? ' active' : '' }}">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLaporan"
         aria-expanded="true" aria-controls="collapseLaporan">
         <i class="fas fa-fw fa-folder"></i>
@@ -69,6 +70,7 @@
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Donasi</h6>
           <a class="collapse-item {{Request::is('admin/laporan-donasi-masuk') ? ' active' : '' }}" href="{{route('laporan-donasi-masuk')}}">Donasi Masuk</a>
+          <a class="collapse-item {{Request::is('admin/laporan-aktivitas-donasi') ? ' active' : '' }}" href="{{route('laporan-aktivitas-donasi')}}">Aktivitas Donasi</a>
           <h6 class="collapse-header">Logistik</h6>
           <a class="collapse-item {{Request::is('admin/laporan-permintaan') ? ' active' : '' }}" href="{{route('laporan-permintaan')}}">Permintaan Logistik</a>
           <a class="collapse-item {{Request::is('admin/laporan-pengiriman') ? ' active' : '' }}" href="{{route('laporan-pengiriman')}}">Pengiriman Logistik</a>
@@ -79,8 +81,7 @@
           <a class="collapse-item {{Request::is('admin/laporan-jumlah-stok') ? ' active' : '' }}" href="{{route('laporan-jumlah-stok')}}">Jumlah Stok</a>
           <a class="collapse-item {{Request::is('admin/laporan-barang-masuk') ? ' active' : '' }}" href="{{route('laporan-barang-masuk')}}">Barang Masuk</a>
           
-          <h6 class="collapse-header">Posko</h6>
-          <a class="collapse-item {{Request::is('admin/laporan-jumlah-posko') ? ' active' : '' }}" href="{{route('laporan-jumlah-posko')}}">Jumlah Posko</a>
+         
         </div>
       </div>
     </li>

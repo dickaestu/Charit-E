@@ -24,7 +24,7 @@ class LapPermintaanLogistikController extends Controller
 
     public function getpermintaan()
     {
-       return \DataTables::eloquent(PermintaanBarang::with(['infoposko'])->select('permintaan_barang.*'))
+       return \DataTables::eloquent(PermintaanBarang::with(['infoposko'])->select('permintaan_barang.*')->where('status_permintaan','VERIFIED'))
        ->editColumn('tanggal_permintaan',function($d){
         return Carbon::create($d->tanggal_permintaan)->format('d-m-Y');
        })
@@ -32,7 +32,7 @@ class LapPermintaanLogistikController extends Controller
         return $d->status_penerimaan ?' Diterima' : 'Belum Diterima';
        })
        ->addColumn('detail_permintaan',function($d){
-        return '<a href="/admin/export-detail-permintaan/'.$d->id_permintaan_barang.'" class="btn btn-sm btn-info">Print Detail</a>';
+        return '<a href="/admin/data-permintaan/detail/'.$d->id_permintaan_barang.'" class="btn btn-sm btn-info">Detail</a>';
        })
        ->rawColumns(['tanggal_permintaan','status_pengiriman','status_penerimaan','detail_permintaan'])
        ->toJson();

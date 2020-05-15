@@ -22,7 +22,7 @@ class CreateDonasiTable extends Migration
             $table->boolean('status_verifikasi');
             $table->string('keterangan_donasi');
             $table->text('foto_bukti');
-            $table->dateTime('tanggal_donasi');
+            $table->date('tanggal_donasi');
             $table->softDeletes();
             $table->timestamps();
 
