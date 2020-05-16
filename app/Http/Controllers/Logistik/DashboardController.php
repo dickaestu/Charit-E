@@ -24,7 +24,7 @@ class DashboardController extends Controller
         $barang= BarangMasuk::whereDate('tanggal_barang_masuk',$date)->count();
         $uang= UangMasuk::whereDate('tanggal_masuk',$date)->sum('nominal');
         $pending= Donasi::where('status_verifikasi',false)->count();
-        $request_logistik = PermintaanBarang::where('status_permintaan','PENDING')->count();
+        $request_logistik = PermintaanBarang::where('status_permintaan','VERIFIED')->where('status_pengiriman',false)->count();
         return view ('pages.logistik.dashboard',[
             'barang'=> $barang,
             'uang'=>$uang,

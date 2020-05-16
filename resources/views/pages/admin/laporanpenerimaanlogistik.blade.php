@@ -9,7 +9,7 @@
 @section('content')
 <div class="container-fluid">
 
-    {{-- <a href="{{ route('export-penerimaan-logistik-admin') }}" class="btn btn-primary mb-2">Cetak Semua</a>
+    <a href="{{ route('export-penerimaan-logistik-admin') }}" class="btn btn-primary mb-2">Cetak Semua</a>
     <form action="{{ route('export-penerimaan-logistik-admin-bulan') }}" method="post">
         @csrf
         <div class="col col-md-5">
@@ -30,7 +30,7 @@
                 </div>
             </div>
         </div>
-    </form> --}}
+    </form>
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">

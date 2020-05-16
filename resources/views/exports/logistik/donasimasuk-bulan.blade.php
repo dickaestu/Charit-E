@@ -43,8 +43,13 @@
     
 
 
-
-<table style="text-align: center; margin-top: 40px;" border="1" cellspacing="0" cellpadding="8" width="100%">
+<table style="margin-bottom: 10px; margin-top:40px;" cellpadding="5">
+    <tbody>
+        <tr><th>Per Tanggal</th><td>:</td><td>{{ \Carbon\Carbon::create($startDate)->format('d / m / Y') }}
+        - {{ \Carbon\Carbon::create($endDate)->format('d / m / Y') }}</td></tr>
+    </tbody>
+</table>
+<table style="text-align: center;" border="1" cellspacing="0" cellpadding="8" width="100%">
     <thead>
         <tr>
             <th>ID Donasi</th>

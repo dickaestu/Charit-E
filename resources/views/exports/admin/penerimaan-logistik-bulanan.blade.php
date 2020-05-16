@@ -38,37 +38,40 @@
 	
  <header style="margin-top: 70px;">
     <img style="margin-left:70px" src="{{ltrim(public_path('donasi_assets/assets/img/logo.png'),'/')}}" height="auto" width="120">
-    <h3 style="text-align:center; margin-top:-30px">Laporan Detail Penerimaan Logistik</h3> 
+    <h2 style="text-align:center; margin-top:-30px">Laporan Penerimaan Logistik</h2> 
 </header>
     
-<table style="margin-bottom: 10px; margin-top:40px" cellpadding="5">
+<table style="margin-bottom: 10px; margin-top:40px;" cellpadding="5">
     <tbody>
-        <tr><th align="left">ID Penerimaan</th><td>:</td><td>{{ $penerimaan->id_penerimaan_barang }}</td></tr>
-        <tr><th align="left">Tanggal Penerimaan</th><td>:</td><td>{{ \Carbon\Carbon::create($penerimaan->tanggal_penerimaan)->format('d - m - Y') }}</td></tr>
-        <tr><th align="left">Nama Posko</th><td>:</td><td>{{ $penerimaan->pengirimanbarang->permintaanbarang->infoposko->user->name }}</td></tr>
-        <tr><th align="left">Alamat Posko</th><td>:</td><td>{{ $penerimaan->pengirimanbarang->permintaanbarang->infoposko->alamat_posko }}</td></tr>
-        <tr><th align="left">Lokasi Bencana</th><td>:</td><td>{{ $penerimaan->pengirimanbarang->permintaanbarang->infoposko->lokasi_bencana }}</td></tr>
-        <tr><th align="left">Nama Bencana</th><td>:</td><td>{{ $penerimaan->pengirimanbarang->permintaanbarang->infoposko->jenis_bencana->nama_bencana }}</td></tr>
+        <tr><th>Per Tanggal</th><td>:</td><td>{{ \Carbon\Carbon::create($startDate)->format('d / m / Y') }}
+        - {{ \Carbon\Carbon::create($endDate)->format('d / m / Y') }}</td></tr>
     </tbody>
 </table>
+
 
 <table style="text-align: center;" border="1" cellspacing="0" cellpadding="8" width="100%">
     <thead>
         <tr>
-            <th>#</th>
-            <th>Nama Barang</th>
-            <th>Satuan</th>
-            <th>Jumlah</th>
+            <th>ID Penerimaan</th>
+            <th>ID Pengiriman</th>
+            <th>Tanggal Penerimaan</th>
+            <th>Nama Posko</th>
+            <th>Alamat Posko</th>
+            <th>Bencana</th>
+            <th>Keterangan Penerimaan</th>
         </tr>
     </thead>
     <tbody>
        @foreach ($items as $item)
            
             <tr>
-                <td>{{ $loop->iteration }}</td>
-                <td>{{ $item->stokbarang->nama_barang }}</td>
-                <td>{{ $item->stokbarang->satuan }}</td>
-                <td>{{$item->jumlah_penerimaan}}</td>
+                <td>{{ $item->id_penerimaan_barang }}</td>
+                <td>{{ $item->id_pengiriman_barang }}</td>
+                <td>{{\Carbon\Carbon::create( $item->tanggal_penerimaan)->format('d - m - Y')}}</td>
+                <td>{{ $item->pengirimanbarang->permintaanbarang->infoposko->user->name }}</td>
+                <td>{{ $item->pengirimanbarang->permintaanbarang->infoposko->alamat_posko}}</td>
+                <td>{{ $item->pengirimanbarang->permintaanbarang->infoposko->jenis_bencana->nama_bencana }}</td>
+                <td>{{ $item->keterangan_penerimaan }}</td>
             </tr>
         
        @endforeach

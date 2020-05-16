@@ -10,10 +10,13 @@ use App\User;
 use App\LogistikModel\StokBarang;
 use App\LogistikModel\BarangMasuk;
 use App\LogistikModel\UangMasuk;
+use App\AdminModel\JenisBencana;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use PDF;
+use App\PoskoModel\InfoPosko;
+use App\AdminModel\AktivitasDonasi;
 
 class DonasiMasukController extends Controller
 {
@@ -180,7 +183,7 @@ class DonasiMasukController extends Controller
     
     public function getdatadonasi()
     {
-       return \DataTables::eloquent(Donasi::with(['aktivitasdonasi'])->select('donasi.*')->where('status_verifikasi',true))
+       return \DataTables::eloquent(Donasi::with(['aktivitasdonasi.info_posko.jenis_bencana'])->select('donasi.*')->where('status_verifikasi',true))
        ->editColumn('tanggal_donasi',function($d){
         return Carbon::create($d->tanggal_donasi)->format('d-m-Y');
        })
@@ -190,13 +193,16 @@ class DonasiMasukController extends Controller
        ->editColumn('lokasi_bencana',function($d){
         return $d->aktivitasdonasi->info_posko->lokasi_bencana;
        })
-       ->rawColumns(['tanggal_donasi','status_verifikasi','lokasi_bencana'])
+       ->editColumn('nama_bencana',function($d){
+        return $d->aktivitasdonasi->info_posko->jenis_bencana->nama_bencana;
+       })
+       ->rawColumns(['tanggal_donasi','status_verifikasi','lokasi_bencana','nama_bencana'])
        ->toJson();
     }
 
     public function export()
     {
-        $donasi = Donasi::where('status_verifikasi',true)->get();
+        $donasi = Donasi::with(['aktivitasdonasi.info_posko.jenis_bencana'])->where('status_verifikasi',true)->get();
         $pdf = PDF::loadView('exports.logistik.donasimasuk',['items'=>$donasi]);
         return $pdf->download('donasimasuk.pdf');
 
@@ -205,12 +211,38 @@ class DonasiMasukController extends Controller
     public function exportBulan(Request $request)
     {
 
-        $startDate =  Carbon::create($request->from);
-        $endDate   = Carbon::create($request->to)->addDays(1) ;
-        $donasi = Donasi::where('status_verifikasi',true)->whereBetween('created_at',[$startDate,$endDate])->get();
-        $pdf = PDF::loadView('exports.logistik.donasimasuk',['items'=>$donasi]);
+        $startDate =  Carbon::create($request->from)->format('Y-m-d');
+        $endDate   = Carbon::create($request->to)->format('Y-m-d') ;
+        $donasi = Donasi::with(['aktivitasdonasi.info_posko.jenis_bencana'])->where('status_verifikasi',true)->whereBetween('tanggal_donasi',[$startDate,$endDate])->get();
+        $pdf = PDF::loadView('exports.logistik.donasimasuk-bulan',[
+            'items'=>$donasi,
+            'startDate'=>$startDate,
+            'endDate'=>$endDate,
+            ]);
         return $pdf->download('donasimasuk.pdf');
 
+    }
+
+    public function exportBencana(Request $request)
+    {
+        $jenis_bencana = JenisBencana::findOrFail($request->id_jenis_bencana);
+        $info = InfoPosko::with(['jenis_bencana'])->where('id_jenis_bencana',$request->id_jenis_bencana)->get();     
+            foreach($info as $posko){
+                $aktivitas = AktivitasDonasi::with(['info_posko.jenis_bencana','info_posko.user','donasi'])
+                ->where('id_info_posko',$posko->id_info_posko)->get();
+                foreach($aktivitas as $akt){
+
+                    $items = Donasi::with(['aktivitasdonasi.info_posko.jenis_bencana'])
+                    ->where('id_aktivitas_donasi',$akt->id_aktivitas_donasi)->get();
+                    $pdf = PDF::loadView('exports.logistik.donasimasuk-bencana',[
+                        'items'=>$items,
+                        'jenis_bencana'=>$jenis_bencana
+                        
+                        ]);
+                    return $pdf->download('donasimasuk.pdf');
+                
+               }
+            }      
     }
 
 }

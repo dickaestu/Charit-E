@@ -2,7 +2,12 @@
 @section('title','Detail Sub Posko')
 
 @section('content')
-  
+<nav class="ml-3" aria-label="breadcrumb">
+    <ol class="breadcrumb bg-transparent">
+      <li class="breadcrumb-item"><a style="text-decoration: none"  href="{{ route('data-info-posko') }}">Data Info Posko</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Detail Sub Posko</li>
+    </ol>
+  </nav>
       <!-- Begin Page Content -->
       <div class="container-fluid ">
      

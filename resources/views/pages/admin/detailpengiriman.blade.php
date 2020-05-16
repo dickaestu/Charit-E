@@ -1,5 +1,5 @@
 @extends('layouts.admin.admin')
-@section('title','Detail Permintaan Logistik')
+@section('title','Detail Pengiriman Logistik')
 
 @push('addon-style')
     <!-- Custom styles for this page -->
@@ -9,8 +9,8 @@
 @section('content')
 <nav class="ml-3" aria-label="breadcrumb">
     <ol class="breadcrumb bg-transparent">
-      <li class="breadcrumb-item"><a style="text-decoration: none"  href="{{ route('data-permintaan-admin') }}">Data Permintaan</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Detail Permintaan</li>
+      <li class="breadcrumb-item"><a style="text-decoration: none"  href="{{ route('laporan-pengiriman') }}">Data Pengiriman</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Detail Pengiriman</li>
     </ol>
   </nav>
 <div class="container-fluid">
@@ -19,35 +19,35 @@
         <tr>
             <th>Lokasi Bencana  </th>
             <td>:</td>
-            <td>{{$info->infoposko->lokasi_bencana}}</td>
+            <td>{{$info->permintaanbarang->infoposko->lokasi_bencana}}</td>
         </tr>
         <tr>
             <th>Nama Bencana  </th>
             <td>:</td>
-            <td>{{$info->infoposko->jenis_bencana->nama_bencana}}</td>
+            <td>{{$info->permintaanbarang->infoposko->jenis_bencana->nama_bencana}}</td>
         </tr>
         <tr>
             <th>Jumlah Korban  </th>
             <td>:</td>
-            <td>{{$info->infoposko->jumlah_korban}} Orang</td>
+            <td>{{$info->permintaanbarang->infoposko->jumlah_korban}} Orang</td>
         </tr>
 
         <tr>
             <th>Jumlah Korban Jiwa </th>
             <td>:</td>
-            <td>{{$info->infoposko->jumlah_korban_jiwa}} Orang</td>
+            <td>{{$info->permintaanbarang->infoposko->jumlah_korban_jiwa}} Orang</td>
         </tr>
         <tr>
-            <th>Keterangan Permintaan</th>
+            <th>Keterangan Pengiriman </th>
             <td>:</td>
-            <td>{{$info->keterangan_permintaan}}</td>
+            <td>{{$info->keterangan_pengiriman}}</td>
         </tr>
     </table>
 
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Detail Permintaan</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Detail Pengiriman</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">

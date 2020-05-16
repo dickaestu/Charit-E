@@ -68,10 +68,14 @@ class InfoPoskoController extends Controller
     public function exportBulan(Request $request)
     {
 
-        $startDate =  Carbon::create($request->from);
-        $endDate   = Carbon::create($request->to)->addDays(1) ;
-        $items = InfoPosko::with('subposko','jenis_bencana','user')->whereBetween('created_at',[$startDate,$endDate])->get();
-        $pdf = PDF::loadView('exports.admin.data-info-posko',['items'=>$items]);
+        $startDate =  Carbon::create($request->from)->format('Y-m-d');
+        $endDate   = Carbon::create($request->to)->addDays(1)->format('Y-m-d') ;
+        $items = InfoPosko::with('subposko','jenis_bencana','user')->whereBetween('tanggal_kejadian',[$startDate,$endDate])->get();
+        $pdf = PDF::loadView('exports.admin.data-info-posko-bulan',[
+            'items'=>$items,
+            'startDate'=>$startDate,
+            'endDate'=>$endDate
+            ]);
         return $pdf->download('info-posko.pdf');
 
     }

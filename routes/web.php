@@ -46,6 +46,10 @@ use Illuminate\Support\Facades\Route;
             ->name('data-permintaan-admin');
       Route::get('/data-permintaan/detail/{id}', 'PermintaanLogistikController@detailpermintaan')
             ->name('detail-permintaan-admin');
+      Route::get('/laporan-pengiriman/detail/{id}', 'LapPengirimanLogistikController@detailpengiriman')
+            ->name('detail-pengiriman-admin');
+      Route::get('/laporan-penerimaan/detail/{id}', 'LapPenerimaanLogistikController@detailpenerimaan')
+            ->name('detail-penerimaan-admin');
       Route::post('/data-permintaan/verifikasi/{id}', 'PermintaanLogistikController@verifikasi')
             ->name('verifikasi-permintaan');
       Route::post('/data-permintaan/tolak/{id}', 'PermintaanLogistikController@tolak')
@@ -79,48 +83,50 @@ use Illuminate\Support\Facades\Route;
       //       ->name('export-donasi-masuk-admin');
       // Route::get('/export-pdf-permintaan-logistik','LapPermintaanLogistikController@export')
       //       ->name('export-permintaan-logistik-admin');
-      Route::get('/export-pdf-pengiriman-logistik','LapPengirimanLogistikController@export')
-            ->name('export-pengiriman-logistik-admin');
+      // Route::get('/export-pdf-pengiriman-logistik','LapPengirimanLogistikController@export')
+      //       ->name('export-pengiriman-logistik-admin');
       Route::get('/export-pdf-penerimaan-logistik','LapPenerimaanLogistikController@export')
             ->name('export-penerimaan-logistik-admin');
-      Route::get('/export-pdf-data-uang-masuk','LapDataUangDonasiController@export')
-            ->name('export-data-uang-masuk-admin');
-      Route::get('/export-pdf-stok-barang','LapJumlahStokController@export')
-            ->name('export-jumlah-stok-barang-admin');      
-      Route::get('/export-pdf-barang-masuk','LapBarangMasukController@export')
-            ->name('export-barang-masuk-admin');   
+      // Route::get('/export-pdf-data-uang-masuk','LapDataUangDonasiController@export')
+      //       ->name('export-data-uang-masuk-admin');
+      // Route::get('/export-pdf-stok-barang','LapJumlahStokController@export')
+      //       ->name('export-jumlah-stok-barang-admin');      
+      // Route::get('/export-pdf-barang-masuk','LapBarangMasukController@export')
+      //       ->name('export-barang-masuk-admin');   
       Route::get('/export-pdf-info-posko','InfoPoskoController@export')
             ->name('export-info-posko-admin');  
       Route::get('/export-pdf-aktivitas-donasi','LapAktivitasDonasiController@export')
             ->name('export-aktivitas-donasi-admin');  
 
       // Export PDF berdasarkan bulan
-      Route::post('/export-pdf-donasi-masuk-bulan','DonasiMasukController@exportBulan')
-            ->name('export-donasi-masuk-admin-bulan');
-      Route::post('/export-pdf-permintaan-logistik-bulan','LapPermintaanLogistikController@exportBulan')
-            ->name('export-permintaan-logistik-bulan-admin');
-      Route::post('/export-pdf-pengiriman-logistik-bulan','LapPengirimanLogistikController@exportBulan')
-            ->name('export-pengiriman-logistik-admin-bulan');
+      // Route::post('/export-pdf-donasi-masuk-bulan','DonasiMasukController@exportBulan')
+      //       ->name('export-donasi-masuk-admin-bulan');
+      // Route::post('/export-pdf-permintaan-logistik-bulan','LapPermintaanLogistikController@exportBulan')
+      //       ->name('export-permintaan-logistik-bulan-admin');
+      // Route::post('/export-pdf-pengiriman-logistik-bulan','LapPengirimanLogistikController@exportBulan')
+      //       ->name('export-pengiriman-logistik-admin-bulan');
       Route::post('/export-pdf-penerimaan-logistik-bulan','LapPenerimaanLogistikController@exportBulan')
             ->name('export-penerimaan-logistik-admin-bulan');
-      Route::post('/export-pdf-data-uang-masuk-bulan','LapDataUangDonasiController@exportBulan')
-            ->name('export-data-uang-masuk-admin-bulan');
-      Route::post('/export-pdf-barang-masuk-bulan','LapBarangMasukController@exportBulan')
-            ->name('export-barang-masuk-admin-bulan');
+      // Route::post('/export-pdf-data-uang-masuk-bulan','LapDataUangDonasiController@exportBulan')
+      //       ->name('export-data-uang-masuk-admin-bulan');
+      // Route::post('/export-pdf-barang-masuk-bulan','LapBarangMasukController@exportBulan')
+      //       ->name('export-barang-masuk-admin-bulan');
       Route::post('/export-pdf-info-posko-bulan','InfoPoskoController@exportBulan')
             ->name('export-info-posko-admin-bulan');
       
       // Export Detail
-      Route::get('/export-detail-permintaan/{id}','LapPermintaanLogistikController@exportDetail')
-      ->name('print-detail-permintaan-admin');
-      Route::get('/export-detail-pengiriman/{id}','LapPengirimanLogistikController@exportDetail')
-      ->name('print-detail-pengiriman-admin');
+      // Route::get('/export-detail-permintaan/{id}','LapPermintaanLogistikController@exportDetail')
+      // ->name('print-detail-permintaan-admin');
+      // Route::get('/export-detail-pengiriman/{id}','LapPengirimanLogistikController@exportDetail')
+      // ->name('print-detail-pengiriman-admin');
       Route::get('/export-detail-penerimaan/{id}','LapPenerimaanLogistikController@exportDetail')
       ->name('print-detail-penerimaan-admin');
 
       // Export Lain-lain
       Route::get('/export-sub-posko/{id}','InfoPoskoController@exportSubPosko')
       ->name('print-sub-posko-admin');
+      Route::post('/export-info-posko-bencana','InfoPoskoController@exportBencana')
+      ->name('print-info-posko-bencana-admin');
       Route::post('/export-aktivitas-donasi-bencana','LapAktivitasDonasiController@exportBencana')
       ->name('print-aktivitas-donasi-bencana-admin');
 
@@ -259,6 +265,10 @@ use Illuminate\Support\Facades\Route;
       ->name('print-detail-permintaan');
       Route::get('/export-detail-pengiriman/{id}','LapPengirimanController@exportDetail')
       ->name('print-detail-pengiriman');
+
+      // Export Lain-lain
+      Route::post('/export-donasi-masuk-bencana','DonasiMasukController@exportBencana')
+      ->name('print-donasi-masuk-bencana');
 
       // Ajax Url
       Route::get('getdatadonasi',[

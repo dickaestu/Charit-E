@@ -52,29 +52,29 @@
 <table style="text-align: center" border="1" cellspacing="0" cellpadding="8" width="100%">
     <thead>
         <tr>
-            <th>Nama Posko</th>
-            <th>Alamat Posko</th>
+            <th>ID Aktivitas Donasi</th>
             <th>Tanggal Kejadian</th>
+            <th>Nama Posko</th>
             <th>Nama Bencana</th>
             <th>Lokasi Bencana</th>
-            <th>Jumlah Korban</th>
-            <th>Jumlah Korban Jiwa</th>
-            <th>Jumlah Sub Posko</th>
+            <th>Jumlah Donasi Uang</th>
+            <th>Jumlah Donasi Barang</th>
+            <th>Total Donasi</th>
         </tr>
     </thead>
     <tbody>
        @foreach ($items as $item)
            
-            <tr>
-                <td>{{$item->user->name}}</td>
-                <td>{{$item->alamat_posko}}</td>
-                <td>{{Carbon\Carbon::create($item->tanggal_kejadian)->format('d-m-Y')}}</td>
-                <td>{{$item->jenis_bencana->nama_bencana}}</td>
-                <td>{{$item->lokasi_bencana}}</td>
-                <td>{{$item->jumlah_korban}}</td>
-                <td>{{$item->jumlah_korban_jiwa}}</td>
-                <td>{{$item->subposko->count()}}</td>     
-            </tr>
+       <tr>
+        <td>{{ $item->id_aktivitas_donasi }}</td>
+        <td>{{\Carbon\Carbon::create( $item->info_posko->tanggal_kejadian)->format('d - m - Y')}}</td>
+        <td>{{ $item->info_posko->user->name }}</td>
+        <td>{{ $item->info_posko->jenis_bencana->nama_bencana }}</td>
+        <td>{{ $item->info_posko->lokasi_bencana }}</td>
+        <td>@currency(\App\Donasi::where('status_verifikasi', true)->where('id_aktivitas_donasi',$item->id_aktivitas_donasi)->where('jenis_donasi','uang')->sum('keterangan_donasi'))</td>
+        <td>{{\App\Donasi::where('status_verifikasi', true)->where('id_aktivitas_donasi',$item->id_aktivitas_donasi)->where('jenis_donasi','pokok')->count()}}</td>
+        <td>{{\App\Donasi::where('status_verifikasi', true)->where('id_aktivitas_donasi',$item->id_aktivitas_donasi)->count()}}</td>
+    </tr>
         
        @endforeach
        

@@ -39,10 +39,21 @@ class LapPenerimaanLogistikController extends Controller
         return $d->pengirimanbarang->permintaanbarang->infoposko->jenis_bencana->nama_bencana;
        }) 
        ->addColumn('detail_penerimaan',function($d){
-        return '<a href="/admin/export-detail-penerimaan/'.$d->id_penerimaan_barang.'" class="btn btn-sm btn-info">Print Detail</a>';
+        return '<a href="/admin/laporan-penerimaan/detail/'.$d->id_penerimaan_barang.'" class="btn btn-sm btn-info">Detail</a>';
        })
        ->rawColumns(['tanggal_penerimaan','name','alamat_posko','nama_bencana','detail_penerimaan'])
        ->toJson();
+    }
+
+    
+    public function detailpenerimaan($id)
+    {
+        $info = PenerimaanBarang::with('pengirimanbarang.permintaanbarang.infoposko')->findOrFail($id);
+        $items = DetailPenerimaanBarang::with(['stokbarang'])->where('id_penerimaan_barang', $id)->get();
+        return view('pages.admin.detailpenerimaan',[
+            'items'=>$items,
+            'info'=>$info
+        ]);
     }
 
     public function export()
@@ -55,10 +66,14 @@ class LapPenerimaanLogistikController extends Controller
 
     public function exportBulan(Request $request)
     {
-        $startDate =  Carbon::create($request->from);
-        $endDate   = Carbon::create($request->to)->addDays(1) ;
-        $items = PenerimaanBarang::with('pengirimanbarang')->whereBetween('created_at',[$startDate,$endDate])->get();
-        $pdf = PDF::loadView('exports.admin.penerimaan-logistik',['items'=>$items]);
+        $startDate =  Carbon::create($request->from)->format('Y-m-d');
+        $endDate   = Carbon::create($request->to)->format('Y-m-d') ;
+        $items = PenerimaanBarang::with('pengirimanbarang')->whereBetween('tanggal_penerimaan',[$startDate,$endDate])->get();
+        $pdf = PDF::loadView('exports.admin.penerimaan-logistik-bulanan',[
+            'items'=>$items,
+            'startDate'=>$startDate,
+            'endDate'=>$endDate
+            ]);
         return $pdf->download('penerimaan-logistik.pdf');
 
     }

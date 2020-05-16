@@ -45,7 +45,8 @@
 
 <table style="margin-bottom: 10px; margin-top:20px;" cellpadding="5">
     <tbody>
-        <tr><th>Nama Bencana</th><td>:</td><td>{{ $jenis_bencana->nama_bencana }}</td></tr>
+        <tr><th>Per Tanggal</th><td>:</td><td>{{ \Carbon\Carbon::create($startDate)->format('d / m / Y') }}
+        - {{ \Carbon\Carbon::create($endDate)->format('d / m / Y') }}</td></tr>
     </tbody>
 </table>
 

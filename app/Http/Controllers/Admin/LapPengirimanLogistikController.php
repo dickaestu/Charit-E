@@ -38,10 +38,20 @@ class LapPengirimanLogistikController extends Controller
         return $d->permintaanbarang->infoposko->jenis_bencana->nama_bencana;
        }) 
        ->addColumn('detail_pengiriman',function($d){
-        return '<a href="/admin/export-detail-pengiriman/'.$d->id_pengiriman_barang.'" class="btn btn-sm btn-info">Print Detail</a>';
+        return '<a href="/admin/laporan-pengiriman/detail/'.$d->id_pengiriman_barang.'" class="btn btn-sm btn-info">Detail</a>';
        })
        ->rawColumns(['tanggal_pengiriman','name','alamat_posko','nama_bencana','detail_pengiriman'])
        ->toJson();
+    }
+
+    public function detailpengiriman($id)
+    {
+        $info = PengirimanBarang::with('permintaanbarang.infoposko')->findOrFail($id);
+        $items = DetailPengirimanBarang::with(['stokbarang'])->where('id_pengiriman_barang', $id)->get();
+        return view('pages.admin.detailpengiriman',[
+            'items'=>$items,
+            'info'=>$info
+        ]);
     }
 
     public function export()

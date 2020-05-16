@@ -1,38 +1,50 @@
-@extends('exports.header.admin')
-@section('title','Laporan Aktivitas Donasi')
-@push('style')
-<style type="text/css">
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+    <style type="text/css">
 
-    @page {
-            margin: 0cm 0cm;
-        }
-    body {
-            margin-top: 3cm;
-            margin-left: 2cm;
-            margin-right: 2cm;
-            margin-bottom: 2cm;
-            color: #000;
-        }
-
-    header {
-            position: fixed;
-            margin-top: 30px;
-        }
-    table tr th{
-        font-size: 12px;
-    }
+        @page {
+                margin: 0cm 0cm;
+            }
+        body {
+                margin-top: 3cm;
+                margin-left: 2cm;
+                margin-right: 2cm;
+                margin-bottom: 2cm;
+                color: #000;
+            }
     
-    table tr td{
-        font-size: 10px;
-    }
+        header {
+                position: fixed;
+            }
+        table tr th{
+            font-size: 15px;
+        }
+        
+        table tr td{
+            font-size: 12px;
+        }
 
-</style>
-@endpush
+        p {
+            font-size: 12px;
+        }
 
-@section('content')
+    
+    </style>
+    
+</head>
+<body>
+	
+ <header style="margin-top: 70px;">
+    <img style="margin-left:70px" src="{{ltrim(public_path('donasi_assets/assets/img/logo.png'),'/')}}" height="auto" width="120">
+    <h2 style="text-align:center; margin-top:-30px">Laporan Aktivitas Donasi</h2> 
+</header>
+    
 
 
-<table class="table table-striped table-bordered text-center text-dark">
+
+<table style="text-align: center; margin-top: 40px;" border="1" cellspacing="0" cellpadding="8" width="100%">
     <thead>
         <tr>
             <th>ID Aktivitas Donasi</th>
@@ -48,6 +60,7 @@
     <tbody>
        @foreach ($items as $item)
            
+           
             <tr>
                 <td>{{ $item->id_aktivitas_donasi }}</td>
                 <td>{{\Carbon\Carbon::create( $item->info_posko->tanggal_kejadian)->format('d - m - Y')}}</td>
@@ -60,7 +73,14 @@
             </tr>
         
        @endforeach
+       
     </tbody>
 </table>
+<p style="text-align: right; margin-top:60px">Jakarta, {{ \Carbon\Carbon::now()->format('d - m - Y') }}</p>
+<p style="text-align: right; margin-right:45px">Mengetahui,</p>
+<p style="text-align: right; margin-right:60px;margin-top:-10px">Pimpinan</p>
+<p style="text-align: right; margin-right:5px; margin-top:60px">..................................</p>
 
-@endsection
+</body>
+</html>
+

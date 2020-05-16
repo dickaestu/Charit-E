@@ -1,50 +1,61 @@
-@extends('exports.header.logistik')
-@section('title','Laporan Detail Permintaan Logistik')
-@push('style')
-<style type="text/css">
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+    <style type="text/css">
 
-    @page {
-            margin: 0cm 0cm;
-        }
-    body {
-            margin-top: 3cm;
-            margin-left: 2cm;
-            margin-right: 2cm;
-            margin-bottom: 2cm;
-            color: #000;
-        }
-
-    header {
-            position: fixed;
-            margin-top: 30px;
-        }
-    table tr th{
-        font-size: 12px;
-    }
+        @page {
+                margin: 0cm 0cm;
+            }
+        body {
+                margin-top: 3cm;
+                margin-left: 2cm;
+                margin-right: 2cm;
+                margin-bottom: 2cm;
+                color: #000;
+            }
     
-    table tr td{
-        font-size: 10px;
-    }
+        header {
+                position: fixed;
+            }
+        table tr th{
+            font-size: 15px;
+        }
+        
+        table tr td{
+            font-size: 12px;
+        }
 
-</style>
-@endpush
+        p {
+            font-size: 12px;
+        }
 
-@section('content')
+    
+    </style>
+    
+</head>
+<body>
+	
+ <header style="margin-top: 70px;">
+    <img style="margin-left:70px" src="{{ltrim(public_path('donasi_assets/assets/img/logo.png'),'/')}}" height="auto" width="120">
+    <h2 style="text-align:center; margin-top:-30px">Laporan Detail Permintaan Logistik</h2> 
+</header>
+    
 
-
-<table style="margin-bottom: 30px" cellpadding="5">
+<table style="margin-bottom: 10px;margin-top: 50px" cellpadding="5">
     <tbody>
-        <tr><th >ID Permintaan</th><td>:</td><td>{{ $permintaan->id_permintaan_barang }}</td></tr>
-        <tr><th >Tanggal Permintaan</th><td>:</td><td>{{ \Carbon\Carbon::create($permintaan->tanggal_permintaan)->format('d - m - Y') }}</td></tr>
-        <tr><th >Nama Posko</th><td>:</td><td>{{ $permintaan->infoposko->user->name }}</td></tr>
-        <tr><th >Alamat Posko</th><td>:</td><td>{{ $permintaan->infoposko->alamat_posko }}</td></tr>
-        <tr><th >Lokasi Bencana</th><td>:</td><td>{{ $permintaan->infoposko->lokasi_bencana }}</td></tr>
-        <tr><th >Nama Bencana</th><td>:</td><td>{{ $permintaan->infoposko->jenis_bencana->nama_bencana }}</td></tr>
+        <tr><th align="left">ID Permintaan</th><td>:</td><td>{{ $permintaan->id_permintaan_barang }}</td></tr>
+        <tr><th align="left">Status Permintaan</th><td>:</td><td>{{ $permintaan->status_permintaan }}</td></tr>
+        <tr><th align="left">Tanggal Permintaan</th><td>:</td><td>{{ \Carbon\Carbon::create($permintaan->tanggal_permintaan)->format('d - m - Y') }}</td></tr>
+        <tr><th align="left">Nama Posko</th><td>:</td><td>{{ $permintaan->infoposko->user->name }}</td></tr>
+        <tr><th align="left">Alamat Posko</th><td>:</td><td>{{ $permintaan->infoposko->alamat_posko }}</td></tr>
+        <tr><th align="left">Lokasi Bencana</th><td>:</td><td>{{ $permintaan->infoposko->lokasi_bencana }}</td></tr>
+        <tr><th align="left">Nama Bencana</th><td>:</td><td>{{ $permintaan->infoposko->jenis_bencana->nama_bencana }}</td></tr>
     </tbody>
 </table>
-<table class="table table-striped table-bordered text-center text-dark">
+
+<table style="text-align: center; margin-top: 10px;" border="1" cellspacing="0" cellpadding="8" width="100%">
     <thead>
-       
         <tr>
             <th>#</th>
             <th>Nama Barang</th>
@@ -63,7 +74,19 @@
             </tr>
         
        @endforeach
+       
     </tbody>
-</table>
+</table>    
+<p style="float: right; margin-top:100px;margin-right:10px">Jakarta, {{ \Carbon\Carbon::now()->format('d - m - Y') }}</p>
+<p style="text-align: left;margin-top:33px">Mengetahui, <span style="float: right;margin-right:30px">Dilaporkan Oleh,</span> </p>
+<p style="text-align: left;margin-top:-10px">Pimpinan <span style="float: right; margin-right:70px">Logistik</span> </p>
+<p style="text-align: left; margin-top:60px;margin-bottom:-400px">..................................  
+    <span style="float: right; margin-right:10px">..................................</span></p>
 
-@endsection
+  
+
+</body>
+</html>
+
+
+

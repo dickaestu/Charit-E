@@ -49,10 +49,14 @@ class LapPermintaanController extends Controller
     public function exportBulan(Request $request)
     {
 
-        $startDate =  Carbon::create($request->from);
-        $endDate   = Carbon::create($request->to)->addDays(1) ;
-        $items = PermintaanBarang::with('infoposko')->whereBetween('created_at',[$startDate,$endDate])->get();
-        $pdf = PDF::loadView('exports.logistik.permintaan-logistik',['items'=>$items]);
+        $startDate =  Carbon::create($request->from)->format('Y-m-d');
+        $endDate   = Carbon::create($request->to)->format('Y-m-d') ;
+        $items = PermintaanBarang::with('infoposko')->whereBetween('tanggal_permintaan',[$startDate,$endDate])->get();
+        $pdf = PDF::loadView('exports.logistik.permintaan-logistik-bulanan',[
+            'items'=>$items,
+            'startDate'=>$startDate,
+            'endDate'=>$endDate
+            ]);
         return $pdf->download('permintaan-logistik.pdf');
 
     }

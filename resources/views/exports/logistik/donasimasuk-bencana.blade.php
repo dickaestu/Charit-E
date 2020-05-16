@@ -43,8 +43,12 @@
     
 
 
-
-<table style="text-align: center; margin-top: 40px;" border="1" cellspacing="0" cellpadding="8" width="100%">
+<table style="margin-bottom: 10px; margin-top:40px;" cellpadding="5">
+    <tbody>
+        <tr><th>Nama Bencana</th><td>:</td><td>{{ $jenis_bencana->nama_bencana }}</td></tr>
+    </tbody>
+</table>
+<table style="text-align: center;" border="1" cellspacing="0" cellpadding="8" width="100%">
     <thead>
         <tr>
             <th>ID Donasi</th>
