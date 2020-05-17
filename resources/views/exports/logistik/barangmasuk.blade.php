@@ -1,38 +1,49 @@
-@extends('exports.header.logistik')
-@section('title','Laporan Barang Masuk')
-@push('style')
-<style type="text/css">
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+    <style type="text/css">
 
-    @page {
-            margin: 0cm 0cm;
-        }
-    body {
-            margin-top: 3cm;
-            margin-left: 2cm;
-            margin-right: 2cm;
-            margin-bottom: 2cm;
-            color: #000;
-        }
-
-    header {
-            position: fixed;
-            margin-top: 30px;
-        }
-    table tr th{
-        font-size: 12px;
-    }
+        @page {
+                margin: 0cm 0cm;
+            }
+        body {
+                margin-top: 3cm;
+                margin-left: 2cm;
+                margin-right: 2cm;
+                margin-bottom: 2cm;
+                color: #000;
+            }
     
-    table tr td{
-        font-size: 10px;
-    }
+        header {
+                position: fixed;
+            }
+        table tr th{
+            font-size: 15px;
+        }
+        
+        table tr td{
+            font-size: 12px;
+        }
 
-</style>
-@endpush
+        p {
+            font-size: 12px;
+        }
 
-@section('content')
+    
+    </style>
+    
+</head>
+<body>
+	
+ <header style="margin-top: 70px;">
+    <img style="margin-left:70px" src="{{ltrim(public_path('donasi_assets/assets/img/logo.png'),'/')}}" height="auto" width="120">
+    <h2 style="text-align:center; margin-top:-30px">Laporan Barang Masuk</h2> 
+</header>
+    
 
 
-<table class="table table-striped table-bordered text-center text-dark">
+<table style="text-align: center; margin-top: 50px;" border="1" cellspacing="0" cellpadding="8" width="100%">
     <thead>
         <tr>
             <th>ID Barang Masuk</th>
@@ -41,7 +52,7 @@
             <th>Nama</th>
             <th>Nama Barang</th>
             <th>Jumlah</th>
-            <th>satuan</th>  
+            <th>satuan</th> 
         </tr>
     </thead>
     <tbody>
@@ -58,7 +69,25 @@
             </tr>
         
        @endforeach
+       
     </tbody>
-</table>
+</table>    
+<p style="float: right; margin-top:100px;margin-right:10px">Jakarta, {{ \Carbon\Carbon::now()->format('d - m - Y') }}</p>
+<p style="text-align: left;margin-top:33px">Mengetahui, <span style="float: right;margin-right:30px">Dilaporkan Oleh,</span> </p>
+<p style="text-align: left;margin-top:-10px">Pimpinan <span style="float: right; margin-right:70px">Logistik</span> </p>
+<p style="text-align: left; margin-top:60px;margin-bottom:-400px">..................................  
+    <span style="float: right; margin-right:10px">..................................</span></p>
 
-@endsection
+  
+
+
+
+
+
+</body>
+</html>
+
+
+
+
+

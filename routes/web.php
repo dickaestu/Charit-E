@@ -211,12 +211,9 @@ use Illuminate\Support\Facades\Route;
             ->name('detail-pengiriman-logistik');
 
 
-      Route::get('/data-pembelian', 'DataPembelianController@index')
-            ->name('data-pembelian-logistik');
+     
       Route::get('/transaksi-pemasukan', 'TransaksiPemasukanController@index')
             ->name('transaksi-pemasukan-logistik');
-      Route::get('/transaksi-pembelian', 'TransaksiPembelianController@index')
-            ->name('transaksi-pembelian-logistik');
       Route::get('/laporan-permintaan', 'LapPermintaanController@index')
             ->name('laporan-permintaan-logistik');
       Route::get('/laporan-donasi-masuk', 'LapDonasiMasukController@index')

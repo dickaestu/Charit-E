@@ -14,13 +14,13 @@ class CreatePermintaanBarangTable extends Migration
     public function up()
     {
         Schema::create('permintaan_barang', function (Blueprint $table) {
-            $table->string('id_permintaan_barang')->primary();
-            $table->string('id_info_posko');
+            $table->string('id_permintaan_barang',20)->primary();
+            $table->string('id_info_posko',20);
             $table->longText('keterangan_permintaan');
             $table->enum('status_permintaan',['PENDING','VERIFIED','BATAL']);
             $table->boolean('status_pengiriman');
             $table->boolean('status_penerimaan');
-            $table->dateTime('tanggal_permintaan');
+            $table->date('tanggal_permintaan');
             $table->softDeletes();
             $table->timestamps();
 

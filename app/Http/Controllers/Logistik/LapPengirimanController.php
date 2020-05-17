@@ -53,10 +53,14 @@ class LapPengirimanController extends Controller
     public function exportBulan(Request $request)
     {
 
-        $startDate =  Carbon::create($request->from);
-        $endDate   = Carbon::create($request->to)->addDays(1) ;
-        $items = PengirimanBarang::with('permintaanbarang')->whereBetween('created_at',[$startDate,$endDate])->get();
-        $pdf = PDF::loadView('exports.logistik.pengiriman-logistik',['items'=>$items]);
+        $startDate =  Carbon::create($request->from)->format('Y-m-d');
+        $endDate   = Carbon::create($request->to)->format('Y-m-d');
+        $items = PengirimanBarang::with('permintaanbarang')->whereBetween('tanggal_pengiriman',[$startDate,$endDate])->get();
+        $pdf = PDF::loadView('exports.logistik.pengiriman-logistik-bulanan',[
+            'items'=>$items,
+            'startDate'=>$startDate,
+            'endDate'=>$endDate
+            ]);
         return $pdf->download('pengiriman-logistik.pdf');
 
     }

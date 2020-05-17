@@ -21,16 +21,7 @@ class DataUserController extends Controller
         return view('pages.admin.datauser.index', ['items'=>$items]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(UserRequest $request)
-    {
-        
-    }
-
+  
     /**
      * Store a newly created resource in storage.
      *
@@ -40,8 +31,8 @@ class DataUserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'=>['required','string','max:255'],
-            'email'=>['required','string','max:255','unique:users','email'],
+            'name'=>['required','string','max:70'],
+            'email'=>['required','string','max:100','unique:users','email'],
             'password'=>['required','string','min:8','confirmed'],
             'role'=>['required'] 
         ],[

@@ -14,10 +14,10 @@ class CreateUangMasukTable extends Migration
     public function up()
     {
         Schema::create('uang_masuk', function (Blueprint $table) {
-            $table->string('id_uang_masuk')->primary();
-            $table->string('id_donasi');
+            $table->string('id_uang_masuk',20)->primary();
+            $table->string('id_donasi',20);
             $table->integer('nominal');
-            $table->dateTime('tanggal_masuk');
+            $table->date('tanggal_masuk');
             $table->softDeletes();
             $table->timestamps();
 

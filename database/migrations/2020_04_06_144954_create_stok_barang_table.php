@@ -14,11 +14,10 @@ class CreateStokBarangTable extends Migration
     public function up()
     {
         Schema::create('stok_barang', function (Blueprint $table) {
-            // $table->bigIncrements('id_stok_barang');
-            $table->string('id_stok_barang')->primary();
-            $table->string('nama_barang');
+            $table->string('id_stok_barang',20)->primary();
+            $table->string('nama_barang',50);
             $table->integer('quantity')->default(0);
-            $table->string('satuan');
+            $table->string('satuan',12);
             $table->softDeletes();
             $table->timestamps();
         });

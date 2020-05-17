@@ -8,13 +8,21 @@
 
 @section('content')
 <div class="container-fluid">
+    <nav class="" aria-label="breadcrumb">
+        <ol class="breadcrumb bg-transparent">
+          <li class="breadcrumb-item"><a style="text-decoration: none"  href="{{ route('data-pengiriman-logistik') }}">Data Pengiriman</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Detail Pengiriman</li>
+        </ol>
+      </nav>
 
-<div class="row">
-    <div class="col-auto col-md-6">
-        <label for="keterangan">Keterangan Pengiriman</label>
-<textarea name="keterangan" id="keterangan" class="form-control mb-4" rows="3">{{$pengiriman->keterangan_pengiriman}}</textarea>
-    </div>
-</div>
+      <table cellpadding="8" class="table-responsive table-borderless mb-3">
+        <tr>
+            <th>Keterangan Pengiriman </th>
+            <td>:</td>
+            <td>{{$pengiriman->keterangan_pengiriman}}</td>
+        </tr>
+    </table>
+
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Detail Pengiriman</h6>

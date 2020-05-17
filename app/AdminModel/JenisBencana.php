@@ -14,7 +14,7 @@ class JenisBencana extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
-        'nama_bencana'
+       'id_jenis_bencana', 'nama_bencana'
     ];
 
     protected $hidden = [

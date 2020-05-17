@@ -50,10 +50,14 @@ class LapBarangMasukController extends Controller
 
     public function exportBulan(Request $request)
     {
-        $startDate =  Carbon::create($request->from);
-        $endDate   = Carbon::create($request->to)->addDays(1) ;
-        $items = BarangMasuk::with(['donasi','stokbarang'])->whereBetween('created_at',[$startDate,$endDate])->get();
-        $pdf = PDF::loadView('exports.logistik.barangmasuk',['items'=>$items]);
+        $startDate =  Carbon::create($request->from)->format('Y-m-d');
+        $endDate   = Carbon::create($request->to)->format('Y-m-d') ;
+        $items = BarangMasuk::with(['donasi','stokbarang'])->whereBetween('tanggal_barang_masuk',[$startDate,$endDate])->get();
+        $pdf = PDF::loadView('exports.logistik.barangmasuk-bulan',[
+            'items'=>$items,
+            'startDate'=>$startDate,
+            'endDate'=>$endDate
+            ]);
         return $pdf->download('barangmasuk.pdf');
 
     }

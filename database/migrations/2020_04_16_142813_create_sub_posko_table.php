@@ -14,10 +14,10 @@ class CreateSubPoskoTable extends Migration
     public function up()
     {
         Schema::create('sub_posko', function (Blueprint $table) {
-            $table->string('id_sub_posko')->primary();
-            $table->string('id_info_posko');
-            $table->string('nama_sub_posko');
-            $table->string('nama_penanggung_jawab');
+            $table->string('id_sub_posko',20)->primary();
+            $table->string('id_info_posko',20);
+            $table->string('nama_sub_posko',50);
+            $table->string('nama_penanggung_jawab',100);
             $table->softDeletes();
             $table->timestamps();
 

@@ -8,6 +8,13 @@
 
 @section('content')
 <div class="container-fluid">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-transparent">
+          <li class="breadcrumb-item"><a style="text-decoration: none" href="{{ route('data-permintaan-logistik') }}">Data Permintaan</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Detail Permintaan</li>
+        </ol>
+      </nav>
   
     <table cellpadding="8" class="table-responsive table-borderless mb-3">
         <tr>
@@ -30,6 +37,11 @@
             <th>Jumlah Korban Jiwa </th>
             <td>:</td>
             <td>{{$info->infoposko->jumlah_korban_jiwa}} Orang</td>
+        </tr>
+        <tr>
+            <th>Keterangan Permintaan </th>
+            <td>:</td>
+            <td>{{$info->keterangan_permintaan}}</td>
         </tr>
     </table>
 

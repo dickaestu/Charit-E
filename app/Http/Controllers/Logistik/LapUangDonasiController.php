@@ -47,11 +47,15 @@ class LapUangDonasiController extends Controller
 
     public function exportBulan(Request $request)
     {
-        $startDate =  Carbon::create($request->from);
-        $endDate   = Carbon::create($request->to)->addDays(1) ;
-        $items = UangMasuk::with('donasi')->whereBetween('created_at',[$startDate,$endDate])->get();
-        $pdf = PDF::loadView('exports.logistik.uangmasuk',['items'=>$items]);
-        return $pdf->download('uangmasuk(bulanan).pdf');
+        $startDate =  Carbon::create($request->from)->format('Y-m-d');
+        $endDate   = Carbon::create($request->to)->format('Y-m-d') ;
+        $items = UangMasuk::with('donasi')->whereBetween('tanggal_masuk',[$startDate,$endDate])->get();
+        $pdf = PDF::loadView('exports.logistik.uangmasuk-bulan',[
+            'items'=>$items,
+            'startDate'=>$startDate,
+            'endDate'=>$endDate
+            ]);
+        return $pdf->download('uangmasuk.pdf');
 
     }
 

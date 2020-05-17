@@ -14,8 +14,8 @@ class CreateJenisBencanaTable extends Migration
     public function up()
     {
         Schema::create('jenis_bencana', function (Blueprint $table) {
-            $table->bigIncrements('id_jenis_bencana');
-            $table->string('nama_bencana');
+            $table->string('id_jenis_bencana',4)->primary();
+            $table->string('nama_bencana',50);
             $table->softDeletes();
             $table->timestamps();
         });

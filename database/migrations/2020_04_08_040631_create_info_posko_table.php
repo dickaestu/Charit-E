@@ -14,13 +14,13 @@ class CreateInfoPoskoTable extends Migration
     public function up()
     {
         Schema::create('info_posko', function (Blueprint $table) {
-            $table->string('id_info_posko')->primary();
+            $table->string('id_info_posko',20)->primary();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('id_jenis_bencana');
-            $table->string('alamat_posko');
+            $table->string('id_jenis_bencana',4);
+            $table->string('alamat_posko',150);
             $table->integer('jumlah_korban');
             $table->integer('jumlah_korban_jiwa');
-            $table->string('lokasi_bencana');
+            $table->string('lokasi_bencana',100);
             $table->date('tanggal_kejadian');
             $table->softDeletes();
             $table->timestamps();

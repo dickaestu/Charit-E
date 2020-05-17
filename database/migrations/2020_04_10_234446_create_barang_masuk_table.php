@@ -14,11 +14,11 @@ class CreateBarangMasukTable extends Migration
     public function up()
     {
         Schema::create('barang_masuk', function (Blueprint $table) {
-            $table->string('id_barang_masuk')->primary();
-            $table->string('id_donasi');
-            $table->string('id_stok_barang');
+            $table->string('id_barang_masuk',20)->primary();
+            $table->string('id_donasi',20);
+            $table->string('id_stok_barang',20);
             $table->integer('jumlah');
-            $table->dateTime('tanggal_barang_masuk');
+            $table->date('tanggal_barang_masuk');
             $table->softDeletes();
             $table->timestamps();
 
