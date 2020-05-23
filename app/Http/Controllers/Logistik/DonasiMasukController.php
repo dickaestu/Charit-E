@@ -84,15 +84,17 @@ class DonasiMasukController extends Controller
 
         $id_user = Donasi::findOrFail($id);
 
-        $config=[
-            'table'=>'barang_masuk','field'=>'id_barang_masuk','length'=> 10,'prefix'=>'BRGMSK-'
-        ];
-        $idBarangMasuk = IdGenerator::generate($config);  
+       
 
         if(count($request->id_stok_barang) > 0){
-
+            $config=[
+                'table'=>'barang_masuk','field'=>'id_barang_masuk','length'=> 14,'prefix'=>'BRGMSK-'.date('ym'),
+                'reset_on_prefix_change'=>true
+            ];
             foreach ($request->id_stok_barang as $item=>$v)
             {
+               
+             $idBarangMasuk = IdGenerator::generate($config);  
                 $request->validate([
                     'id_stok_barang'=>['required','exists:stok_barang,id_stok_barang'],
                     'jumlah'=>['required'],
@@ -101,25 +103,21 @@ class DonasiMasukController extends Controller
                     'id_stok_barang.exists' => 'Anda belum memilih barang',
                     'jumlah.required'=> 'Tidak boleh kosong',
                 ]);
-                $detail[] = array(
-                    'id_barang_masuk' => $idBarangMasuk.mt_rand(100,999).$id_user->user_id, 
+       
+                $detail[] = [
+                   'id_barang_masuk' => $idBarangMasuk.mt_rand(100,999).($id_user->user_id+ mt_rand(10,99)), 
                     'id_donasi' => $id,
                     'id_stok_barang' => $request->id_stok_barang[$item],
                     'jumlah' => $request->jumlah[$item],
                     'tanggal_barang_masuk' => Carbon::now(),
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now()
-                );
+                ];
                 
-                // $stokbarang = StokBarang::where('id_stok_barang',$request->id_stok_barang[$item])->get();
-                
-                // foreach($stokbarang as $stok){
-                // $stok->quantity += $request->jumlah[$item];
-                // $stok->save(); 
-                // }
-
             }
-            BarangMasuk::insert($detail);
+             BarangMasuk::insert($detail);
+          
+            
         }
         foreach($request->id_stok_barang as $item=>$v){
             $stokbarang = StokBarang::where('id_stok_barang',$request->id_stok_barang[$item])->get();
@@ -163,14 +161,15 @@ class DonasiMasukController extends Controller
         $donasi->save();
 
         $config=[
-            'table'=>'uang_masuk','field'=>'id_uang_masuk','length'=> 10,'prefix'=>'UMSK-'
+            'table'=>'uang_masuk','field'=>'id_uang_masuk','length'=> 15,'prefix'=>'UMSK-'.date('ym'),
+            'reset_on_prefix_change'=>true
         ];
         $id = IdGenerator::generate($config);
 
         
 
         $data = $request->all();
-        $data['id_uang_masuk']= $id.mt_rand(0,100).$donasi->user_id;
+        $data['id_uang_masuk']= $id.$donasi->user_id;
         $data['id_donasi']= $ids;
         $data['tanggal_masuk']= Carbon::now();
 

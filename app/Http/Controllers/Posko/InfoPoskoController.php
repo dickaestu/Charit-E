@@ -65,13 +65,14 @@ class InfoPoskoController extends Controller
         ]);
 
         $config=[
-                'table'=>'info_posko','field'=>'id_info_posko','length'=> 10,'prefix'=>'INFO-'
+                'table'=>'info_posko','field'=>'id_info_posko','length'=> 13,'prefix'=>'INFO-'.date('ym'),
+                'reset_on_prefix_change'=>true
             ];
             $id = IdGenerator::generate($config);
 
 
             $data = $request->all();
-            $data['id_info_posko']= $id.mt_rand(1,1000).Auth::user()->user_id;
+            $data['id_info_posko']= $id.Auth::user()->user_id;
             $data['user_id']= Auth::user()->user_id;
     
             InfoPosko::create($data);
@@ -79,17 +80,7 @@ class InfoPoskoController extends Controller
         return redirect('posko/info-posko')->with('sukses','Data Berhasil Ditambahkan');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
+  
     /**
      * Show the form for editing the specified resource.
      *
@@ -99,7 +90,7 @@ class InfoPoskoController extends Controller
     public function edit($id)
     {
         
-        $item = InfoPosko::findOrFail($id);
+        $item = InfoPosko::with(['user'])->findOrFail($id);
         $jenis_bencana = JenisBencana::all();
         return view('pages.posko.infoposko.edit',[
             'item'=>$item,

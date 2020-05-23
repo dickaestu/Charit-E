@@ -62,7 +62,7 @@
 
                     <div class="form-group">
                         <label for="jumlah_korban">Jumlah Korban</label>
-                         <input type="number" class="form-control @error('jumlah_korban') is-invalid @enderror" required name="jumlah_korban" placeholder="Masukkan Jumlah Korban" Value="{{old('jumlah_korban')}}">
+                         <input type="number" min="0" class="form-control @error('jumlah_korban') is-invalid @enderror" required name="jumlah_korban" placeholder="Masukkan Jumlah Korban" Value="{{old('jumlah_korban')}}">
                          @error ('jumlah_korban')
                          <div class="invalid-feedback">
                              {{$message}}
@@ -72,7 +72,7 @@
 
                     <div class="form-group">
                         <label for="jumlah_korban_jiwa">Jumlah Korban Jiwa</label>
-                         <input type="number" class="form-control @error('jumlah_korban_jiwa') is-invalid @enderror" required name="jumlah_korban_jiwa" placeholder="Masukkan Jumlah Korban Jiwa" Value="{{old('jumlah_korban_jiwa')}}">
+                         <input type="number" min="0" class="form-control @error('jumlah_korban_jiwa') is-invalid @enderror" required name="jumlah_korban_jiwa" placeholder="Masukkan Jumlah Korban Jiwa" Value="{{old('jumlah_korban_jiwa')}}">
                          @error ('jumlah_korban_jiwa')
                          <div class="invalid-feedback">
                              {{$message}}

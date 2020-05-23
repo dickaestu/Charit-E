@@ -38,7 +38,7 @@
                        @forelse ($items as $item)
                        <tr>
                         <td>{{$item->id_pengiriman_barang}}</td>
-                        <td>{{\Carbon\Carbon::create($item->tanggal_pengiriman)->format('d - m - Y | H:i:s')}}</td>
+                        <td>{{\Carbon\Carbon::create($item->tanggal_pengiriman)->format('d - m - Y')}}</td>
                         <td>{{$item->permintaanbarang->infoposko->user->name}}</td>
                         <td>{{$item->permintaanbarang->infoposko->alamat_posko}}</td>
                         <td>{{$item->permintaanbarang->infoposko->jenis_bencana->nama_bencana}}</td>

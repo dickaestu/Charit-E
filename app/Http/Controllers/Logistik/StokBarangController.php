@@ -23,22 +23,7 @@ class StokBarangController extends Controller
         
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+   
 
      
     public function store(Request $request)
@@ -55,7 +40,8 @@ class StokBarangController extends Controller
             ]);
 
             $config=[
-                'table'=>'stok_barang','field'=>'id_stok_barang','length'=> 9,'prefix'=>'STOK-'
+                'table'=>'stok_barang','field'=>'id_stok_barang','length'=> 10,'prefix'=>'STOK-',
+                
             ];
             $id = IdGenerator::generate($config);
             
@@ -68,17 +54,6 @@ class StokBarangController extends Controller
 
         return redirect('logistik/data-stok-barang')->with('sukses','Data Berhasil Ditambahkan');
     
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**

@@ -44,7 +44,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <table class="table table-bordered" id="tableInfo" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
                                         <th>ID Info Posko</th>
@@ -104,6 +104,17 @@
     </div>
     <!-- /.container-fluid -->
 @endsection
+
+@push('addon-script')
+    <script>
+    $(document).ready(function() {
+        $('#tableInfo').DataTable( {
+            "order": [[ 0, "desc" ]]
+        } );
+    } );    
+    </script>    
+
+@endpush
 
 
 

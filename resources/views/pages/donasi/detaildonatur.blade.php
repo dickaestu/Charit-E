@@ -101,10 +101,57 @@
                 </div>
             </div>
 
+            <div class="row">
+                <div class="col">
+                    <div class="section-title mt-2">
+                        <h2>Daftar Donasi Yang Sudah Disalurkan Ke Posko</h2>
+                        <div class="card px-2 py-4 shadow-sm">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="table_penerimaan" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Tanggal</th>
+                                            <th>Nama Barang</th>
+                                            <th>Jumlah</th>
+                                            <th>Satuan</th>
+                                           
+                                        </tr>
+                                    </thead>
+                    
+                                    <tbody>
+                               
+                                        @foreach ($permintaan as $p)
+                                        @foreach ($p->pengirimanbarang->detailpengirimanbarang as $item)
+                                    
+                                            <tr>
+                                                <td>{{ Carbon\Carbon::create($item->pengirimanbarang->tanggal_pengiriman )->format('d - m - Y')}}</td>
+                                                <td>{{ $item->stokbarang->nama_barang }}</td>
+                                                <td>{{ $item->jumlah }}</td>
+                                                <td>{{ $item->stokbarang->satuan }}</td>
+                                            </tr>
+                                     
+                                     
+                                        
+                                        @endforeach
+                                        @endforeach
+                           
+                                        
+                                       
+                  
+                                   
+                                     
+    
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             
 		
-			</div>
+		</div>
 		
 		<div class=" shape shape-1">
              <img src="{{url('donasi_assets/assets/img/shape/1.png')}}" alt="Shape">

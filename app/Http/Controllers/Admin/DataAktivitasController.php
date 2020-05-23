@@ -18,7 +18,7 @@ class DataAktivitasController extends Controller
      */
     public function index(Request $request)
     {
-        $items = AktivitasDonasi::with(['info_posko'])->get(); //memanggil relasi yang sudah dibuat di model
+        $items = AktivitasDonasi::with(['info_posko.user','info_posko.jenis_bencana'])->get(); //memanggil relasi yang sudah dibuat di model
 
         return view('pages.admin.dataaktivitasdonasi.index',[
             'items' => $items   
@@ -32,7 +32,7 @@ class DataAktivitasController extends Controller
      */
     public function create()
     {
-        $info_posko = InfoPosko::all();
+        $info_posko = InfoPosko::with(['user','jenis_bencana'])->get();
         return view ('pages.admin.dataaktivitasdonasi.create',[
             'info_posko'=>$info_posko
         ]);
@@ -58,12 +58,13 @@ class DataAktivitasController extends Controller
         ]);
 
         $config=[
-                'table'=>'aktivitas_donasi','field'=>'id_aktivitas_donasi','length'=> 10,'prefix'=>'AKTIV-'
+                'table'=>'aktivitas_donasi','field'=>'id_aktivitas_donasi','length'=> 13,'prefix'=>'AKTV-'.date('ym'),
+                'reset_on_prefix_change'=>true
             ];
             $id = IdGenerator::generate($config);
 
         $data = $request->all();
-        $data['id_aktivitas_donasi']= $id.mt_rand(0,100);
+        $data['id_aktivitas_donasi']= $id;
         $data['foto_aktivitas'] = $request->file('foto_aktivitas')->store(
             'assets/gallery', 'public'
         );

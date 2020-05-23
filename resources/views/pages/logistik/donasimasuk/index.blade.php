@@ -20,7 +20,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="tableDonasi" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>ID Donasi</th>
@@ -93,5 +93,11 @@
                 $('#' + $(this).val()).show();
             });
         });
+
+        $(document).ready(function() {
+            $('#tableDonasi').DataTable( {
+                "order": [[ 0, "desc" ]]
+            } );
+        } );
     </script>
     @endpush

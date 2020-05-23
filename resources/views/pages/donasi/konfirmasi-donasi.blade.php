@@ -37,7 +37,7 @@
                         </a>
                         <p class="accordion-content">1. Tulis ID Donasi Yang terlihat di kolom ID Donasi di kotak/dus/box donasi yang ingin anda
                             kirimkan <br>
-                            2. Kirim Ke Alamat Jl. Kedoya no 200 Jakarta Barat atas Nama BPBD Jakarta <br>
+                            2. Kirim Ke Alamat Jl. Kyai Haji Zainul Arifin No.71, Kecamatan Gambir, Kota Jakarta Pusat atas Nama BPBD Jakarta <br>
                             3. Upload Bukti foto barang yang anda ingin donasikan (ID Donasi harus terlihat)</p>
                     </li>
                     <li class="accordion-item">

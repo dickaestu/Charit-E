@@ -17,7 +17,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="tableBarang" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>ID Barang Masuk</th>
@@ -38,7 +38,7 @@
                         <td>{{$item->id_barang_masuk}}</td>
                         <td>{{$item->id_donasi}}</td>
                         <td>{{$item->tanggal_barang_masuk}}</td>
-                        <td>{{$item->donasi->user->name}}</td>
+                        <td>{{$item->donasi->nama_donatur}}</td>
                         <td>{{$item->stokbarang->nama_barang}}</td>
                         <td>{{$item->jumlah}}</td>
                         <td>{{$item->stokbarang->satuan}}</td>
@@ -71,6 +71,13 @@
 <script src="{{url('backend_assets/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
 
 <!-- Page level custom scripts -->
-<script src="{{url('backend_assets/js/demo/datatables-demo.js')}}"></script>
+<script>
+    $(document).ready(function() {
+    $('#tableBarang').DataTable( {
+        "order": [[ 2, "desc" ]]
+    } );
+} );
+
+</script>
 
 @endpush

@@ -18,7 +18,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="tableUang" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>ID Uang Masuk</th>
@@ -35,7 +35,7 @@
                             <td>{{$item->id_uang_masuk}}</td>
                             <td>{{$item->id_donasi}}</td>
                             <td>{{Carbon\Carbon::create($item->tanggal_masuk)->format('d - m - Y')}}</td>
-                            <td>{{$item->donasi->user->name}}</td>
+                            <td>{{$item->donasi->nama_donatur}}</td>
                             <td>@currency($item->nominal)</td>
                         </tr>
                         @empty
@@ -64,7 +64,13 @@
 <script src="{{url('backend_assets/vendor/datatables/jquery.dataTables.min.js')}}"></script>
 <script src="{{url('backend_assets/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
 
-<!-- Page level custom scripts -->
-<script src="{{url('backend_assets/js/demo/datatables-demo.js')}}"></script>
+<script>
+    $(document).ready(function() {
+    $('#tableUang').DataTable( {
+        "order": [[ 2, "desc" ]]
+    } );
+} );
+
+</script>
 
 @endpush

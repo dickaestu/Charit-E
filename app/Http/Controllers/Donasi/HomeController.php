@@ -16,7 +16,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $items = AktivitasDonasi::with(['info_posko.jenis_bencana'])->get();
+        $items = AktivitasDonasi::with(['info_posko.jenis_bencana','info_posko.user'])->get();
         // foreach($items as $item){
         //    $donasi =  Donasi::with('aktivitasdonasi')->where('id_aktivitas_donasi',$item->id_aktivitas_donasi)->get();
         //    foreach($donasi as $d){

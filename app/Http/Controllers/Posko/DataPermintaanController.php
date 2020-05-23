@@ -24,7 +24,7 @@ class DataPermintaanController extends Controller
     public function index(Request $request)
     {
         $infoposko = InfoPosko::where('user_id', Auth::user()->user_id)->get();
-        $items = PermintaanBarang::with(['infoposko','pengirimanbarang'])->get();
+        $items = PermintaanBarang::with(['infoposko.jenis_bencana','pengirimanbarang'])->get();
 
         return view('pages.posko.datapermintaan.index',[
             'items'=>$items,
@@ -39,10 +39,11 @@ class DataPermintaanController extends Controller
         $infoposko = InfoPosko::where('user_id', Auth::user()->user_id)->get();
         $stokbarang = StokBarang::where('quantity','>', 0)->get();
         $config=[
-            'table'=>'permintaan_barang','field'=>'id_permintaan_barang','length'=> 8,'prefix'=>'REQ-'
+            'table'=>'permintaan_barang','field'=>'id_permintaan_barang','length'=> 12,'prefix'=>'REQ-'.date('ym'),
+            'reset_on_prefix_change'=>true
         ];
         $id_permintaan = IdGenerator::generate($config);  
-        $id = $id_permintaan.mt_rand(1,99).Auth::user()->user_id;
+        $id = $id_permintaan.mt_rand(10,99).Auth::user()->user_id;
      
         
         return view('pages.posko.datapermintaan.tambah',[
@@ -84,7 +85,8 @@ class DataPermintaanController extends Controller
 
 
         $config=[
-            'table'=>'detail_permintaan_barang','field'=>'id_detail_permintaan_barang','length'=> 7,'prefix'=>'DP-'
+            'table'=>'detail_permintaan_barang','field'=>'id_detail_permintaan_barang','length'=> 14,'prefix'=>'REQD-'.date('ym'),
+            'reset_on_prefix_change'=>true
         ];
         $id_detail = IdGenerator::generate($config);  
 
@@ -93,7 +95,7 @@ class DataPermintaanController extends Controller
             foreach ($request->id_stok_barang as $item=>$v)
             {
                 $detail[] = array(
-                    'id_detail_permintaan_barang' => $id_detail.mt_rand(10,99).Auth::user()->user_id, 
+                    'id_detail_permintaan_barang' => $id_detail.mt_rand(10,99).(Auth::user()->user_id + mt_rand(10,99)), 
                     'id_permintaan_barang' => $id_permintaan,
                     'id_stok_barang' => $request->id_stok_barang[$item],
                     'jumlah' => $request->jumlah[$item],

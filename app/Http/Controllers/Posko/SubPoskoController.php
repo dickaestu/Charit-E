@@ -24,12 +24,7 @@ class SubPoskoController extends Controller
                 return view('pages.posko.subposko.index', [
                     'items'=>$items,
                     'infoposko'=> $infoposko
-                ]);
-
-                
-
-              
-            
+                ]);         
       
     }
 
@@ -57,8 +52,8 @@ class SubPoskoController extends Controller
     {
          $request->validate([
             'id_info_posko'=>['required'],
-            'nama_sub_posko'=>['required','max:255','string'],
-            'nama_penanggung_jawab'=>['required','string','max:255'],
+            'nama_sub_posko'=>['required','max:50','string'],
+            'nama_penanggung_jawab'=>['required','string','max:100'],
         ],[
             'id_info_posko.required'=> 'Tidak boleh kosong',
             'nama_sub_posko.required'=> 'Nama sub posko tidak boleh kosong',
@@ -66,29 +61,20 @@ class SubPoskoController extends Controller
         ]);
 
         $config=[
-                'table'=>'sub_posko','field'=>'id_sub_posko','length'=> 10,'prefix'=>'SUB-'
+                'table'=>'sub_posko','field'=>'id_sub_posko','length'=> 12,'prefix'=>'SUB-'.date('ym'),
+            'reset_on_prefix_change'=>true
             ];
             $id = IdGenerator::generate($config);
 
 
             $data = $request->all();
-            $data['id_sub_posko']= $id.mt_rand(1,100).Auth::user()->user_id;
+            $data['id_sub_posko']= $id.Auth::user()->user_id;
     
             SubPosko::create($data);
     
         return redirect('posko/sub-posko')->with('sukses','Data Berhasil Ditambahkan');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.

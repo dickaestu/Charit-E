@@ -23,9 +23,11 @@ class KonfirmasiDonasiController extends Controller
         $id_aktivitas = AktivitasDonasi::findOrFail($id);
 
         $config=[
-            'table'=>'donasi','field'=>'id_donasi','length'=> 10,'prefix'=>'DNS-'
+            'table'=>'donasi','field'=>'id_donasi','length'=> 15,'prefix'=>'DNS-'.date('ym'),
+            'reset_on_prefix_change'=>true
         ];
-        $id = IdGenerator::generate($config).mt_rand(1,1000).Auth::user()->user_id;
+        $id_donasi = IdGenerator::generate($config);
+        $id = $id_donasi.Auth::user()->user_id;
 
         $item = Auth::user();
         return view('pages.donasi.konfirmasi-donasi',[
@@ -69,7 +71,7 @@ class KonfirmasiDonasiController extends Controller
             'keterangan_donasi'=> $request->keterangan_donasi,
             'foto_bukti'=>$request->file('foto_bukti')->store(
                 'assets/gallery', 'public'),
-            'tanggal_donasi'=> Carbon::now()->format('Y-m-d H:i:s')
+            'tanggal_donasi'=> Carbon::now()
         ]);
 
         return  redirect()->route('sukses',$id);

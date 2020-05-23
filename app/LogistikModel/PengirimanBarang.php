@@ -29,6 +29,6 @@ class PengirimanBarang extends Model
     }
 
     public function penerimaanbarang(){
-        return $this->hasOne(PenerimaanBarang::class, 'id_penerimaan_barang', 'id_penerimaan_barang');
+        return $this->hasOne(PenerimaanBarang::class, 'id_pengiriman_barang', 'id_pengiriman_barang');
     }
 }

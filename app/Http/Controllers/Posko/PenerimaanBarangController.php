@@ -28,10 +28,11 @@ class PenerimaanBarangController extends Controller
             $stok = StokBarang::all();
 
             $config=[
-                'table'=>'penerimaan_barang','field'=>'id_penerimaan_barang','length'=> 10,'prefix'=>'CONF-'
+                'table'=>'penerimaan_barang','field'=>'id_penerimaan_barang','length'=> 12,'prefix'=>'RCV-'.date('ym'),
+                'reset_on_prefix_change'=>true
             ];
             $id_penerimaan = IdGenerator::generate($config);  
-            $id = $id_penerimaan.mt_rand(10,99).Auth::user()->user_id;
+            $id = $id_penerimaan.Auth::user()->user_id;
 
             $id_permintaan= $id_permintaan;
         
@@ -68,7 +69,8 @@ class PenerimaanBarangController extends Controller
         $data->save();
 
         $config=[
-            'table'=>'detail_penerimaan_barang','field'=>'id_detail_penerimaan_barang','length'=> 9,'prefix'=>'DT-'
+            'table'=>'detail_penerimaan_barang','field'=>'id_detail_penerimaan_barang','length'=> 12,'prefix'=>'D-RCV-'.date('ym'),
+            'reset_on_prefix_change'=>true
         ];
         $id_detail = IdGenerator::generate($config);  
 
@@ -77,7 +79,7 @@ class PenerimaanBarangController extends Controller
             foreach ($request->id_stok_barang as $item=>$v)
             {
                 $detail[] = array(
-                    'id_detail_penerimaan_barang' => $id_detail.mt_rand(10,99).Auth::user()->user_id, 
+                    'id_detail_penerimaan_barang' => $id_detail.mt_rand(10,99).(Auth::user()->user_id+ mt_rand(10,99)), 
                     'id_penerimaan_barang' => $id,
                     'id_stok_barang' => $request->id_stok_barang[$item],
                     'jumlah_penerimaan' => $request->jumlah[$item],
