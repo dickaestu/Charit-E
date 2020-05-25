@@ -28,12 +28,7 @@ class DetailDonaturController extends Controller
         $permintaan = PermintaanBarang::with('pengirimanbarang.detailpengirimanbarang')
         ->where('id_info_posko',$item->id_info_posko)->where('status_pengiriman',true)->get();
      
-      // foreach($permintaan as $req){
-
-      //     $pengiriman = PengirimanBarang::with('detailpengirimanbarang')
-      //     ->where('id_permintaan_barang',$req->id_permintaan_barang)->get();
-      
-      //   }
+     
 
             return view('pages.donasi.detaildonatur',[  
                 'item'=> $item,

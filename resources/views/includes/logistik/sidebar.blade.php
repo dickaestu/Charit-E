@@ -64,10 +64,10 @@
     </li>
 
      <!-- Nav Item - Transaksi Pemasukan -->
-     <li class="nav-item {{Request::is('logistik/transaksi-pemasukan') ? ' active' : '' }}">
-      <a class="nav-link" href="{{route('transaksi-pemasukan-logistik')}}">
+     <li class="nav-item {{Request::is('logistik/data-pengeluaran-uang') ? ' active' : '' }}">
+      <a class="nav-link" href="{{route('data-pengeluaran-logistik')}}">
         <i class="fas fa-truck"></i>
-        <span>Transaksi Pemasukan</span></a>
+        <span>Data Pengeluaran Uang</span></a>
     </li>
 
    
