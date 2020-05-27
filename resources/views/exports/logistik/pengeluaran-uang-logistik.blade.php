@@ -38,43 +38,36 @@
 	
  <header style="margin-top: 70px;">
     <img style="margin-left:70px" src="{{ltrim(public_path('donasi_assets/assets/img/logo.png'),'/')}}" height="auto" width="120">
-    <h2 style="text-align:center; margin-top:-30px">Laporan Uang Masuk</h2> 
+    <h2 style="text-align:center; margin-top:-30px">Laporan Pengeluaran Uang</h2> 
 </header>
     
 
-<table style="margin-bottom: 10px; margin-top:20px;" cellpadding="5">
-    <tbody>
-        <tr><th>Per Tanggal</th><td>:</td><td>{{ \Carbon\Carbon::create($startDate)->format('d / m / Y') }}
-        - {{ \Carbon\Carbon::create($endDate)->format('d / m / Y') }}</td></tr>
-    </tbody>
-</table>
 
-<table style="text-align: center; margin-top: 10px;" border="1" cellspacing="0" cellpadding="8" width="100%">
+
+<table style="text-align: center; margin-top: 40px;" border="1" cellspacing="0" cellpadding="8" width="100%">
     <thead>
         <tr>
-            <th>ID Uang Masuk</th>
-            <th>ID Donasi</th>
-            <th>Tanggal Masuk</th>
-            <th>Nama</th>
-            <th>Nominal</th>
+            <th>ID Pengeluaran</th>
+            <th>Tanggal Pengeluaran</th>
+            <th>Keterangan Pengeluaran</th>
+            <th>Total Pengeluaran</th>
         </tr>
     </thead>
     <tbody>
        @foreach ($items as $item)
            
             <tr>
-                <td>{{ $item->id_uang_masuk }}</td>
-                <td>{{ $item->id_donasi }}</td>
-                <td>{{\Carbon\Carbon::create( $item->tanggal_masuk)->format('d - m - Y')}}</td>
-                <td>{{ $item->donasi->nama_donatur }}</td>
-                <td>@currency($item->nominal)</td>
+                <td>{{ $item->id_pengeluaran_uang }}</td>
+                <td>{{\Carbon\Carbon::create( $item->tanggal_pengeluaran)->format('d - m - Y')}}</td>
+                <td>{{ $item->keterangan_pengeluaran }}</td>
+                <td>@currency($total_pengeluaran)</td>
             </tr>
         
        @endforeach
        <tr>
-        <td align="center" colspan="4">Sub Total</td>
-        <td>@currency($total)</td>
-    </tr>
+           <td align="center" colspan="3">Sub Total</td>
+           <td>@currency($total)</td>
+       </tr>
        
     </tbody>
 </table>    
@@ -92,7 +85,5 @@
 
 </body>
 </html>
-
-
 
 

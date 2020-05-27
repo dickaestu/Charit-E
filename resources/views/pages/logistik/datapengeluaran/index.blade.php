@@ -15,6 +15,16 @@
       </div>    
     @endif
 
+    <a href="{{route('tambah-pengeluaran')}}" class="btn btn-sm btn-primary shadow-sm mb-4">
+        <i class="fas fa-plus fa-sm text-white-50"></i> Tambah Pengeluaran</a>
+
+    <table cellpadding="8" class="table-responsive table-borderless mb-3">
+        <tr>
+            <th>Total Pengeluaran </th>
+            <td>:</td>
+            <td style="font-size:20px" class="text-dark">@currency($total)</td>
+        </tr>
+    </table>        
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -25,18 +35,26 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>ID Pengiriman</th>
-                            <th>Tanggal Pengiriman</th>
-                            <th>Nama Posko</th>
-                            <th>Alamat Posko</th>
-                            <th>Bencana</th>
-                            <th>Lokasi Bencana</th>
-                            <th>Aksi</th>
+                            <th>ID Pengeluaran</th>
+                            <th>Tanggal Pengeluaran</th>
+                            <th>Keterangan Pengeluaran</th>
+                            <th>Total Pengeluaran</th>
+                            <th>Detail Pengeluaran</th>
 
                         </tr>
                     </thead>
                     <tbody>
-                  
+                        @foreach ($items as $item)
+                            <tr>
+                                <td>{{ $item->id_pengeluaran_uang }}</td>
+                                <td>{{ Carbon\Carbon::create($item->tanggal_pengeluaran)->format('d - m - Y') }}</td>
+                                <td>{{ $item->keterangan_pengeluaran }}</td>
+                                <td>@currency($item->total_pengeluaran)</td>
+                                <td class="text-center"> 
+                                    <a class="btn btn-sm btn-info" href="{{ route('detail-pengeluaran-logistik',$item->id_pengeluaran_uang) }}">Lihat Detail</a>
+                                </td>
+                            </tr>
+                        @endforeach
 
                     </tbody>
                 </table>

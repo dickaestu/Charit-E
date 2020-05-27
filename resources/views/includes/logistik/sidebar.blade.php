@@ -64,7 +64,7 @@
     </li>
 
      <!-- Nav Item - Transaksi Pemasukan -->
-     <li class="nav-item {{Request::is('logistik/data-pengeluaran-uang') ? ' active' : '' }}">
+     <li class="nav-item {{Request::is('logistik/data-pengeluaran') ? ' active' : '' }}">
       <a class="nav-link" href="{{route('data-pengeluaran-logistik')}}">
         <i class="fas fa-truck"></i>
         <span>Data Pengeluaran Uang</span></a>
@@ -75,7 +75,7 @@
     <li class="nav-item {{Request::is('logistik/laporan-permintaan',
     'logistik/laporan-donasi-masuk','logistik/laporan-uang-donasi',
     'logistik/laporan-stok-barang','logistik/laporan-pengiriman',
-    'logistik/laporan-barang-masuk') ? ' active' : '' }}">
+    'logistik/laporan-barang-masuk', 'logistik/laporan-pengeluaran-uang') ? ' active' : '' }}">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLaporan"
         aria-expanded="true" aria-controls="collapseLaporan">
         <i class="fas fa-list"></i>
@@ -90,6 +90,7 @@
           <a class="collapse-item {{Request::is('logistik/laporan-pengiriman') ? ' active' : '' }}" href="{{route('laporan-pengiriman-logistik')}}">Pengiriman</a>
          
           <a class="collapse-item {{Request::is('logistik/laporan-barang-masuk') ? ' active' : '' }}" href="{{route('laporan-barang-masuk-logistik')}}">Barang Masuk</a>
+          <a class="collapse-item {{Request::is('logistik/laporan-pengeluaran-uang') ? ' active' : '' }}" href="{{route('laporan-pengeluaran-uang-logistik')}}">Pengeluaran Uang</a>
         </div>
       </div>
     </li>

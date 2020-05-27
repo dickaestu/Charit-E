@@ -10,7 +10,13 @@
    <div class="container-fluid">
 
 
-
+    <table cellpadding="8" class="table-responsive table-borderless mb-3">
+        <tr>
+            <th>Total Uang Masuk </th>
+            <td>:</td>
+            <td style="font-size:20px" class="text-dark">@currency($total)</td>
+        </tr>
+    </table>   
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">

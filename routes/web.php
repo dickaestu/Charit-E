@@ -193,6 +193,7 @@ use Illuminate\Support\Facades\Route;
       Route::get('/data-uang-donasi', 'DataUangDonasiController@index')
             ->name('data-uang-donasi-logistik');
       Route::resource('data-stok-barang', 'StokBarangController');
+      
     
       Route::get('/data-barang-masuk', 'DataBarangMasukController@index')
             ->name('data-barang-masuk-logistik');
@@ -214,6 +215,12 @@ use Illuminate\Support\Facades\Route;
      
       Route::get('/data-pengeluaran', 'DataPengeluaranUangController@index')
             ->name('data-pengeluaran-logistik');
+      Route::get('/data-pengeluaran/tambah', 'DataPengeluaranUangController@tambah')
+            ->name('tambah-pengeluaran');
+      Route::post('/data-pengeluaran/create', 'DataPengeluaranUangController@create')
+            ->name('create-pengeluaran-uang');
+      Route::get('/data-pengeluaran/{id}', 'DataPengeluaranUangController@detail')
+            ->name('detail-pengeluaran-logistik');     
       Route::get('/laporan-permintaan', 'LapPermintaanController@index')
             ->name('laporan-permintaan-logistik');
       Route::get('/laporan-donasi-masuk', 'LapDonasiMasukController@index')
@@ -228,6 +235,8 @@ use Illuminate\Support\Facades\Route;
             ->name('laporan-pembelian-logistik');
       Route::get('/laporan-barang-masuk', 'LapBarangMasukController@index')
             ->name('laporan-barang-masuk-logistik');
+      Route::get('/laporan-pengeluaran-uang', 'LapPengeluaranUangController@index')
+            ->name('laporan-pengeluaran-uang-logistik');
 
 
 
@@ -244,6 +253,8 @@ use Illuminate\Support\Facades\Route;
             ->name('export-stok-barang');      
       Route::get('/export-pdf-barang-masuk','LapBarangMasukController@export')
             ->name('export-barang-masuk');   
+      Route::get('/export-pdf-pengeluaran-uang','LapPengeluaranUangController@export')
+            ->name('export-pengeluaran-uang');  
 
         // Export PDF berdasarkan bulan
       Route::post('/export-pdf-donasi-masuk-bulan','DonasiMasukController@exportBulan')
@@ -256,12 +267,16 @@ use Illuminate\Support\Facades\Route;
             ->name('export-uang-masuk-bulan');
       Route::post('/export-pdf-barang-masuk-bulan','LapBarangMasukController@exportBulan')
             ->name('export-barang-masuk-bulan');
+      Route::post('/export-pdf-pengeluaran-uang-bulan','LapPengeluaranUangController@exportBulan')
+            ->name('export-pengeluaran-uang-bulan');
       
       // Export Detail
       Route::get('/export-detail-permintaan/{id}','LapPermintaanController@exportDetail')
       ->name('print-detail-permintaan');
       Route::get('/export-detail-pengiriman/{id}','LapPengirimanController@exportDetail')
       ->name('print-detail-pengiriman');
+      Route::get('/export-detail-pengeluaran/{id}','LapPengeluaranUangController@exportDetail')
+      ->name('print-detail-pengeluaran');
 
       // Export Lain-lain
       Route::post('/export-donasi-masuk-bencana','DonasiMasukController@exportBencana')
@@ -291,6 +306,10 @@ use Illuminate\Support\Facades\Route;
       Route::get('getbarangmasuk',[
             'uses'=>'LapBarangMasukController@getbarangmasuk',
             'as'=>'ajax.barang.masuk'
+      ]); 
+      Route::get('getpengeluaran',[
+            'uses'=>'LapPengeluaranUangController@getpengeluaran',
+            'as'=>'ajax.pengeluaran'
       ]); 
       }); 
 

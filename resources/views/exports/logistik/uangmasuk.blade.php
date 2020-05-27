@@ -65,6 +65,10 @@
             </tr>
         
        @endforeach
+       <tr>
+        <td align="center" colspan="4">Sub Total</td>
+        <td>@currency($total)</td>
+    </tr>
        
     </tbody>
 </table>    

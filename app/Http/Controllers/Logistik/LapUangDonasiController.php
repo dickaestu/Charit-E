@@ -40,7 +40,8 @@ class LapUangDonasiController extends Controller
     public function export()
     {
         $items = UangMasuk::with('donasi')->get();
-        $pdf = PDF::loadView('exports.logistik.uangmasuk',['items'=>$items]);
+        $total = UangMasuk::with('donasi')->sum('nominal');
+        $pdf = PDF::loadView('exports.logistik.uangmasuk',['items'=>$items,'total'=>$total]);
         return $pdf->download('uangmasuk.pdf');
 
     }
@@ -50,10 +51,12 @@ class LapUangDonasiController extends Controller
         $startDate =  Carbon::create($request->from)->format('Y-m-d');
         $endDate   = Carbon::create($request->to)->format('Y-m-d') ;
         $items = UangMasuk::with('donasi')->whereBetween('tanggal_masuk',[$startDate,$endDate])->get();
+        $total = UangMasuk::with('donasi')->whereBetween('tanggal_masuk',[$startDate,$endDate])->sum('nominal');
         $pdf = PDF::loadView('exports.logistik.uangmasuk-bulan',[
             'items'=>$items,
             'startDate'=>$startDate,
-            'endDate'=>$endDate
+            'endDate'=>$endDate,
+            'total'=>$total
             ]);
         return $pdf->download('uangmasuk.pdf');
 
