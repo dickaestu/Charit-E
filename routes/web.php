@@ -17,6 +17,10 @@ use Illuminate\Support\Facades\Route;
       ->name('home');
       Route::get('/bantuan', 'Donasi\HomeController@bantuan')
       ->name('bantuan');
+      Route::get('/settings/{id}', 'SettingsController@settings')
+      ->name('settings');
+      Route::post('/update-settings/{id}', 'SettingsController@updateSettings')
+      ->name('update-settings');
 
       Route::middleware(['auth','user'])->group(function () {
       Route::resource('detail-donasi', 'Donasi\DetailDonasiController');

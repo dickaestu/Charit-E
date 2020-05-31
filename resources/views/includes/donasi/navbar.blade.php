@@ -42,11 +42,14 @@
                                     <a href="#" class="nav-link dropdown-toggle">Akun</a>
                                     <ul class="dropdown-menu">
                                         <li class="nav-item">
-                                        <form action="{{url('logout')}}" method="POST">  
-                                            @csrf  
-                                            <button type="submit" class="nav-link btn">logout</button>
+                                         <a href="{{ route('settings',Auth::user()->user_id) }}" class="nav-link btn text-left">Settings</a>
                                         </li>
-                                    </form>
+                                        <li class="nav-item">
+                                        <form class="ml-2" action="{{url('logout')}}" method="POST">  
+                                            @csrf  
+                                            <button type="submit" class="nav-link btn">Log out</button>
+                                        </form>
+                                        </li>
                                     </ul>
                                 </li>
                                

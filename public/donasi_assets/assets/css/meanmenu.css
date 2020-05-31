@@ -60,6 +60,19 @@
 	border-top: 1px solid #DBEEFD;
 	text-decoration: none;
 }
+
+.mean-container .mean-nav ul li button {
+	display: block;
+	float: left;
+	width: 90%;
+	padding: 1em 5%;
+	margin: 0;
+	text-align: left;
+	color: #677294;
+    text-decoration: none;
+    margin-left: 22px;
+    margin-top: -20px;
+}
 .mean-container .mean-nav ul li a.active {
 	color: #000000;
 }

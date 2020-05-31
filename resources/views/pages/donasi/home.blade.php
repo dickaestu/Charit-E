@@ -1,12 +1,14 @@
 @extends('layouts.donasi.donasi')
 @section('title','Charit-E')
 @section('content')
-    
-
 <!-- Start Banner Area -->
 <section class="banner-area">
     <div class="container">
         <div class="banner-wrap">
+            @if (session('sukses'))
+            <div class="alert alert-success">
+                {{ session('sukses') }}</div>
+            @endif
             <div class="row align-items-center m-0">
                 <div class="col-lg-6 p-0">
                     <div class="banner-text">

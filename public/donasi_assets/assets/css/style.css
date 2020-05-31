@@ -695,7 +695,18 @@ Navbar Area Style
   font-weight: 600;
 }
 
+.nivo-nav-one .main-nav nav .navbar-nav .nav-item button {
+  font-size: 14px;
+  text-transform: capitalize;
+  color: #7982a8;
+  font-weight: 600;
+}
+
 .nivo-nav-one .main-nav nav .navbar-nav .nav-item a:hover {
+  color: #e22b64;
+}
+
+.nivo-nav-one .main-nav nav .navbar-nav .nav-item button:hover {
   color: #e22b64;
 }
 
@@ -714,6 +725,7 @@ Navbar Area Style
   color: #7982a8;
   padding: 6px 15px;
 }
+
 
 .nivo-nav-one .main-nav nav .navbar-nav .nav-item .dropdown-menu li a:hover {
   color: #e22b64;
