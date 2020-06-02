@@ -51,9 +51,7 @@
 							<h3>Mulai Donasi</h3>
 							<p>Isi form yang tersedia dan pilih jenis donasi apa yang diinginkan, pastikan anda membaca ketentuan donasi dari setiap jenis donasi untuk menghindari kesalahan</p>
 						</div>
-						<a class="default-btn" href="#">
-							Get Started
-						</a>
+						
 					</div>
 				</div>
 			</div>

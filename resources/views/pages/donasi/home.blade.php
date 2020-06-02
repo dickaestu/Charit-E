@@ -170,7 +170,7 @@
                 </div>
                 
  
-                <a class="read-more mt-4" href="{{route('detail-donasi.index')}}">Detail Donasi</a>
+                <a class="read-more mt-4" href="{{route('detail-donasi.index')}}">Lihat Info</a>
             </div>
         </div>      
           @endforeach    

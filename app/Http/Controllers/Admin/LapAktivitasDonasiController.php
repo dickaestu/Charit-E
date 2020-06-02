@@ -74,15 +74,14 @@ class LapAktivitasDonasiController extends Controller
     {
         $jenis_bencana = JenisBencana::findOrFail($request->id_jenis_bencana);
         $info = InfoPosko::where('id_jenis_bencana',$request->id_jenis_bencana)->get();
-        foreach($info as $posko){
-            $items = AktivitasDonasi::with(['info_posko.jenis_bencana','info_posko.user','donasi'])
-            ->where('id_info_posko',$posko->id_info_posko)->get();
+
             $pdf = PDF::loadView('exports.admin.aktivitas-donasi-bencana',[
-                'items'=>$items,
+                'info'=>$info,
                 'jenis_bencana'=>$jenis_bencana
                 
                 ]);
             return $pdf->download('Aktivitas_Donasi.pdf');
-        }
+        
+  
     }
 }

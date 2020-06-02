@@ -15,10 +15,7 @@
                 color: #000;
             }
     
-        header {
-                position: fixed;
-                margin-top: 30px;
-            }
+      
         table tr th{
             font-size: 15px;
         }
@@ -37,13 +34,13 @@
 </head>
 <body>
 	
- <header style="margin-top: 70px">
-    <img style="margin-left:70px" src="{{ltrim(public_path('donasi_assets/assets/img/logo.png'),'/')}}" height="auto" width="120">
-    <h2 style="text-align:center; margin-top:-30px">Laporan Info Posko</h2> 
-</header>
-	
+    <div>
+        <img style="" src="{{ltrim(public_path('donasi_assets/assets/img/logo.png'),'/')}}" height="auto" width="120">
+        <h2 style="text-align:center; margin-top:-30px">Laporan Penerimaan Logistik</h2> 
+    </div>
+        
 
-<table style="margin-bottom: 10px; margin-top:20px;" cellpadding="5">
+<table style="margin-bottom: 10px; margin-top:50px;" cellpadding="5">
     <tbody>
         <tr><th>Nama Bencana</th><td>:</td><td>{{ $jenis_bencana->nama_bencana }}</td></tr>
     </tbody>
@@ -63,28 +60,53 @@
         </tr>
     </thead>
     <tbody>
-       @foreach ($items as $item)
-           
-       <tr>
-        <td>{{ $item->id_aktivitas_donasi }}</td>
-        <td>{{\Carbon\Carbon::create( $item->info_posko->tanggal_kejadian)->format('d - m - Y')}}</td>
-        <td>{{ $item->info_posko->user->name }}</td>
-        <td>{{ $item->info_posko->jenis_bencana->nama_bencana }}</td>
-        <td>{{ $item->info_posko->lokasi_bencana }}</td>
-        <td>@currency(\App\Donasi::where('status_verifikasi', true)->where('id_aktivitas_donasi',$item->id_aktivitas_donasi)->where('jenis_donasi','uang')->sum('keterangan_donasi'))</td>
-        <td>{{\App\Donasi::where('status_verifikasi', true)->where('id_aktivitas_donasi',$item->id_aktivitas_donasi)->where('jenis_donasi','pokok')->count()}}</td>
-        <td>{{\App\Donasi::where('status_verifikasi', true)->where('id_aktivitas_donasi',$item->id_aktivitas_donasi)->count()}}</td>
-    </tr>
-        
-       @endforeach
+    @foreach ($info as $i)   
+       @foreach (App\AdminModel\AktivitasDonasi::with(['info_posko.jenis_bencana','info_posko.user','donasi'])
+            ->where('id_info_posko',$i->id_info_posko)->get() as $item)
+        <tr>
+            <td>{{ $item->id_aktivitas_donasi }}</td>
+            <td>{{\Carbon\Carbon::create( $item->info_posko->tanggal_kejadian)->format('d - m - Y')}}</td>
+            <td>{{ $item->info_posko->user->name }}</td>
+            <td>{{ $item->info_posko->jenis_bencana->nama_bencana }}</td>
+            <td>{{ $item->info_posko->lokasi_bencana }}</td>
+            <td>@currency(\App\Donasi::where('status_verifikasi', true)->where('id_aktivitas_donasi',$item->id_aktivitas_donasi)->where('jenis_donasi','uang')->sum('keterangan_donasi'))</td>
+            <td>{{\App\Donasi::where('status_verifikasi', true)->where('id_aktivitas_donasi',$item->id_aktivitas_donasi)->where('jenis_donasi','pokok')->count()}}</td>
+            <td>{{\App\Donasi::where('status_verifikasi', true)->where('id_aktivitas_donasi',$item->id_aktivitas_donasi)->count()}}</td>
+        </tr>
+        @endforeach
+    @endforeach
        
     </tbody>
 </table>
-<p style="text-align: right; margin-top:60px">Jakarta, {{ \Carbon\Carbon::now()->format('d - m - Y') }}</p>
-<p style="text-align: right; margin-right:45px">Mengetahui,</p>
-<p style="text-align: right; margin-right:60px;margin-top:-10px">Pimpinan</p>
-<p style="text-align: right; margin-right:5px; margin-top:60px">..................................</p>
-
+<table style="margin-top: 30px" width="640px">
+    <tr>
+        <td align="right">Jakarta, {{ \Carbon\Carbon::now()->format('d - m - Y') }}</td>
+    </tr>
+    <tr>
+        <td align="right"><span style="margin-right:45px">Mengetahui,</span></td>
+    </tr>
+    <tr>
+        <td align="right"><span style="margin-right:60px">Pimpinan</span></td>
+    </tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr>
+        <td align="right"><span style="margin-right:5px;">.................................. </span> 
+       </td>
+    </tr>
+</table>
 </body>
 </html>
 

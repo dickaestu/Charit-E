@@ -15,9 +15,7 @@
                 color: #000;
             }
     
-        header {
-                position: fixed;
-            }
+      
         table tr th{
             font-size: 15px;
         }
@@ -36,10 +34,11 @@
 </head>
 <body>
 	
- <header style="margin-top: 70px;">
-    <img style="margin-left:70px" src="{{ltrim(public_path('donasi_assets/assets/img/logo.png'),'/')}}" height="auto" width="120">
-    <h2 style="text-align:center; margin-top:-30px">Laporan Detail Pengeluaran Uang</h2> 
-</header>
+    <div>
+        <img style="" src="{{ltrim(public_path('donasi_assets/assets/img/logo.png'),'/')}}" height="auto" width="120">
+        <h2 style="text-align:center; margin-top:-30px">Laporan Detail Pengeluaran Uang</h2> 
+    </div>
+        
     
 
 <table style="margin-bottom: 10px;margin-top: 50px" cellpadding="5">
@@ -79,13 +78,36 @@
     </tr>
     </tbody>
 </table>    
-<p style="float: right; margin-top:100px;margin-right:10px">Jakarta, {{ \Carbon\Carbon::now()->format('d - m - Y') }}</p>
-<p style="text-align: left;margin-top:33px">Mengetahui, <span style="float: right;margin-right:30px">Dilaporkan Oleh,</span> </p>
-<p style="text-align: left;margin-top:-10px">Pimpinan <span style="float: right; margin-right:70px">Logistik</span> </p>
-<p style="text-align: left; margin-top:60px;margin-bottom:-400px">..................................  
-    <span style="float: right; margin-right:10px">..................................</span></p>
 
-  
+<table style="margin-top: 30px" width="640px">
+    <tr>
+        <td align="right">Jakarta, {{ \Carbon\Carbon::now()->format('d - m - Y') }}</td>
+    </tr>
+    <tr>
+        <td align="left">Mengetahui, <span style="margin-left:465px">Dilaporkan Oleh,</span></td>
+    </tr>
+    <tr>
+        <td align="left">Pimpinan <span style="margin-left:485px">Logistik</span></td>
+    </tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr>
+        <td align="left">.................................. 
+            <span style="margin-left:420px">..................................</span></td>
+    </tr>
+</table>
 
 </body>
 </html>
