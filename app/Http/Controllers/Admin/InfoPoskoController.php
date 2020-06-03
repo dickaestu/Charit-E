@@ -21,7 +21,7 @@ class InfoPoskoController extends Controller
     public function index()
     {
       
-        $items = JenisBencana::all();
+        $items = JenisBencana::withTrashed()->get();
         return view('pages.admin.datainfoposko.index',['jenis_bencana'=>$items]);
     }
 
@@ -92,7 +92,7 @@ class InfoPoskoController extends Controller
     
     public function exportBencana(Request $request)
     {
-        $jenis_bencana = JenisBencana::findOrFail($request->id_jenis_bencana);
+        $jenis_bencana = JenisBencana::withTrashed()->findOrFail($request->id_jenis_bencana);
         $items = InfoPosko::with('subposko','jenis_bencana','user')->where('id_jenis_bencana',$request->id_jenis_bencana)->get();
         $pdf = PDF::loadView('exports.admin.info-posko-bencana',['items'=>$items,'jenis_bencana'=>$jenis_bencana]);
         return $pdf->download('info-posko.pdf');
