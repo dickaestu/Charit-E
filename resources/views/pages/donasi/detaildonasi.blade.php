@@ -36,7 +36,7 @@
 
 			<div class="row">
 
-				@forelse ($items as $item)
+				@foreach($items as $item)
 				<div class="col-auto col-md-6">
 					<div class="card card-donasi mb-5 shadow-sm">
 						<img src="{{Storage::url($item->foto_aktivitas)}}" class="card-img-top">
@@ -84,22 +84,11 @@
 					<a href="{{route('konfirmasi-donasi',$item->id_aktivitas_donasi)}}" class="default-btn btn-donasi text-center">Mulai Donasi</a>
 				   </div>
 				</div>
-				@empty
-					
-				@endforelse
-
 			
-
-
-				
-
-
+					
+				@endforeach
 			</div>
 
-				
-				
-			
-				
 			</div>
 		</div>
 		<div class=" shape shape-1">

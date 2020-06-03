@@ -38,7 +38,7 @@
                                 <table class="table table-bordered" id="table_uang" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                        
+                                            <th>Tanggal Donasi</th>
                                             <th>Nama Donatur</th>
                                             <th>Jenis Donasi</th>
                                             <th>Nominal</th>
@@ -50,6 +50,7 @@
                                
                                         @foreach ($uang as $u)
                                         <tr>
+                                            <td>{{Carbon\Carbon::create($u->tanggal_donasi)->format('d-m-Y') }}</td>
                                             <td>{{$u->nama_donatur}}</td>
                                             <td>{{$u->jenis_donasi}}</td>
                                             <td class="text-right">@currency($u->keterangan_donasi)</td>
@@ -74,7 +75,7 @@
                                 <table class="table table-bordered" id="table_pokok" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                        
+                                            <th>Tanggal Donasi</th>
                                             <th>Nama Donatur</th>
                                             <th>Jenis Donasi</th>
                                             <th>Keterangan</th>
@@ -86,6 +87,7 @@
 
                                         @foreach ($barang as $b)
                                         <tr>
+                                            <td>{{Carbon\Carbon::create($b->tanggal_donasi)->format('d-m-Y') }}</td>
                                             <td>{{$b->nama_donatur}}</td>
                                             <td>{{$b->jenis_donasi}}</td>
                                             <td>{{$b->keterangan_donasi}}</td>

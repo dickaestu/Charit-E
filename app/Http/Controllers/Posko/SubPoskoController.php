@@ -17,9 +17,8 @@ class SubPoskoController extends Controller
      */
     public function index()
     {    
-
-
             $infoposko = InfoPosko::with('subposko')->where('user_id', Auth::user()->user_id)->get();
+         
                 $items = SubPosko::with('info_posko')->get();
                 return view('pages.posko.subposko.index', [
                     'items'=>$items,

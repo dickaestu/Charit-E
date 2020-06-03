@@ -45,9 +45,9 @@
                         </thead>
                         <tbody>
                        
-                        @foreach ($items as $item)
-                        @foreach ($infoposko as $info)
-                        @if ($item->id_info_posko == $info->id_info_posko)
+                    
+                        @foreach ($infoposko as $i)
+                        @foreach ($i->subposko as $item)
                         <tr>
                             <td>{{$loop->iteration}}</td>
                             <td>{{$item->info_posko->jenis_bencana->nama_bencana}}</td>
@@ -68,14 +68,7 @@
                                     </form>
                             </td>
                         </tr>
-                    
-                    
-                        
-
-                        @endif
-                            
                         @endforeach
-                       
                        
                         @endforeach
 
