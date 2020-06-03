@@ -63,13 +63,19 @@
                             <td>{{$item->satuan}}</td>
                             <td>
                                 <a  href="{{route('data-stok-barang.edit', $item->id_stok_barang)}}"
-                                    class="btn btn-warning btn-sm">Edit</a>
-                            <form action="{{route('data-stok-barang.destroy',$item->id_stok_barang)}}" method="post">
+                                    class="btn btn-warning btn-sm">Edit</a> 
+                                    @if ($item->quantity > 0)
+                                    <button name="hapus" id="hapus" disabled
+                                    class="btn btn-secondary btn-sm">Hapus</button>
+                                    @else
+                                        
+                            <form class="d-inline" action="{{route('data-stok-barang.destroy',$item->id_stok_barang)}}" method="post">
                                 @csrf
                                 @method('delete')
                                     <button name="hapus" id="hapus" onclick="return confirm('Apakah anda yakin ingin menghapus data?');"
-                                    class="btn btn-danger btn-sm mt-2">Hapus</button>
+                                    class="btn btn-danger btn-sm">Hapus</button>
                                 </form>
+                                    @endif
                                 
                             </td>
                         </tr>

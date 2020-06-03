@@ -30,7 +30,7 @@ class LapAktivitasDonasiController extends Controller
   
     public function getdataaktivitas()
     {
-       return \DataTables::eloquent(AktivitasDonasi::with(['info_posko.jenis_bencana','info_posko.user','donasi'])->select('aktivitas_donasi.*'))
+       return \DataTables::eloquent(AktivitasDonasi::with(['info_posko.jenis_bencana','info_posko.user','donasi'])->withTrashed()->select('aktivitas_donasi.*'))
        ->editColumn('tanggal_kejadian',function($d){
         return Carbon::create($d->info_posko->tanggal_kejadian)->format('d-m-Y');
        })

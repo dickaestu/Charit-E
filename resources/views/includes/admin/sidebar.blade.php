@@ -55,7 +55,7 @@
     <li class="nav-item {{Request::is('admin/laporan-donasi-masuk',
     'admin/laporan-permintaan',
     'admin/laporan-pengiriman',
-    'admin/laporan-penerimaa',
+    'admin/laporan-penerimaan',
     'admin/laporan-data-uang-donasi',
     'admin/laporan-jumlah-stok',
     'admin/laporan-barang-masuk',

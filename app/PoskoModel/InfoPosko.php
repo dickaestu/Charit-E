@@ -23,7 +23,7 @@ class InfoPosko extends Model
     ];
 
     public function jenis_bencana(){
-        return $this->belongsTo(JenisBencana::class, 'id_jenis_bencana', 'id_jenis_bencana');
+        return $this->belongsTo(JenisBencana::class, 'id_jenis_bencana', 'id_jenis_bencana')->withTrashed();
     }
 
     public function aktivitas_donasi(){
@@ -31,7 +31,7 @@ class InfoPosko extends Model
     }
 
     public function user(){
-        return $this->belongsTo(User::class, 'user_id', 'user_id');
+        return $this->belongsTo(User::class, 'user_id', 'user_id')->withTrashed();
     }
 
     public function subposko(){

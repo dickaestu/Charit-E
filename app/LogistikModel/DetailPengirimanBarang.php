@@ -20,7 +20,7 @@ class DetailPengirimanBarang extends Model
     ];
 
     public function stokbarang(){
-        return $this->belongsTo(StokBarang::class, 'id_stok_barang', 'id_stok_barang');
+        return $this->belongsTo(StokBarang::class, 'id_stok_barang', 'id_stok_barang')->withTrashed();
     }
 
     public function pengirimanbarang(){
