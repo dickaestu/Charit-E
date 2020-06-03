@@ -62,7 +62,7 @@
     <tbody>
     @foreach ($info as $i)   
        @foreach (App\AdminModel\AktivitasDonasi::with(['info_posko.jenis_bencana','info_posko.user','donasi'])
-            ->where('id_info_posko',$i->id_info_posko)->get() as $item)
+            ->where('id_info_posko',$i->id_info_posko)->withTrashed()->get() as $item)
         <tr>
             <td>{{ $item->id_aktivitas_donasi }}</td>
             <td>{{\Carbon\Carbon::create( $item->info_posko->tanggal_kejadian)->format('d - m - Y')}}</td>

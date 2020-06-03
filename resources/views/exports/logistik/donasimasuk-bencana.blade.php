@@ -60,8 +60,11 @@
         </tr>
     </thead>
     <tbody>
-       @foreach ($items as $item)
-           
+       @foreach ($info as $i)
+          @foreach ( App\AdminModel\AktivitasDonasi::with(['info_posko.jenis_bencana','info_posko.user','donasi'])
+        ->where('id_info_posko',$i->id_info_posko)->withTrashed()->get(); as $akt)
+              @foreach ( App\Donasi::with(['aktivitasdonasi.info_posko.jenis_bencana'])
+        ->where('id_aktivitas_donasi',$akt->id_aktivitas_donasi)->get() as $item)
             <tr>
                 <td>{{ $item->id_donasi }}</td>
                 <td>{{\Carbon\Carbon::create( $item->tanggal_donasi)->format('d - m - Y')}}</td>
@@ -72,7 +75,8 @@
                 <td>{{ $item->jenis_donasi }}</td>
                 <td>{{ $item->keterangan_donasi }}</td>
             </tr>
-        
+            @endforeach
+            @endforeach 
        @endforeach
        
     </tbody>

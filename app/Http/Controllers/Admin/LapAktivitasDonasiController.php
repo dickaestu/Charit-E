@@ -21,7 +21,7 @@ class LapAktivitasDonasiController extends Controller
      */
     public function index(Request $request)
     {
-        $jenis_bencana = JenisBencana::all();
+        $jenis_bencana = JenisBencana::withTrashed()->get();
         return view ('pages.admin.laporanaktivitasdonasi',[
             'jenis_bencana'=>$jenis_bencana,
         ]);
@@ -62,7 +62,7 @@ class LapAktivitasDonasiController extends Controller
 
     public function export()
     {
-        $items = AktivitasDonasi::with(['info_posko.jenis_bencana','info_posko.user','donasi'])->get();
+        $items = AktivitasDonasi::with(['info_posko.jenis_bencana','info_posko.user','donasi'])->withTrashed()->get();
         $pdf = PDF::loadView('exports.admin.aktivitas-donasi',['items'=>$items]);
         return $pdf->download('aktivitas-donasi.pdf');
 
@@ -72,7 +72,7 @@ class LapAktivitasDonasiController extends Controller
 
     public function exportBencana(Request $request)
     {
-        $jenis_bencana = JenisBencana::findOrFail($request->id_jenis_bencana);
+        $jenis_bencana = JenisBencana::withTrashed()->findOrFail($request->id_jenis_bencana);
         $info = InfoPosko::where('id_jenis_bencana',$request->id_jenis_bencana)->get();
 
             $pdf = PDF::loadView('exports.admin.aktivitas-donasi-bencana',[

@@ -53,7 +53,7 @@
         <div class="modal-body">Silahkan tekan Ya jika ingin keluar</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-       <form action="{{url('logout')}}" method="POST">
+       <form class="d-inline" action="{{url('logout')}}" method="POST">
         @csrf
          <button class="btn btn-primary" type="submit">Ya</button>
         </form>

@@ -10,8 +10,8 @@
    <div class="container-fluid">
     <div class="row ml-1 mb-3">
         <a href="{{ route('export-donasi-masuk') }}" class="btn btn-sm btn-primary ml-2 mt-2 shadow-sm">Cetak Semua</a>
-        <button data-toggle="modal" data-target="#modalCetakTanggal"  class="btn btn-sm shadow-sm btn-primary ml-2 mt-2">Cetak Berdasarkan Tanggal</button>
-        <button data-toggle="modal" data-target="#modalCetakBencana" class="btn btn-sm shadow-sm btn-primary ml-2 mt-2">Cetak Berdasarkan Bencana</button>
+        <button data-toggle="modal" data-target="#modalCetakTanggal"  class="btn btn-sm shadow-sm btn-success ml-2 mt-2">Cetak Berdasarkan Tanggal</button>
+        <button data-toggle="modal" data-target="#modalCetakBencana" class="btn btn-sm shadow-sm btn-warning ml-2 mt-2">Cetak Berdasarkan Bencana</button>
     </div>
     <!-- DataTales Example -->
      <!-- DataTales Example -->

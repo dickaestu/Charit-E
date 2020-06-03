@@ -16,7 +16,7 @@ class LapDonasiMasukController extends Controller
      */
     public function index(Request $request)
     {
-        $jenis_bencana = JenisBencana::all();
+        $jenis_bencana = JenisBencana::withTrashed()->get();
         return view('pages.logistik.laporandonasimasuk',[
             'jenis_bencana'=> $jenis_bencana
         ]);

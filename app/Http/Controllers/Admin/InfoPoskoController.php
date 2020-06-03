@@ -59,7 +59,7 @@ class InfoPoskoController extends Controller
 
     public function export()
     {
-        $items = InfoPosko::with('subposko','jenis_bencana','user')->get();
+        $items = InfoPosko::with('subposko','jenis_bencana','user')->orderBy('tanggal_kejadian','asc')->get();
         $pdf = PDF::loadView('exports.admin.data-info-posko',['items'=>$items]);
         return $pdf->download('info-posko.pdf');
 
@@ -69,8 +69,8 @@ class InfoPoskoController extends Controller
     {
 
         $startDate =  Carbon::create($request->from)->format('Y-m-d');
-        $endDate   = Carbon::create($request->to)->addDays(1)->format('Y-m-d') ;
-        $items = InfoPosko::with('subposko','jenis_bencana','user')->whereBetween('tanggal_kejadian',[$startDate,$endDate])->get();
+        $endDate   = Carbon::create($request->to)->format('Y-m-d') ;
+        $items = InfoPosko::with('subposko','jenis_bencana','user')->whereBetween('tanggal_kejadian',[$startDate,$endDate])->orderBy('tanggal_kejadian','asc')->get();
         $pdf = PDF::loadView('exports.admin.data-info-posko-bulan',[
             'items'=>$items,
             'startDate'=>$startDate,
@@ -93,7 +93,7 @@ class InfoPoskoController extends Controller
     public function exportBencana(Request $request)
     {
         $jenis_bencana = JenisBencana::withTrashed()->findOrFail($request->id_jenis_bencana);
-        $items = InfoPosko::with('subposko','jenis_bencana','user')->where('id_jenis_bencana',$request->id_jenis_bencana)->get();
+        $items = InfoPosko::with('subposko','jenis_bencana','user')->where('id_jenis_bencana',$request->id_jenis_bencana)->orderBy('tanggal_kejadian','asc')->get();
         $pdf = PDF::loadView('exports.admin.info-posko-bencana',['items'=>$items,'jenis_bencana'=>$jenis_bencana]);
         return $pdf->download('info-posko.pdf');
 

@@ -188,24 +188,17 @@ class DonasiMasukController extends Controller
 
     public function exportBencana(Request $request)
     {
-        $jenis_bencana = JenisBencana::findOrFail($request->id_jenis_bencana);
+        $jenis_bencana = JenisBencana::withTrashed()->findOrFail($request->id_jenis_bencana);
         $info = InfoPosko::with(['jenis_bencana'])->where('id_jenis_bencana',$request->id_jenis_bencana)->get();     
-            foreach($info as $posko){
-                $aktivitas = AktivitasDonasi::with(['info_posko.jenis_bencana','info_posko.user','donasi'])
-                ->where('id_info_posko',$posko->id_info_posko)->get();
-                foreach($aktivitas as $akt){
-
-                    $items = Donasi::with(['aktivitasdonasi.info_posko.jenis_bencana'])
-                    ->where('id_aktivitas_donasi',$akt->id_aktivitas_donasi)->get();
-                    $pdf = PDF::loadView('exports.logistik.donasimasuk-bencana',[
-                        'items'=>$items,
-                        'jenis_bencana'=>$jenis_bencana
-                        
-                        ]);
-                    return $pdf->download('donasimasuk.pdf');
-                
-               }
-            }      
+      
+        $pdf = PDF::loadView('exports.logistik.donasimasuk-bencana',[
+            'info'=>$info,
+            'jenis_bencana'=>$jenis_bencana
+            
+            ]);
+        return $pdf->download('donasimasuk.pdf');  
+        
+      
     }
 
 }
