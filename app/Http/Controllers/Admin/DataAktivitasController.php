@@ -99,11 +99,10 @@ class DataAktivitasController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'id_info_posko'=>['required','exists:info_posko,id_info_posko','unique:aktivitas_donasi,id_info_posko'],
+          
             'foto_aktivitas'=>['required','image','mimes:jpg,png,jpeg'],
             'keterangan_aktivitas'=>['required','max:255','string'],
         ], [
-            'id_info_posko.unique' => 'Aktivitas ini sudah pernah dibuat',
             'foto_aktivitas.image'=> 'Yang anda masukkan bukan gambar',
             'foto_aktivitas.mimes'=> 'Format harus jpeg/png/jpeg',
             'keterangan_aktivitas.required'=> 'Keterangan harus diisi',
