@@ -8,12 +8,7 @@
  <!-- Custom scripts for all pages-->
  <script src="{{url('backend_assets/js/sb-admin-2.min.js')}}"></script>
 
- <!-- Page level plugins -->
- <script src="{{url('backend_assets/vendor/chart.js/Chart.min.js')}}"></script>
 
- <!-- Page level custom scripts -->
- <script src="{{url('backend_assets/js/demo/chart-area-demo.js')}}"></script>
- <script src="{{url('backend_assets/js/demo/chart-pie-demo.js')}}"></script>
 
      <!-- Page level plugins -->
      <script src="{{url('backend_assets/vendor/datatables/jquery.dataTables.min.js')}}"></script>

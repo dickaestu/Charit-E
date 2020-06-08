@@ -8,6 +8,8 @@ use App\Donasi;
 use App\LogistikModel\BarangMasuk;
 use App\LogistikModel\UangMasuk;
 use App\PoskoModel\PermintaanBarang;
+use App\LogistikModel\DetailPengirimanBarang;
+use App\LogistikModel\StokBarang;
 use Carbon\Carbon;
 
 class DashboardController extends Controller
@@ -25,11 +27,23 @@ class DashboardController extends Controller
         $uang= UangMasuk::whereDate('tanggal_masuk',$date)->sum('nominal');
         $pending= Donasi::where('status_verifikasi',false)->count();
         $request_logistik = PermintaanBarang::where('status_permintaan','VERIFIED')->where('status_pengiriman',false)->count();
+        $stok_barang = [];
+        $jumlah=[];
+        foreach(StokBarang::all() as $stok){
+            $stok_barang[] = $stok->nama_barang;
+
+            $jumlah[] = (int)DetailPengirimanBarang::where('id_stok_barang',$stok->id_stok_barang)->sum('jumlah');
+        }
+    
+       
+
         return view ('pages.logistik.dashboard',[
             'barang'=> $barang,
             'uang'=>$uang,
             'pending'=>$pending,
-            'request_logistik'=>$request_logistik
+            'request_logistik'=>$request_logistik,
+            'stok_barang'=>$stok_barang,
+            'jumlah'=>$jumlah
         ]);
     }
 

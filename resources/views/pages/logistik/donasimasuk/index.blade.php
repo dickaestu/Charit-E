@@ -96,7 +96,7 @@
 
         $(document).ready(function() {
             $('#tableDonasi').DataTable( {
-                "order": [[ 0, "desc" ]]
+                "order": [[ 5, "asc" ]]
             } );
         } );
     </script>

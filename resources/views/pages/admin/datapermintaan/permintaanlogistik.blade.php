@@ -19,7 +19,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="tablePermintaan" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>ID Permintaan</th>
@@ -104,5 +104,11 @@
     <script src="{{url('backend_assets/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
 
     <!-- Page level custom scripts -->
-    <script src="{{url('backend_assets/js/demo/datatables-demo.js')}}"></script>
+    <script>
+    $(document).ready(function() {
+        $('#tablePermintaan').DataTable( {
+            "order": [[ 4, "asc" ]]
+        } );
+    } );
+    </script>
 @endpush
