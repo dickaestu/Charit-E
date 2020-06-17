@@ -47,7 +47,7 @@ class KonfirmasiDonasiController extends Controller
         $request->validate([
             'jenis_donasi'=>['required'],
             'keterangan_donasi'=>['required'],
-            'foto_bukti'=>['required','image','mimes:jpg,png,jpeg']
+            'foto_bukti'=>['required','image','mimes:jpg,png,jpeg','max:2000']
         ],[
             'foto_bukti.image'=> 'Yang anda masukkan bukan gambar',
             'foto_bukti.mimes'=> 'Format harus jpg/png/jpeg',

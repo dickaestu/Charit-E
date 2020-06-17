@@ -48,7 +48,7 @@ class DataAktivitasController extends Controller
     {
         $request->validate([
             'id_info_posko'=>['required','exists:info_posko,id_info_posko','unique:aktivitas_donasi,id_info_posko'],
-            'foto_aktivitas'=>['required','image','mimes:jpg,png,jpeg'],
+            'foto_aktivitas'=>['required','image','mimes:jpg,png,jpeg','max:5000'],
             'keterangan_aktivitas'=>['required','max:255','string'],
         ], [
             'id_info_posko.unique' => 'Aktivitas ini sudah pernah dibuat',
@@ -100,7 +100,7 @@ class DataAktivitasController extends Controller
     {
         $request->validate([
           
-            'foto_aktivitas'=>['required','image','mimes:jpg,png,jpeg'],
+            'foto_aktivitas'=>['required','image','mimes:jpg,png,jpeg','max:5000'],
             'keterangan_aktivitas'=>['required','max:255','string'],
         ], [
             'foto_aktivitas.image'=> 'Yang anda masukkan bukan gambar',
