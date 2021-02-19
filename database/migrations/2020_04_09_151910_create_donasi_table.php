@@ -14,14 +14,13 @@ class CreateDonasiTable extends Migration
     public function up()
     {
         Schema::create('donasi', function (Blueprint $table) {
-            $table->string('id_donasi',20)->primary();
+            $table->string('id_donasi', 20)->primary();
             $table->unsignedBigInteger('user_id');
-            $table->string('id_aktivitas_donasi',20);
-            $table->string('nama_donatur',100);
-            $table->enum('jenis_donasi',['pokok','uang']);
-            $table->boolean('status_verifikasi');
-            $table->string('keterangan_donasi',150);
-            $table->longText('foto_bukti');
+            $table->string('id_aktivitas_donasi', 20);
+            $table->boolean('is_anonim')->default(false);
+            $table->boolean('status_verifikasi')->default(false);
+            $table->string('keterangan_donasi', 255);
+            $table->text('foto_bukti');
             $table->date('tanggal_donasi');
             $table->softDeletes();
             $table->timestamps();

@@ -14,9 +14,9 @@ class CreatePengirimanBarangTable extends Migration
     public function up()
     {
         Schema::create('pengiriman_barang', function (Blueprint $table) {
-            $table->string('id_pengiriman_barang',20)->primary();
-            $table->string('id_permintaan_barang',20)->unique();
-            $table->longText('keterangan_pengiriman');
+            $table->string('id_pengiriman_barang', 20)->primary();
+            $table->string('id_permintaan_barang', 20)->unique();
+            $table->text('keterangan_pengiriman');
             $table->date('tanggal_pengiriman');
             $table->softDeletes();
             $table->timestamps();

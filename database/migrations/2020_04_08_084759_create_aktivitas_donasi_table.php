@@ -14,9 +14,9 @@ class CreateAktivitasDonasiTable extends Migration
     public function up()
     {
         Schema::create('aktivitas_donasi', function (Blueprint $table) {
-            $table->string('id_aktivitas_donasi',20)->primary();
-            $table->string('id_info_posko',20)->unique();
-            $table->longText('foto_aktivitas');
+            $table->string('id_aktivitas_donasi', 20)->primary();
+            $table->string('id_info_posko', 20)->unique();
+            $table->text('foto_aktivitas');
             $table->text('keterangan_aktivitas');
             $table->softDeletes();
             $table->timestamps();
