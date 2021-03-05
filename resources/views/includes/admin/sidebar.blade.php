@@ -56,7 +56,6 @@
     'admin/laporan-permintaan',
     'admin/laporan-pengiriman',
     'admin/laporan-penerimaan',
-    'admin/laporan-data-uang-donasi',
     'admin/laporan-jumlah-stok',
     'admin/laporan-barang-masuk',
     'admin/laporan-jumlah-posko',
@@ -75,8 +74,7 @@
           <a class="collapse-item {{Request::is('admin/laporan-permintaan') ? ' active' : '' }}" href="{{route('laporan-permintaan')}}">Permintaan Logistik</a>
           <a class="collapse-item {{Request::is('admin/laporan-pengiriman') ? ' active' : '' }}" href="{{route('laporan-pengiriman')}}">Pengiriman Logistik</a>
           <a class="collapse-item {{Request::is('admin/laporan-penerimaan') ? ' active' : '' }}" href="{{route('laporan-penerimaan')}}">Penerimaan Logistik</a>
-          <h6 class="collapse-header">Keuangan</h6>
-          <a class="collapse-item {{Request::is('admin/laporan-data-uang-donasi') ? ' active' : '' }}" href="{{route('laporan-data-uang-donasi')}}">Data Uang Masuk</a>
+      
           <h6 class="collapse-header">Stok Barang</h6>
           <a class="collapse-item {{Request::is('admin/laporan-jumlah-stok') ? ' active' : '' }}" href="{{route('laporan-jumlah-stok')}}">Jumlah Stok</a>
           <a class="collapse-item {{Request::is('admin/laporan-barang-masuk') ? ' active' : '' }}" href="{{route('laporan-barang-masuk')}}">Barang Masuk</a>

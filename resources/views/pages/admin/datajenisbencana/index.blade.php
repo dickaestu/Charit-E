@@ -85,7 +85,7 @@
             @csrf
             <div class="form-group">
                 <label for="nama_bencana">Nama</label>
-                <input type="text" name="nama_bencana" class="form-control @error('nama_bencana') is-invalid @enderror" id="nama_bencana" placeholder="Masukkan Nama Bencana" value ="{{old('nama_bencana')}}">
+                <input type="text" name="nama_bencana" required class="form-control @error('nama_bencana') is-invalid @enderror" id="nama_bencana" placeholder="Masukkan Nama Bencana" value ="{{old('nama_bencana')}}">
                 @error ('nama_bencana')
                 <div class="invalid-feedback">
                     {{$message}}

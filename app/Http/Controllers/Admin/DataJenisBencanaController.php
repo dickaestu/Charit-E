@@ -18,10 +18,10 @@ class DataJenisBencanaController extends Controller
     public function index()
     {
         $items = JenisBencana::all();
-        return view('pages.admin.datajenisbencana.index', ['items'=>$items]);
+        return view('pages.admin.datajenisbencana.index', ['items' => $items]);
     }
 
-  
+
 
     /**
      * Store a newly created resource in storage.
@@ -32,21 +32,15 @@ class DataJenisBencanaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_bencana'=>['required','string','max:255']
-            ]);
+            'nama_bencana' => ['required', 'string', 'max:255']
+        ]);
+        $data = $request->all();
+        JenisBencana::create($data);
 
-            $config=[
-                'table'=>'jenis_bencana','field'=>'id_jenis_bencana','length'=> 4,'prefix'=>'B'
-            ];
-            $id = IdGenerator::generate($config);
-            $data = $request->all();
-            $data['id_jenis_bencana'] = $id;    
-            JenisBencana::create($data);
-
-    return redirect('admin/data-jenis-bencana')->with('sukses','Data Berhasil Ditambahkan');
+        return redirect('admin/data-jenis-bencana')->with('sukses', 'Data Berhasil Ditambahkan');
     }
 
-    
+
 
     /**
      * Remove the specified resource from storage.
@@ -58,6 +52,6 @@ class DataJenisBencanaController extends Controller
     {
         $item = JenisBencana::findOrFail($id);
         $item->delete();
-        return redirect()->route('data-jenis-bencana.index')->with('dihapus','Data Berhasil Dihapus');
+        return redirect()->route('data-jenis-bencana.index')->with('dihapus', 'Data Berhasil Dihapus');
     }
 }

@@ -72,8 +72,7 @@ Route::prefix('admin')
                   ->name('laporan-pengiriman');
             Route::get('/laporan-penerimaan', 'LapPenerimaanLogistikController@index')
                   ->name('laporan-penerimaan');
-            Route::get('/laporan-data-uang-donasi', 'LapDataUangDonasiController@index')
-                  ->name('laporan-data-uang-donasi');
+
             Route::get('/laporan-jumlah-stok', 'LapJumlahStokController@index')
                   ->name('laporan-jumlah-stok');
             Route::get('/laporan-barang-masuk', 'LapBarangMasukController@index')
