@@ -18,10 +18,10 @@ class DataAktivitasController extends Controller
      */
     public function index(Request $request)
     {
-        $items = AktivitasDonasi::with(['info_posko.user','info_posko.jenis_bencana'])->get(); //memanggil relasi yang sudah dibuat di model
+        $items = AktivitasDonasi::with(['info_posko.user', 'info_posko.jenis_bencana'])->get(); //memanggil relasi yang sudah dibuat di model
 
-        return view('pages.admin.dataaktivitasdonasi.index',[
-            'items' => $items   
+        return view('pages.admin.dataaktivitasdonasi.index', [
+            'items' => $items
         ]);
     }
 
@@ -32,9 +32,9 @@ class DataAktivitasController extends Controller
      */
     public function create()
     {
-        $info_posko = InfoPosko::with(['user','jenis_bencana'])->get();
-        return view ('pages.admin.dataaktivitasdonasi.create',[
-            'info_posko'=>$info_posko
+        $info_posko = InfoPosko::with(['user', 'jenis_bencana'])->get();
+        return view('pages.admin.dataaktivitasdonasi.create', [
+            'info_posko' => $info_posko
         ]);
     }
 
@@ -47,33 +47,34 @@ class DataAktivitasController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'id_info_posko'=>['required','exists:info_posko,id_info_posko','unique:aktivitas_donasi,id_info_posko'],
-            'foto_aktivitas'=>['required','image','mimes:jpg,png,jpeg','max:5000'],
-            'keterangan_aktivitas'=>['required','max:255','string'],
+            'id_info_posko' => ['required', 'exists:info_posko,id_info_posko', 'unique:aktivitas_donasi,id_info_posko'],
+            'foto_aktivitas' => ['required', 'image', 'mimes:jpg,png,jpeg', 'max:2000'],
+            'keterangan_aktivitas' => ['required', 'max:255', 'string'],
         ], [
             'id_info_posko.unique' => 'Aktivitas ini sudah pernah dibuat',
-            'foto_aktivitas.image'=> 'Yang anda masukkan bukan gambar',
-            'foto_aktivitas.mimes'=> 'Format harus jpeg/png/jpeg',
-            'keterangan_aktivitas.required'=> 'Keterangan harus diisi',
+            'foto_aktivitas.image' => 'Yang anda masukkan bukan gambar',
+            'foto_aktivitas.mimes' => 'Format harus jpeg/png/jpeg',
+            'keterangan_aktivitas.required' => 'Keterangan harus diisi',
         ]);
 
-        $config=[
-                'table'=>'aktivitas_donasi','field'=>'id_aktivitas_donasi','length'=> 13,'prefix'=>'AKTV-'.date('ym'),
-                'reset_on_prefix_change'=>true
-            ];
-            $id = IdGenerator::generate($config);
+        $config = [
+            'table' => 'aktivitas_donasi', 'field' => 'id_aktivitas_donasi', 'length' => 13, 'prefix' => 'AKTV-',
+            'reset_on_prefix_change' => true
+        ];
+        $id = IdGenerator::generate($config);
 
         $data = $request->all();
-        $data['id_aktivitas_donasi']= $id;
+        $data['id_aktivitas_donasi'] = $id;
         $data['foto_aktivitas'] = $request->file('foto_aktivitas')->store(
-            'assets/gallery', 'public'
+            'assets/gallery',
+            'public'
         );
 
         AktivitasDonasi::create($data);
-       return redirect('admin/data-aktivitas')->with('sukses','Data Berhasil Ditambahkan');
+        return redirect('admin/data-aktivitas')->with('sukses', 'Data Berhasil Ditambahkan');
     }
 
-  
+
 
     /**
      * Show the form for editing the specified resource.
@@ -84,8 +85,8 @@ class DataAktivitasController extends Controller
     public function edit($id)
     {
         $item = AktivitasDonasi::findOrFail($id);
-        return view('pages.admin.dataaktivitasdonasi.edit',[
-            'item'=>$item
+        return view('pages.admin.dataaktivitasdonasi.edit', [
+            'item' => $item
         ]);
     }
 
@@ -99,23 +100,27 @@ class DataAktivitasController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-          
-            'foto_aktivitas'=>['required','image','mimes:jpg,png,jpeg','max:5000'],
-            'keterangan_aktivitas'=>['required','max:255','string'],
+            'foto_aktivitas' => ['image', 'mimes:jpg,png,jpeg', 'max:2000'],
+            'keterangan_aktivitas' => ['required', 'max:255', 'string'],
         ], [
-            'foto_aktivitas.image'=> 'Yang anda masukkan bukan gambar',
-            'foto_aktivitas.mimes'=> 'Format harus jpeg/png/jpeg',
-            'keterangan_aktivitas.required'=> 'Keterangan harus diisi',
+            'foto_aktivitas.image' => 'Yang anda masukkan bukan gambar',
+            'foto_aktivitas.mimes' => 'Format harus jpeg/png/jpeg',
+            'keterangan_aktivitas.required' => 'Keterangan harus diisi',
         ]);
 
-        $data = $request->all();
-        $data['foto_aktivitas'] = $request->file('foto_aktivitas')->store(
-            'assets/gallery', 'public'
-        );
         $item = AktivitasDonasi::findOrFail($id);
 
-        $item ->update($data);
-        return redirect('admin/data-aktivitas')->with('edit','Data Berhasil Di Ubah');
+
+        $data = $request->all();
+        if ($request->foto_aktivitas != null) {
+            $data['foto_aktivitas'] = $request->file('foto_aktivitas')->store(
+                'assets/gallery',
+                'public'
+            );
+        }
+
+        $item->update($data);
+        return redirect('admin/data-aktivitas')->with('edit', 'Data Berhasil Di Ubah');
     }
 
     /**
@@ -128,6 +133,6 @@ class DataAktivitasController extends Controller
     {
         $item = AktivitasDonasi::findOrFail($id);
         $item->delete();
-        return redirect()->route('data-aktivitas.index')->with('dihapus','Data Berhasil Dihapus');
+        return redirect()->route('data-aktivitas.index')->with('dihapus', 'Data Berhasil Dihapus');
     }
 }

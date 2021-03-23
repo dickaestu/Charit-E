@@ -49,31 +49,28 @@
                         </tr>
                     </thead>
                     <tbody>
-                       @forelse ($items as $item)
+                       @foreach ($items as $item)
                        <tr>
                         <td>{{$item->id_aktivitas_donasi}}</td>
                         <td>{{$item->info_posko->user->name}}</td>
                         <td>{{$item->info_posko->jenis_bencana->nama_bencana}}</td>
                         <td>{{$item->info_posko->lokasi_bencana}}</td>
                         <td>{{$item->keterangan_aktivitas}}</td>
-                        <td><img src="{{Storage::url($item->foto_aktivitas)}}" alt="" style="width:150px" class="img-thumbnail"/></td>
+                        <td><a href="{{Storage::url($item->foto_aktivitas)}}" target="_blank" class="btn btn-sm btn-info">Lihat Foto</a></td>
                         <td>
+                            <a href="#" class="btn btn-success btn-sm mb-1">Aktifkan Donasi</a>
                             <a  href="{{route('data-aktivitas.edit', $item->id_aktivitas_donasi)}}"
                                 class="btn btn-warning btn-sm">Edit</a>
                             <form action="{{route('data-aktivitas.destroy',$item->id_aktivitas_donasi)}}" method="post">
                                 @csrf
                                 @method('delete')
                                     <button name="hapus" id="hapus"
-                                    class="btn btn-danger btn-sm mt-2" onclick="return confirm('Apakah anda yakin ingin menghapus data?');">Hapus</button>
+                                    class="btn btn-danger btn-sm mt-1" onclick="return confirm('Apakah anda yakin ingin menghapus data?');">Hapus</button>
                             </form>
                         </td>
                     </tr>
-                       @empty
                        
-                       <tr>
-                        <td colspan="6" class="text-center">Data Kosong</td>
-                        </tr>
-                       @endforelse
+                       @endforeach
 
 
                     </tbody>
@@ -93,7 +90,7 @@
 
     <!-- Page level custom scripts -->
     <script>
-        $(document).ready(function() {
+    $(document).ready(function() {
         $('#tableAkt').DataTable( {
             "order": [[ 0, "desc" ]]
         } );

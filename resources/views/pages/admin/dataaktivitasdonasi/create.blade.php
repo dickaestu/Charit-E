@@ -32,7 +32,7 @@
 
                     <div class="form-group">
                         <label for="foto_aktivitas">Foto Aktivitas</label>
-                        <input type="file" name="foto_aktivitas" class="form-control @error('foto_aktivitas') is-invalid @enderror" placeholder="foto_aktivitas">
+                        <input type="file" required name="foto_aktivitas" class="form-control @error('foto_aktivitas') is-invalid @enderror" placeholder="foto_aktivitas">
                         @error ('foto_aktivitas')
                         <div class="invalid-feedback">
                             {{$message}}
@@ -43,18 +43,15 @@
                     <div class="form-group">
                         <label for="keterangan_aktivitas">Keterangan</label>
                         <textarea required name="keterangan_aktivitas" class="form-control @error('keterangan_aktivitas') is-invalid @enderror" id="keterangan_aktivitas" rows="3"></textarea>
-                      </div>
-                      @error ('keterangan_aktivitas')
+                        @error ('keterangan_aktivitas')
                         <div class="invalid-feedback">
                             {{$message}}
                         </div>
                         @enderror
+                    </div>
+                
 
                  
-
-                    
-     
-                    
                      <button type="submit" class="btn btn-primary btn-block">Simpan</button>
                  </form>
             </div>

@@ -51,16 +51,18 @@ class InfoPoskoController extends Controller
     {
         $request->validate([
             'tanggal_kejadian' => ['required', 'date'],
-            'alamat_posko' => ['required', 'max:255', 'string'],
-            'lokasi_bencana' => ['required', 'max:255', 'string'],
-            'jumlah_korban' => ['required', 'integer'],
-            'jumlah_korban_jiwa' => ['required', 'integer'],
+            'alamat_posko' => ['required', 'max:180', 'string'],
+            'lokasi_bencana' => ['required', 'max:150', 'string'],
+            'jumlah_korban' => ['required', 'integer', 'max:11'],
+            'jumlah_korban_jiwa' => ['required', 'integer', 'max:11'],
+            'id_jenis_bencana' => ['required']
         ], [
             'tanggal_kejadian.date' => 'Silahkan masukkan tanggal dengan benar',
             'tanggal_kejadian.required' => 'Tanggal tidak boleh kosong',
             'lokasi_bencana.required' => 'Lokasi bencana tidak boleh kosong',
             'jumlah_korban.required' => 'Jumlah korban tidak boleh kosong',
             'jumlah_korban_jiwa.required' => 'Jumlah korban jiwa tidak boleh kosong',
+            'id_jenis_bencana.required' => 'Jenis bencana belum dipilih'
         ]);
 
         $config = [
@@ -108,16 +110,18 @@ class InfoPoskoController extends Controller
     {
         $request->validate([
             'tanggal_kejadian' => ['required', 'date'],
-            'alamat_posko' => ['required', 'max:255', 'string'],
-            'lokasi_bencana' => ['required', 'max:255', 'string'],
-            'jumlah_korban' => ['required', 'integer'],
-            'jumlah_korban_jiwa' => ['required', 'integer'],
+            'alamat_posko' => ['required', 'max:180', 'string'],
+            'lokasi_bencana' => ['required', 'max:150', 'string'],
+            'jumlah_korban' => ['required', 'integer', 'max:11'],
+            'jumlah_korban_jiwa' => ['required', 'integer', 'max:11'],
+            'id_jenis_bencana' => ['required']
         ], [
             'tanggal_kejadian.date' => 'Silahkan masukkan tanggal dengan benar',
             'tanggal_kejadian.required' => 'Tanggal tidak boleh kosong',
             'lokasi_bencana.required' => 'Lokasi bencana tidak boleh kosong',
             'jumlah_korban.required' => 'Jumlah korban tidak boleh kosong',
             'jumlah_korban_jiwa.required' => 'Jumlah korban jiwa tidak boleh kosong',
+            'id_jenis_bencana.required' => 'Jenis bencana belum dipilih'
         ]);
 
         $data = $request->all();
