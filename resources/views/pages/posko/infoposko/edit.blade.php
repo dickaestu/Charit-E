@@ -17,7 +17,7 @@
           <div class="form-group">
             <label for="tanggal_kejadian">Tanggal Kejadian</label>
                 <div class="input-group mb-2 mr-sm-2">
-                    <input type="date" name="tanggal_kejadian" class="form-control @error('tanggal_kejadian') is-invalid @enderror" id="tanggal_kejadian"
+                    <input required type="date" name="tanggal_kejadian" class="form-control @error('tanggal_kejadian') is-invalid @enderror" id="tanggal_kejadian"
                 value="{{$item->tanggal_kejadian}}">
                 </div>
                 @error ('tanggal_kejadian')
@@ -28,7 +28,7 @@
             </div>
         <div class="form-group">
             <label for="alamat_posko">Alamat Posko</label>
-             <input type="text" class="form-control @error('alamat_posko') is-invalid @enderror" name="alamat_posko" placeholder="Masukkan Alamat Posko" required Value="{{$item->alamat_posko}}">
+             <input type="text" class="form-control @error('alamat_posko') is-invalid @enderror" name="alamat_posko" placeholder="Masukkan Alamat Posko" required value="{{$item->alamat_posko}}">
              @error ('alamat_posko')
              <div class="invalid-feedback">
                  {{$message}}
@@ -38,10 +38,11 @@
         <div class="form-group">
             <label for="id_jenis_bencana">Jenis Bencana</label>
             <select name="id_jenis_bencana" required class="form-control @error('id_jenis_bencana') is-invalid @enderror">
-            <option value="{{$item->id_jenis_bencana}}">{{$item->jenis_bencana->nama_bencana}}</option>
-                 @foreach ($jenis_bencana as $bencana)
-            <option value="{{$bencana->id_jenis_bencana}}"> {{$bencana->nama_bencana}}</option>
-                 @endforeach
+            @foreach ($jenis_bencana as $bencana)
+                <option {{ $bencana->id_jenis_bencana == $item->id_jenis_bencana ? "selected" : "" }} 
+                    value="{{$bencana->id_jenis_bencana}}"> {{$bencana->nama_bencana}}
+                </option>
+            @endforeach
             </select>
             @error ('id_jenis_bencana')
             <div class="invalid-feedback">
@@ -80,8 +81,6 @@
              @enderror
           </div>
 
-
-        
 
         <div class="col col-md-6 offset-md-3 mt-4">
           <button type="submit" class="btn btn-success btn-block" onclick="return confirm('Apakah anda yakin ingin mengubah data?');">Ubah</button>

@@ -103,11 +103,6 @@
                             @endforeach
                       
                         
-
-                        
-
-
-
                         </tbody>
                     </table>
                 </div>
@@ -115,8 +110,17 @@
         </div>
 
 
-
-
     </div>
     <!-- /.container-fluid -->
 @endsection
+
+@push('addon-script')
+    <script>
+    $(document).ready(function() {
+        $('#dataTable').DataTable( {
+            "order": [[ 0, "desc" ]]
+        } );
+    } );    
+    </script>    
+
+@endpush

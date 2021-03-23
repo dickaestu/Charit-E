@@ -21,11 +21,10 @@ class InfoPoskoController extends Controller
      */
     public function index(Request $request)
     {
-        $items = InfoPosko::with(['jenis_bencana','user','aktivitas_donasi'])->where('user_id', Auth::user()->user_id)->get(); //memanggil relasi yang sudah dibuat di model
-      
-        return view('pages.posko.infoposko.index',[
+        $items = InfoPosko::with(['jenis_bencana', 'user', 'aktivitas_donasi'])->where('user_id', Auth::user()->user_id)->get(); //memanggil relasi yang sudah dibuat di model
+
+        return view('pages.posko.infoposko.index', [
             'items' => $items,
-          
         ]);
     }
 
@@ -37,8 +36,8 @@ class InfoPoskoController extends Controller
     public function create()
     {
         $jenis_bencana = JenisBencana::all();
-        return view ('pages.posko.infoposko.create',[
-            'jenis_bencana'=>$jenis_bencana
+        return view('pages.posko.infoposko.create', [
+            'jenis_bencana' => $jenis_bencana
         ]);
     }
 
@@ -51,36 +50,36 @@ class InfoPoskoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'tanggal_kejadian'=>['required','date'],
-            'alamat_posko'=>['required','max:255','string'],
-            'lokasi_bencana'=>['required','max:255','string'],
-            'jumlah_korban'=>['required','integer'],
-            'jumlah_korban_jiwa'=>['required','integer'],
-        ],[
-            'tanggal_kejadian.date'=> 'Silahkan masukkan tanggal dengan benar',
-            'tanggal_kejadian.required'=> 'Tanggal tidak boleh kosong',
-            'lokasi_bencana.required'=> 'Lokasi bencana tidak boleh kosong',
-            'jumlah_korban.required'=> 'Jumlah korban tidak boleh kosong',
-            'jumlah_korban_jiwa.required'=> 'Jumlah korban jiwa tidak boleh kosong',
+            'tanggal_kejadian' => ['required', 'date'],
+            'alamat_posko' => ['required', 'max:255', 'string'],
+            'lokasi_bencana' => ['required', 'max:255', 'string'],
+            'jumlah_korban' => ['required', 'integer'],
+            'jumlah_korban_jiwa' => ['required', 'integer'],
+        ], [
+            'tanggal_kejadian.date' => 'Silahkan masukkan tanggal dengan benar',
+            'tanggal_kejadian.required' => 'Tanggal tidak boleh kosong',
+            'lokasi_bencana.required' => 'Lokasi bencana tidak boleh kosong',
+            'jumlah_korban.required' => 'Jumlah korban tidak boleh kosong',
+            'jumlah_korban_jiwa.required' => 'Jumlah korban jiwa tidak boleh kosong',
         ]);
 
-        $config=[
-                'table'=>'info_posko','field'=>'id_info_posko','length'=> 13,'prefix'=>'INFO-'.date('ym'),
-                'reset_on_prefix_change'=>true
-            ];
-            $id = IdGenerator::generate($config);
+        $config = [
+            'table' => 'info_posko', 'field' => 'id_info_posko', 'length' => 13, 'prefix' => 'INFO-',
+            'reset_on_prefix_change' => true
+        ];
+        $id = IdGenerator::generate($config);
 
 
-            $data = $request->all();
-            $data['id_info_posko']= $id.Auth::user()->user_id;
-            $data['user_id']= Auth::user()->user_id;
-    
-            InfoPosko::create($data);
-    
-        return redirect('posko/info-posko')->with('sukses','Data Berhasil Ditambahkan');
+        $data = $request->all();
+        $data['id_info_posko'] = $id;
+        $data['user_id'] = Auth::user()->user_id;
+
+        InfoPosko::create($data);
+
+        return redirect('posko/info-posko')->with('sukses', 'Data Berhasil Ditambahkan');
     }
 
-  
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -89,12 +88,12 @@ class InfoPoskoController extends Controller
      */
     public function edit($id)
     {
-        
-        $item = InfoPosko::with(['user'])->findOrFail($id);
+
+        $item = InfoPosko::with(['user', 'jenis_bencana'])->findOrFail($id);
         $jenis_bencana = JenisBencana::all();
-        return view('pages.posko.infoposko.edit',[
-            'item'=>$item,
-            'jenis_bencana'=>$jenis_bencana
+        return view('pages.posko.infoposko.edit', [
+            'item' => $item,
+            'jenis_bencana' => $jenis_bencana
         ]);
     }
 
@@ -107,25 +106,25 @@ class InfoPoskoController extends Controller
      */
     public function update(Request $request, $id)
     {
-          $request->validate([
-            'tanggal_kejadian'=>['required','date'],
-            'alamat_posko'=>['required','max:255','string'],
-            'lokasi_bencana'=>['required','max:255','string'],
-            'jumlah_korban'=>['required','integer'],
-            'jumlah_korban_jiwa'=>['required','integer'],
-        ],[
-            'tanggal_kejadian.date'=> 'Silahkan masukkan tanggal dengan benar',
-            'tanggal_kejadian.required'=> 'Tanggal tidak boleh kosong',
-            'lokasi_bencana.required'=> 'Lokasi bencana tidak boleh kosong',
-            'jumlah_korban.required'=> 'Jumlah korban tidak boleh kosong',
-            'jumlah_korban_jiwa.required'=> 'Jumlah korban jiwa tidak boleh kosong',
+        $request->validate([
+            'tanggal_kejadian' => ['required', 'date'],
+            'alamat_posko' => ['required', 'max:255', 'string'],
+            'lokasi_bencana' => ['required', 'max:255', 'string'],
+            'jumlah_korban' => ['required', 'integer'],
+            'jumlah_korban_jiwa' => ['required', 'integer'],
+        ], [
+            'tanggal_kejadian.date' => 'Silahkan masukkan tanggal dengan benar',
+            'tanggal_kejadian.required' => 'Tanggal tidak boleh kosong',
+            'lokasi_bencana.required' => 'Lokasi bencana tidak boleh kosong',
+            'jumlah_korban.required' => 'Jumlah korban tidak boleh kosong',
+            'jumlah_korban_jiwa.required' => 'Jumlah korban jiwa tidak boleh kosong',
         ]);
 
         $data = $request->all();
         $item = InfoPosko::findOrFail($id);
 
-        $item ->update($data);
-        return redirect('posko/info-posko')->with('edit','Data Berhasil Di Ubah');
+        $item->update($data);
+        return redirect('posko/info-posko')->with('edit', 'Data Berhasil Di Ubah');
     }
 
     /**
@@ -138,6 +137,6 @@ class InfoPoskoController extends Controller
     {
         $item = InfoPosko::findOrFail($id);
         $item->delete();
-        return redirect()->route('info-posko.index')->with('dihapus','Data Berhasil Dihapus');
+        return redirect()->route('info-posko.index')->with('hapus', 'Data Berhasil Dihapus');
     }
 }

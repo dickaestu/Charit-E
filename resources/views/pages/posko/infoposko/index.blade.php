@@ -59,7 +59,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                   @forelse ($items as $item)
+                                   @foreach ($items as $item)
                                    <tr>
                                    <td>{{$item->id_info_posko}}</td>
                                     <td>{{Carbon\Carbon::create($item->tanggal_kejadian)->format('d - m - Y')}}</td>
@@ -71,26 +71,22 @@
                                     <td>
                                         <a  href="{{route('info-posko.edit', $item->id_info_posko)}}"
                                             class="btn btn-warning btn-sm">Edit</a>
-                                        {{-- <form action="{{route('info-posko.destroy',$item->id_info_posko)}}" method="post">
-                                            @csrf
-                                            @method('delete')
-                                                @if (App\AdminModel\AktivitasDonasi::where('id_info_posko',$item->id_info_posko)->first())
-                                                <button name="hapus" id="hapus" 
-                                                class="btn  btn-secondary btn-sm mt-2" disabled onclick="return confirm('Apakah anda yakin ingin menghapus data?');">Hapus</button>
-                                                @else
-                                                <button name="hapus" id="hapus" 
+                                        @if ($item->aktivitas_donasi)
+                                            <button class="btn btn-secondary btn-sm mt-2" disabled >
+                                             Hapus
+                                            </button>
+                                        @else 
+                                        <form action="{{route('info-posko.destroy',$item->id_info_posko)}}" method="post">
+                                        @csrf 
+                                        @method('DELETE')
+                                        <button name="hapus" id="hapus" 
                                                 class="btn  btn-danger btn-sm mt-2" onclick="return confirm('Apakah anda yakin ingin menghapus data?');">Hapus</button>
-                                                @endif
-                                        </form> --}}
+                                        </form>
+                                        @endif
+                                        
                                     </td>
-                                </tr>
-                                   @empty
-                                   <tr>
-                                    <td colspan="8" class="text-center">Data Kosong</td>
-                                    </tr>
-                                   @endforelse
-
-
+                                </tr>              
+                                   @endforeach
                                 </tbody>
                             </table>
                         </div>

@@ -73,15 +73,10 @@
                   </select>
                 
             </td>
-    
                 <td>
                   <input type="number" class="form-control form-control-sm " id="jumlah" name="jumlah[]">
-                 
                 </td>
-    
-            </tr>
-
-            
+            </tr>    
           </tbody>
         </table>   
 
@@ -91,10 +86,8 @@
         <button type="submit" onclick="return confirm('Permintaan menyesuaikan dengan ketersedian logistik BPBD');" class="btn btn-primary btn-block">Kirim</button>
  </form>
 
- <!-- textbox untuk menampung jumlah data form -->
- <input type="hidden" id="jumlah-form" value="1">
-
-
+        <!-- textbox untuk menampung jumlah data form -->
+        <input type="hidden" id="jumlah-form" value="1">
 
 
     </div>

@@ -1,15 +1,11 @@
 @extends('layouts.posko.posko')
 @section('title','Info Posko')
 
-
-
 @section('content')
    
     <!-- Begin Page Content -->
     <div class="container-fluid ">
         <h3>Info Posko</h3>
-       
-
         <div class="card shadow">
             <div class="card-body">
                  <form method="post" action="{{route('info-posko.store')}}">
@@ -17,7 +13,7 @@
                      <div class="form-group">
                         <label for="tanggal_kejadian">Tanggal Kejadian</label>
                             <div class="input-group mb-2 mr-sm-2">
-                                <input type="date" name="tanggal_kejadian" class="form-control @error('tanggal_kejadian') is-invalid @enderror" id="tanggal_kejadian"
+                                <input type="date" required name="tanggal_kejadian" class="form-control @error('tanggal_kejadian') is-invalid @enderror" id="tanggal_kejadian"
                                     placeholder="Tanggal Kejadian">
                             </div>
                             @error ('tanggal_kejadian')
