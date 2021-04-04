@@ -16,25 +16,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $items = AktivitasDonasi::with(['info_posko.jenis_bencana','info_posko.user'])->get();
-        // foreach($items as $item){
-        //    $donasi =  Donasi::with('aktivitasdonasi')->where('id_aktivitas_donasi',$item->id_aktivitas_donasi)->get();
-        //    foreach($donasi as $d){
-        //         $donatur = Donasi::with('aktivitasdonasi')->findOrfail($d->id_donasi);
-        //    }
-            return view('pages.donasi.home',[
-                'items'=>$items,
-                // 'donatur'=> $donatur
-            ]);
-        
-        
+        $items = AktivitasDonasi::with(['info_posko.jenis_bencana', 'info_posko.user'])->where('is_active', true)->get();
+
+        return view('pages.donasi.home', [
+            'items' => $items,
+        ]);
     }
 
     public function bantuan()
     {
-     
-            return view('pages.donasi.bantuan');
-        
-        
+
+        return view('pages.donasi.bantuan');
     }
 }

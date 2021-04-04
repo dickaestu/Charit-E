@@ -138,7 +138,7 @@
         <div class="campaing-wrap owl-carousel owl-theme">
           @foreach ($items as $item)
           <div class="single-campaing">
-            <div class="campaing-img">
+            <div class="campaing-img" style="background: white">
                  <img src="{{Storage::url($item->foto_aktivitas)}}" alt="">
             </div>
             <div class="campaing-text">
@@ -152,22 +152,17 @@
                 <hr>
                 <h6>Total Donatur</h6>
                 <p style="color: #000; font-size:16px"  class="text-bold">
-                {{\App\Donasi::where('status_verifikasi', true)->where('id_aktivitas_donasi',$item->id_aktivitas_donasi)->count()}} Donatur 
+                15,000 Donatur 
                 <span class="float-right"><a href="{{route('detail-donatur',$item->id_aktivitas_donasi)}}">Detail</a></span>
                 </p>
               
                 <hr>
 
-                <div class="bg-light py-2 px-1 shadow-sm rounded">
-                    <p class="mx-1 text-dark text-bold "> Total Uang
-                        <span style="color:#1abc7c; font-size:15px;" class="float-right"> @currency(\App\Donasi::where('status_verifikasi', true)->where('id_aktivitas_donasi',$item->id_aktivitas_donasi)->where('jenis_donasi','uang')->sum('keterangan_donasi'))</span>
-                    </p>
-                </div>
-                <div class="bg-light py-2 px-1 shadow-sm rounded mt-2">
+                {{-- <div class="bg-light py-2 px-1 shadow-sm rounded mt-2">
                     <p  class="mx-1  text-dark text-bold "> Total Barang
-                        <span style="color:#fd3c65; font-size:15px;" class="float-right"> {{\App\Donasi::where('status_verifikasi', true)->where('id_aktivitas_donasi',$item->id_aktivitas_donasi)->where('jenis_donasi','pokok')->count()}}</span>
+                        <span style="color:#fd3c65; font-size:15px;" class="float-right">50</span>
                     </p>
-                </div>
+                </div> --}}
                 
  
                 <a class="read-more mt-4" href="{{route('detail-donasi.index')}}">Lihat Info</a>
@@ -175,6 +170,13 @@
         </div>      
           @endforeach    
         </div>
+        @if ($items == "[]")
+            <div class="card text-center">
+                <div class="card-body">
+                    Belum Ada Aktivitas Donasi
+                </div>
+            </div>
+        @endif
     </div>
     <div class=" shape shape-1">
           <img src="{{url('donasi_assets/assets/img/shape/1.png')}}" alt="Shape">

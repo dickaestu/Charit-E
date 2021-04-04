@@ -71,7 +71,7 @@
                                     <td>
                                         <a  href="{{route('info-posko.edit', $item->id_info_posko)}}"
                                             class="btn btn-warning btn-sm">Edit</a>
-                                        @if ($item->aktivitas_donasi)
+                                        @if ($item->is_active)
                                             <button class="btn btn-secondary btn-sm mt-2" disabled >
                                              Hapus
                                             </button>

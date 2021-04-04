@@ -18,27 +18,32 @@ class InfoPosko extends Model
     protected $primaryKey = 'id_info_posko';
     protected $keyType = 'string';
     protected $fillable = [
-        'id_info_posko','user_id','id_jenis_bencana','alamat_posko',
-        'jumlah_korban', 'jumlah_korban_jiwa', 'lokasi_bencana', 'tanggal_kejadian'
+        'id_info_posko', 'user_id', 'id_jenis_bencana', 'alamat_posko',
+        'jumlah_korban', 'jumlah_korban_jiwa', 'lokasi_bencana', 'tanggal_kejadian', 'is_active'
     ];
 
-    public function jenis_bencana(){
+    public function jenis_bencana()
+    {
         return $this->belongsTo(JenisBencana::class, 'id_jenis_bencana', 'id_jenis_bencana')->withTrashed();
     }
 
-    public function aktivitas_donasi(){
+    public function aktivitas_donasi()
+    {
         return $this->hasOne(AktivitasDonasi::class, 'id_info_posko', 'id_info_posko');
     }
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class, 'user_id', 'user_id')->withTrashed();
     }
 
-    public function subposko(){
+    public function subposko()
+    {
         return $this->hasMany(SubPosko::class, 'id_info_posko', 'id_info_posko');
     }
 
-    public function permintaanbarang(){
+    public function permintaanbarang()
+    {
         return $this->hasMany(PermintaanBarang::class, 'id_info_posko', 'id_info_posko');
     }
 }

@@ -32,7 +32,7 @@ class DataAktivitasController extends Controller
      */
     public function create()
     {
-        $info_posko = InfoPosko::with(['user', 'jenis_bencana'])->get();
+        $info_posko = InfoPosko::with(['user', 'jenis_bencana'])->where('is_active', false)->get();
         return view('pages.admin.dataaktivitasdonasi.create', [
             'info_posko' => $info_posko
         ]);
@@ -70,10 +70,14 @@ class DataAktivitasController extends Controller
             'public'
         );
 
+        $infoPosko = InfoPosko::findOrFail($request->id_info_posko);
+        $infoPosko->update([
+            'is_active' => true
+        ]);
+
         AktivitasDonasi::create($data);
         return redirect('admin/data-aktivitas')->with('sukses', 'Data Berhasil Ditambahkan');
     }
-
 
 
     /**
@@ -102,10 +106,12 @@ class DataAktivitasController extends Controller
         $request->validate([
             'foto_aktivitas' => ['image', 'mimes:jpg,png,jpeg', 'max:2000'],
             'keterangan_aktivitas' => ['required', 'max:255', 'string'],
+            'is_active' => ['required', 'boolean']
         ], [
             'foto_aktivitas.image' => 'Yang anda masukkan bukan gambar',
             'foto_aktivitas.mimes' => 'Format harus jpeg/png/jpeg',
             'keterangan_aktivitas.required' => 'Keterangan harus diisi',
+            'is_active' => 'Wajib Di Pilih'
         ]);
 
         $item = AktivitasDonasi::findOrFail($id);

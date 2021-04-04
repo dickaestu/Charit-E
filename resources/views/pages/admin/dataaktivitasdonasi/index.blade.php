@@ -43,6 +43,7 @@
                             <th>Nama Bencana</th>
                             <th>Lokasi Bencana</th>
                             <th>Keterangan</th>
+                            <th>Status</th>
                             <th>Foto</th>
                             <th>Aksi</th>
 
@@ -56,9 +57,9 @@
                         <td>{{$item->info_posko->jenis_bencana->nama_bencana}}</td>
                         <td>{{$item->info_posko->lokasi_bencana}}</td>
                         <td>{{$item->keterangan_aktivitas}}</td>
+                        <td>{{ $item->is_active ? "Aktif": "Non Aktif" }}</td>
                         <td><a href="{{Storage::url($item->foto_aktivitas)}}" target="_blank" class="btn btn-sm btn-info">Lihat Foto</a></td>
                         <td>
-                            <a href="#" class="btn btn-success btn-sm mb-1">Aktifkan Donasi</a>
                             <a  href="{{route('data-aktivitas.edit', $item->id_aktivitas_donasi)}}"
                                 class="btn btn-warning btn-sm">Edit</a>
                             <form action="{{route('data-aktivitas.destroy',$item->id_aktivitas_donasi)}}" method="post">

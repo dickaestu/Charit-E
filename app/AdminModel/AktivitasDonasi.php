@@ -14,14 +14,16 @@ class AktivitasDonasi extends Model
     protected $primaryKey = 'id_aktivitas_donasi';
     protected $keyType = 'string';
     protected $fillable = [
-        'id_aktivitas_donasi','id_info_posko','foto_aktivitas','keterangan_aktivitas'
+        'id_aktivitas_donasi', 'id_info_posko', 'foto_aktivitas', 'keterangan_aktivitas', 'is_active'
     ];
 
-    public function info_posko(){
+    public function info_posko()
+    {
         return $this->belongsTo(InfoPosko::class, 'id_info_posko', 'id_info_posko');
     }
 
-    public function donasi(){
+    public function donasi()
+    {
         return $this->hasMany(Donasi::class, 'id_aktivitas_donasi', 'id_aktivitas_donasi');
     }
 }
