@@ -64,21 +64,15 @@
 
 					   <h6 class=" mx-3 my-3">Total Donatur</h6>
 					   <p style="color: #000; font-size:16px"  class="text-bold mx-3">
-					   {{\App\Donasi::where('status_verifikasi', true)->where('id_aktivitas_donasi',$item->id_aktivitas_donasi)->count()}} Donatur 
+					   200 Donatur 
 					   <span class="float-right"><a href="{{route('detail-donatur',$item->id_aktivitas_donasi)}}">Detail</a></span>
 					   </p>
 
-					
-					   <div class="bg-light py-2 px-1 shadow-sm rounded">
-						<p class="mx-3 text-dark text-bold "> Total Uang
-							<span style="color:#1abc7c; font-size:15px;" class="float-right"> @currency(\App\Donasi::where('status_verifikasi', true)->where('id_aktivitas_donasi',$item->id_aktivitas_donasi)->where('jenis_donasi','uang')->sum('keterangan_donasi'))</span>
-						</p>
-					</div>
-					<div class="bg-light py-2 px-1 shadow-sm rounded">
+					{{-- <div class="bg-light py-2 px-1 shadow-sm rounded">
 						<p  class="mx-3  text-dark text-bold "> Total Barang
 							<span style="color:#fd3c65; font-size:15px;" class="float-right"> {{\App\Donasi::where('status_verifikasi', true)->where('id_aktivitas_donasi',$item->id_aktivitas_donasi)->where('jenis_donasi','pokok')->count()}}</span>
 						</p>
-					</div>
+					</div> --}}
 				   
 		   
 					<a href="{{route('konfirmasi-donasi',$item->id_aktivitas_donasi)}}" class="default-btn btn-donasi text-center">Mulai Donasi</a>
@@ -87,6 +81,19 @@
 			
 					
 				@endforeach
+				@if ($items == "[]")
+            
+			</div>
+
+			<div class="row">
+				<div class="col-12">
+					<div class="card text-center">
+                <div class="card-body">
+                    Belum Ada Aktivitas Donasi
+                </div>
+            </div>
+        @endif
+				</div>
 			</div>
 
 			</div>

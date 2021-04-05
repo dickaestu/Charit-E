@@ -18,27 +18,20 @@ class DetailDonaturController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request,$id)
+    public function index(Request $request, $id)
     {
         $item = AktivitasDonasi::findOrFail($id);
-        $uang = Donasi::with('aktivitasdonasi')->where('status_verifikasi', true)
-        ->where('id_aktivitas_donasi', $id)->where('jenis_donasi', 'uang')->get();
         $barang = Donasi::with('aktivitasdonasi')->where('status_verifikasi', true)
-        ->where('id_aktivitas_donasi', $id)->where('jenis_donasi', 'pokok')->get();
+            ->where('id_aktivitas_donasi', $id)->get();
         $permintaan = PermintaanBarang::with('pengirimanbarang.detailpengirimanbarang')
-        ->where('id_info_posko',$item->id_info_posko)->where('status_pengiriman',true)->get();
-     
-     
+            ->where('id_info_posko', $item->id_info_posko)->where('status_pengiriman', true)->get();
 
-            return view('pages.donasi.detaildonatur',[  
-                'item'=> $item,
-                'uang'=>$uang,
-                'barang'=> $barang,
-              'permintaan'=>$permintaan,
-            ]);
-     
-        
+
+
+        return view('pages.donasi.detaildonatur', [
+            'item' => $item,
+            'barang' => $barang,
+            'permintaan' => $permintaan,
+        ]);
     }
-
-   
 }

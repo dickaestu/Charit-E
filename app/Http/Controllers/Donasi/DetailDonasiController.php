@@ -15,9 +15,9 @@ class DetailDonasiController extends Controller
      */
     public function index()
     {
-        $items = AktivitasDonasi::all();
-        return view('pages.donasi.detaildonasi',[
-            'items'=>$items
+        $items = AktivitasDonasi::where('is_active', true)->get();
+        return view('pages.donasi.detaildonasi', [
+            'items' => $items
         ]);
     }
 
