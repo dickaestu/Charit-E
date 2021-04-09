@@ -187,15 +187,7 @@ Route::prefix('logistik')
                   ->name('verifikasi-barang');
             Route::post('/donasi-masuk/{id}/verifikasi-barang/sukses', 'DonasiMasukController@sukses')
                   ->name('verifikasi-sukses');
-            Route::get('/donasi-masuk/{id}/verifikasi-uang', 'DonasiMasukController@verifikasiuang')
-                  ->name('verifikasi-uang');
-            Route::post('/donasi-masuk/{id}/verifikasi-uang', 'DonasiMasukController@verifikasiuangcreate')
-                  ->name('verifikasi-uangcreate');
 
-
-
-            Route::get('/data-uang-donasi', 'DataUangDonasiController@index')
-                  ->name('data-uang-donasi-logistik');
             Route::resource('data-stok-barang', 'StokBarangController');
 
 
@@ -215,32 +207,16 @@ Route::prefix('logistik')
             Route::get('/data-pengiriman/detail/{id}', 'DataPengirimanController@detailpengiriman')
                   ->name('detail-pengiriman-logistik');
 
-
-
-            Route::get('/data-pengeluaran', 'DataPengeluaranUangController@index')
-                  ->name('data-pengeluaran-logistik');
-            Route::get('/data-pengeluaran/tambah', 'DataPengeluaranUangController@tambah')
-                  ->name('tambah-pengeluaran');
-            Route::post('/data-pengeluaran/create', 'DataPengeluaranUangController@create')
-                  ->name('create-pengeluaran-uang');
-            Route::get('/data-pengeluaran/{id}', 'DataPengeluaranUangController@detail')
-                  ->name('detail-pengeluaran-logistik');
             Route::get('/laporan-permintaan', 'LapPermintaanController@index')
                   ->name('laporan-permintaan-logistik');
             Route::get('/laporan-donasi-masuk', 'LapDonasiMasukController@index')
                   ->name('laporan-donasi-masuk-logistik');
-            Route::get('/laporan-uang-donasi', 'LapUangDonasiController@index')
-                  ->name('laporan-uang-donasi-logistik');
             Route::get('/laporan-stok-barang', 'LapStokBarangController@index')
                   ->name('laporan-stok-barang-logistik');
             Route::get('/laporan-pengiriman', 'LapPengirimanController@index')
                   ->name('laporan-pengiriman-logistik');
-            Route::get('/laporan-pembelian', 'LapPembelianController@index')
-                  ->name('laporan-pembelian-logistik');
             Route::get('/laporan-barang-masuk', 'LapBarangMasukController@index')
                   ->name('laporan-barang-masuk-logistik');
-            Route::get('/laporan-pengeluaran-uang', 'LapPengeluaranUangController@index')
-                  ->name('laporan-pengeluaran-uang-logistik');
 
 
 
@@ -251,14 +227,10 @@ Route::prefix('logistik')
                   ->name('export-permintaan-logistik');
             Route::get('/export-pdf-pengiriman-logistik', 'LapPengirimanController@export')
                   ->name('export-pengiriman-logistik');
-            Route::get('/export-pdf-uang-masuk', 'LapUangDonasiController@export')
-                  ->name('export-uang-masuk');
             Route::get('/export-pdf-stok-barang', 'LapStokBarangController@export')
                   ->name('export-stok-barang');
             Route::get('/export-pdf-barang-masuk', 'LapBarangMasukController@export')
                   ->name('export-barang-masuk');
-            Route::get('/export-pdf-pengeluaran-uang', 'LapPengeluaranUangController@export')
-                  ->name('export-pengeluaran-uang');
 
             // Export PDF berdasarkan bulan
             Route::post('/export-pdf-donasi-masuk-bulan', 'DonasiMasukController@exportBulan')
@@ -267,20 +239,14 @@ Route::prefix('logistik')
                   ->name('export-permintaan-logistik-bulan');
             Route::post('/export-pdf-pengiriman-logistik-bulan', 'LapPengirimanController@exportBulan')
                   ->name('export-pengiriman-logistik-bulan');
-            Route::post('/export-pdf-uang-masuk-bulan', 'LapUangDonasiController@exportBulan')
-                  ->name('export-uang-masuk-bulan');
             Route::post('/export-pdf-barang-masuk-bulan', 'LapBarangMasukController@exportBulan')
                   ->name('export-barang-masuk-bulan');
-            Route::post('/export-pdf-pengeluaran-uang-bulan', 'LapPengeluaranUangController@exportBulan')
-                  ->name('export-pengeluaran-uang-bulan');
 
             // Export Detail
             Route::get('/export-detail-permintaan/{id}', 'LapPermintaanController@exportDetail')
                   ->name('print-detail-permintaan');
             Route::get('/export-detail-pengiriman/{id}', 'LapPengirimanController@exportDetail')
                   ->name('print-detail-pengiriman');
-            Route::get('/export-detail-pengeluaran/{id}', 'LapPengeluaranUangController@exportDetail')
-                  ->name('print-detail-pengeluaran');
 
             // Export Lain-lain
             Route::post('/export-donasi-masuk-bencana', 'DonasiMasukController@exportBencana')

@@ -26,8 +26,6 @@
                             <th>ID Donasi</th>
                             <th>Tanggal Donasi</th>
                             <th>Nama</th>
-
-                            <th>Jenis Donasi</th>
                             <th>keterangan</th>
                             <th>Status</th>
                             <th>Aksi</th>
@@ -40,18 +38,12 @@
                         <td>{{Carbon\Carbon::create($item->tanggal_donasi)->format('d - m - Y')}}</td>
                         <td>{{$item->user->name}}</td>
 
-                        <td>{{$item->jenis_donasi}}</td>
                         <td>{{$item->keterangan_donasi}}</td>
                         <td class="{{$item->status_verifikasi ? 'text-success' : 'text-muted'}}">{{$item->status_verifikasi ? 'Verified' : 'Pending'}}</td>
                         <td>
                             @if ($item->status_verifikasi==false)
-                            @if ($item->jenis_donasi == 'pokok')
                             <a  href="{{route('verifikasi-barang',$item->id_donasi)}}"
                                 class="btn btn-success btn-sm">Verifikasi</a>
-                            @else
-                            <a  href="{{route('verifikasi-uang',$item->id_donasi)}}"
-                                class="btn btn-success btn-sm">Verifikasi</a>
-                            @endif
                             @else
                             <button disabled class="btn btn-secondary btn-sm">Verifikasi</button>
                             @endif

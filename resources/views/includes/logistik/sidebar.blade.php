@@ -26,14 +26,6 @@
         <span>Donasi Masuk</span></a>
     </li>
 
-    <!-- Nav Item - Data Uang Donasi Collapse Menu -->
-    <li class="nav-item {{Request::is('logistik/data-uang-donasi') ? ' active' : '' }}">
-      <a class="nav-link" href="{{route('data-uang-donasi-logistik')}}">
-        <i class="fas fa-fw fa-donate"></i>
-        <span>Data Uang Masuk</span></a>
-    </li>
-
-
 
     <!-- Nav Item - Data Stok Barang Collapse Menu -->
     <li class="nav-item {{Request::is('logistik/data-stok-barang') ? ' active' : '' }}">
@@ -63,13 +55,6 @@
         <span>Data Pengiriman</span></a>
     </li>
 
-     <!-- Nav Item - Transaksi Pemasukan -->
-     <li class="nav-item {{Request::is('logistik/data-pengeluaran') ? ' active' : '' }}">
-      <a class="nav-link" href="{{route('data-pengeluaran-logistik')}}">
-        <i class="fas fa-truck"></i>
-        <span>Data Pengeluaran Uang</span></a>
-    </li>
-
    
     <!-- Nav Item - Laporan -->
     <li class="nav-item {{Request::is('logistik/laporan-permintaan',
@@ -85,12 +70,10 @@
         <div class="bg-white py-2 collapse-inner rounded">
           <a class="collapse-item {{Request::is('logistik/laporan-permintaan') ? ' active' : '' }}" href="{{route('laporan-permintaan-logistik')}}">Permintaan Barang</a>
           <a class="collapse-item {{Request::is('logistik/laporan-donasi-masuk') ? ' active' : '' }}" href="{{route('laporan-donasi-masuk-logistik')}}">Donasi Masuk</a>
-          <a class="collapse-item {{Request::is('logistik/laporan-uang-donasi') ? ' active' : '' }}" href="{{route('laporan-uang-donasi-logistik')}}">Uang Masuk</a>
           <a class="collapse-item {{Request::is('logistik/laporan-stok-barang') ? ' active' : '' }}" href="{{route('laporan-stok-barang-logistik')}}">Stok Barang</a>
           <a class="collapse-item {{Request::is('logistik/laporan-pengiriman') ? ' active' : '' }}" href="{{route('laporan-pengiriman-logistik')}}">Pengiriman</a>
          
           <a class="collapse-item {{Request::is('logistik/laporan-barang-masuk') ? ' active' : '' }}" href="{{route('laporan-barang-masuk-logistik')}}">Barang Masuk</a>
-          <a class="collapse-item {{Request::is('logistik/laporan-pengeluaran-uang') ? ' active' : '' }}" href="{{route('laporan-pengeluaran-uang-logistik')}}">Pengeluaran Uang</a>
         </div>
       </div>
     </li>
