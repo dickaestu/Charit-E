@@ -48,6 +48,8 @@
                                 <thead>
                                     <tr>
                                         <th>ID Info Posko</th>
+                                        <th>Penanggung Jawab</th>
+                                        <th>No HP Penanggung Jawab</th>
                                         <th>Tanggal Kejadian</th>
                                         <th>Nama Bencana</th>
                                         <th>Lokasi Bencana</th>
@@ -62,6 +64,8 @@
                                    @foreach ($items as $item)
                                    <tr>
                                    <td>{{$item->id_info_posko}}</td>
+                                   <td>{{ $item->nama_penanggung_jawab }}</td>
+                                   <td>{{ $item->no_hp_penanggung_jawab }}</td>
                                     <td>{{Carbon\Carbon::create($item->tanggal_kejadian)->format('d - m - Y')}}</td>
                                     <td>{{$item->jenis_bencana->nama_bencana}}</td>
                                     <td>{{$item->lokasi_bencana}}</td>

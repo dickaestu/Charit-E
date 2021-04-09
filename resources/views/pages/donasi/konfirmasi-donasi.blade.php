@@ -35,7 +35,7 @@
                             <i class="fa fa-arrow-right"></i>
                             Cara Donasi
                         </a>
-                        <p class="accordion-content">1. Tulis ID Donasi Yang terlihat di kolom ID Donasi di kotak/dus/box donasi yang ingin anda
+                        <p class="accordion-content">1. Tulis ID Donasi Yang terlihat di kolom ID Donasi dan tulis nama penerima & no hp penerima ke kotak/dus/box donasi yang ingin anda
                             kirimkan <br>
                             2. Kirim Ke Alamat Yang Sudah Di Sediakan<br>
                             3. Upload Bukti foto barang yang anda ingin donasikan (ID Donasi harus terlihat)</p>
@@ -47,10 +47,13 @@
                 
                 <ul class="list-group">
                     <li class="list-group-item">
-                        Nama Penerima : Muklis
+                        Nama Penerima : {{ $aktivitas->info_posko->nama_penanggung_jawab }}
                     </li>
                     <li class="list-group-item">
-                        Alamat Penerima : Jalan situ tuh
+                        No HP Penerima : {{ $aktivitas->info_posko->no_hp_penanggung_jawab }}
+                    </li>
+                    <li class="list-group-item">
+                        Alamat Penerima : {{ $aktivitas->info_posko->alamat_posko }}
                     </li>
                 </ul>
                 
@@ -63,7 +66,7 @@
                 <div class="section-title">
                     <h2>Informasi Anda</h2>
                 </div>
-                <form action="{{route('konfirmasi-donasi-create', $id_aktivitas)}}" method="POST" enctype="multipart/form-data">
+                <form action="{{route('konfirmasi-donasi-create', $aktivitas->id_aktivitas_donasi)}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="id_donasi">ID Donasi</label>
@@ -74,12 +77,12 @@
                     <div class="form-group">
                         <label for="nama_donatur">Nama Donatur</label>
                         <input readonly type="text" class="form-control" id="nama_donatur" placeholder="Masukkan Nama Donatur"
-                        name="nama_donatur" value="{{$item->name}}">
+                        name="nama_donatur" value="{{Auth::user()->name}}">
                     </div>
                     
                     <div class="form-check mb-2">
-                        <input class="form-check-input" name="nama_donatur_anonim" type="checkbox" value="Anonim" id="nama_donatur_anonim">
-                        <label class="form-check-label" for="nama_donatur_anonim">
+                        <input class="form-check-input" name="is_anonim" type="checkbox" value="1" id="is_anonim">
+                        <label class="form-check-label" for="is_anonim">
                             Sembunyikan Nama Saya
                         </label>
                     </div>
@@ -87,7 +90,7 @@
                     
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input readonly value="{{$item->email}}" type="text" class="form-control" id="email" name="email" placeholder="Masukkan Email">
+                        <input readonly value="{{Auth::user()->email}}" type="text" class="form-control" id="email" name="email" placeholder="Masukkan Email">
                     </div>
                     
                     
@@ -95,6 +98,16 @@
                         <label for="foto_bukti">Upload Bukti</label>
                         <input required type="file" name="foto_bukti" class="form-control-file @error('foto_bukti') is-invalid @enderror" id="foto_bukti">
                         @error ('foto_bukti')
+                        <div class="invalid-feedback">
+                            {{$message}}
+                        </div>
+                        @enderror
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Keterangan</label>
+                        <textarea name="keterangan_donasi" required class="form-control @error('keterangan_donasi') is-invalid @enderror" style="height: 100px">{{ old('keterangan_donasi') }}</textarea>
+                        @error ('keterangan_donasi')
                         <div class="invalid-feedback">
                             {{$message}}
                         </div>

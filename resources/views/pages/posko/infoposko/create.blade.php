@@ -11,6 +11,24 @@
                  <form method="post" action="{{route('info-posko.store')}}">
                      @csrf
                      <div class="form-group">
+                        <label for="nama_penanggung_jawab">Nama Penanggung Jawab</label>
+                         <input type="text" class="form-control @error('nama_penanggung_jawab') is-invalid @enderror" name="nama_penanggung_jawab" placeholder="Masukkan Nama Penanggung Jawab" required value="{{old('nama_penanggung_jawab')}}">
+                         @error ('nama_penanggung_jawab')
+                         <div class="invalid-feedback">
+                             {{$message}}
+                         </div>
+                         @enderror
+                    </div>
+                     <div class="form-group">
+                        <label for="no_hp_penanggung_jawab">Nomor Handphone Penanggung Jawab</label>
+                         <input type="number" class="form-control @error('no_hp_penanggung_jawab') is-invalid @enderror" name="no_hp_penanggung_jawab" placeholder="Masukkan No hp Penanggung Jawab" required value="{{old('no_hp_penanggung_jawab')}}">
+                         @error ('no_hp_penanggung_jawab')
+                         <div class="invalid-feedback">
+                             {{$message}}
+                         </div>
+                         @enderror
+                    </div>
+                     <div class="form-group">
                         <label for="tanggal_kejadian">Tanggal Kejadian</label>
                             <div class="input-group mb-2 mr-sm-2">
                                 <input type="date" required name="tanggal_kejadian" class="form-control @error('tanggal_kejadian') is-invalid @enderror" id="tanggal_kejadian"

@@ -19,7 +19,8 @@ class InfoPosko extends Model
     protected $keyType = 'string';
     protected $fillable = [
         'id_info_posko', 'user_id', 'id_jenis_bencana', 'alamat_posko',
-        'jumlah_korban', 'jumlah_korban_jiwa', 'lokasi_bencana', 'tanggal_kejadian', 'is_active'
+        'jumlah_korban', 'jumlah_korban_jiwa', 'lokasi_bencana',
+        'tanggal_kejadian', 'is_active', 'nama_penanggung_jawab', 'no_hp_penanggung_jawab'
     ];
 
     public function jenis_bencana()

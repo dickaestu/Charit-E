@@ -152,7 +152,7 @@
                 <hr>
                 <h6>Total Donatur</h6>
                 <p style="color: #000; font-size:16px"  class="text-bold">
-                15,000 Donatur 
+                {{ number_format($item->donasi->count()) }} Donatur 
                 <span class="float-right"><a href="{{route('detail-donatur',$item->id_aktivitas_donasi)}}">Detail</a></span>
                 </p>
               

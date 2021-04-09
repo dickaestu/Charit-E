@@ -5,12 +5,9 @@ namespace App\Http\Controllers\Posko;
 use App\Http\Controllers\Controller;
 use App\AdminModel\JenisBencana;
 use App\PoskoModel\InfoPosko;
-use App\User;
 use illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
-use App\AdminModel\AktivitasDonasi;
 
 class InfoPoskoController extends Controller
 {
@@ -53,16 +50,20 @@ class InfoPoskoController extends Controller
             'tanggal_kejadian' => ['required', 'date'],
             'alamat_posko' => ['required', 'max:180', 'string'],
             'lokasi_bencana' => ['required', 'max:150', 'string'],
-            'jumlah_korban' => ['required', 'integer', 'max:11'],
-            'jumlah_korban_jiwa' => ['required', 'integer', 'max:11'],
-            'id_jenis_bencana' => ['required']
+            'jumlah_korban' => ['required', 'integer'],
+            'jumlah_korban_jiwa' => ['required', 'integer'],
+            'id_jenis_bencana' => ['required'],
+            'nama_penanggung_jawab' => ['required', 'string', 'max:100'],
+            'no_hp_penanggung_jawab' => ['required', 'min:10', 'max:14'],
         ], [
             'tanggal_kejadian.date' => 'Silahkan masukkan tanggal dengan benar',
             'tanggal_kejadian.required' => 'Tanggal tidak boleh kosong',
             'lokasi_bencana.required' => 'Lokasi bencana tidak boleh kosong',
             'jumlah_korban.required' => 'Jumlah korban tidak boleh kosong',
             'jumlah_korban_jiwa.required' => 'Jumlah korban jiwa tidak boleh kosong',
-            'id_jenis_bencana.required' => 'Jenis bencana belum dipilih'
+            'id_jenis_bencana.required' => 'Jenis bencana belum dipilih',
+            'nama_penanggung_jawab.required' => 'Wajib Diisi',
+            'nama_penanggung_jawab.max' => 'Maksimal 100 Karakter',
         ]);
 
         $config = [
@@ -112,16 +113,22 @@ class InfoPoskoController extends Controller
             'tanggal_kejadian' => ['required', 'date'],
             'alamat_posko' => ['required', 'max:180', 'string'],
             'lokasi_bencana' => ['required', 'max:150', 'string'],
-            'jumlah_korban' => ['required', 'integer', 'max:11'],
-            'jumlah_korban_jiwa' => ['required', 'integer', 'max:11'],
-            'id_jenis_bencana' => ['required']
+            'jumlah_korban' => ['required', 'integer'],
+            'jumlah_korban_jiwa' => ['required', 'integer'],
+            'id_jenis_bencana' => ['required'],
+            'nama_penanggung_jawab' => ['required', 'string', 'max:100'],
+            'no_hp_penanggung_jawab' => ['required', 'min:10', 'max:14'],
+
+
         ], [
             'tanggal_kejadian.date' => 'Silahkan masukkan tanggal dengan benar',
             'tanggal_kejadian.required' => 'Tanggal tidak boleh kosong',
             'lokasi_bencana.required' => 'Lokasi bencana tidak boleh kosong',
             'jumlah_korban.required' => 'Jumlah korban tidak boleh kosong',
             'jumlah_korban_jiwa.required' => 'Jumlah korban jiwa tidak boleh kosong',
-            'id_jenis_bencana.required' => 'Jenis bencana belum dipilih'
+            'id_jenis_bencana.required' => 'Jenis bencana belum dipilih',
+            'nama_penanggung_jawab.required' => 'Wajib Diisi',
+            'nama_penanggung_jawab.max' => 'Maksimal 100 Karakter',
         ]);
 
         $data = $request->all();
