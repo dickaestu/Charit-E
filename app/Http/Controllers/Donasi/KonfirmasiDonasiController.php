@@ -10,6 +10,7 @@ use App\Donasi;
 use Auth;
 use Carbon\Carbon;
 use App\AdminModel\AktivitasDonasi;
+use App\LogistikModel\StokBarang;
 
 class KonfirmasiDonasiController extends Controller
 {
@@ -21,6 +22,7 @@ class KonfirmasiDonasiController extends Controller
     public function index($id)
     {
         $aktivitas = AktivitasDonasi::findOrFail($id);
+        $stokBarang = StokBarang::all();
         $config = [
             'table' => 'donasi', 'field' => 'id_donasi', 'length' => 20, 'prefix' => 'DNS-' . date('ym'),
             'reset_on_prefix_change' => true
@@ -30,7 +32,8 @@ class KonfirmasiDonasiController extends Controller
 
         return view('pages.donasi.konfirmasi-donasi', [
             'id' => $id,
-            'aktivitas' => $aktivitas
+            'aktivitas' => $aktivitas,
+            'stokBarang' => $stokBarang
         ]);
     }
 

@@ -45,7 +45,7 @@
                 </div>
                 
                 
-                <ul class="list-group">
+                <ul class="list-group mb-4">
                     <li class="list-group-item">
                         Nama Penerima : {{ $aktivitas->info_posko->nama_penanggung_jawab }}
                     </li>
@@ -56,6 +56,35 @@
                         Alamat Penerima : {{ $aktivitas->info_posko->alamat_posko }}
                     </li>
                 </ul>
+                
+                <div class="card">
+                    <div class="card-header">
+                        Jenis Barang
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-sm text-center table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Nama</th>
+                                        <th>Deskripsi</th>
+                                        <th>Satuan</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($stokBarang as $item)
+                                    <tr>
+                                        <td>{{ $item->nama_barang }}</td>
+                                        <td>{{ $item->deskripsi_barang }}</td>
+                                        <td>{{ $item->satuan }}</td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
                 
                 
             </div>
