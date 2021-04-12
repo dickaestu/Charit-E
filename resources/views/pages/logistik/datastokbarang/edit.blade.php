@@ -9,6 +9,10 @@
 @section('content')
 <div class="container-fluid ">
     <h3>Edit Data Stok Barang {{$item->nama_barang}}</h3>
+    <nav class="breadcrumb bg-transparent">
+      <a class="breadcrumb-item" href="{{ route('data-stok-barang.index') }}">Kembali</a>
+      <span class="breadcrumb-item active">Edit Data Stok Barang</span>
+    </nav>
 
     <div class="col-10 offset-1 mt-4 border rounded">
     <form class="my-3" action="{{route('data-stok-barang.update', $item->id_stok_barang)}}" method="POST">
@@ -24,15 +28,26 @@
             @enderror
         </div>
 
+        <div class="form-group">
+            <label for="deskripsi_barang">Deskripsi Barang</label>
+            <input type="text" name="deskripsi_barang" class="form-control  @error('deskripsi_barang') is-invalid @enderror" id="deskripsi_barang" placeholder="Masukkan Nama" value ="{{$item->deskripsi_barang}}">
+            @error ('deskripsi_barang')
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
+        </div>
+
 
         <div class="form-group">
-            <label for="satuan">Pilih Role</label>
+            <label for="satuan">Pilih Satuan</label>
             <select class="form-control @error('satuan') is-invalid @enderror" name="satuan" id="satuan">
-            <option  value="dus" @if ($item->role == 'dus') selected @endif>dus</option>
-            <option  value="sak" @if ($item->role == 'sak') selected @endif>sak</option>
-            <option  value="buah" @if ($item->role == 'buah') selected @endif>buah</option>
-            <option  value="unit" @if ($item->role == 'unit') selected @endif>unit</option>
-            <option  value="pcs" @if ($item->role == 'pcs') selected @endif>pcs</option>
+            <option  value="dus" @if ($item->satuan == 'dus') selected @endif>dus</option>
+            <option  value="sak" @if ($item->satuan == 'sak') selected @endif>sak</option>
+            <option  value="buah" @if ($item->satuan == 'buah') selected @endif>buah</option>
+            <option  value="unit" @if ($item->satuan == 'unit') selected @endif>unit</option>
+            <option  value="pcs" @if ($item->satuan == 'pcs') selected @endif>pcs</option>
+            <option  value="lembar" @if ($item->satuan == 'lembar') selected @endif>lembar</option>
             </select>
             @error ('satuan')
                 <div class="invalid-feedback">

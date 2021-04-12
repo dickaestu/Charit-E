@@ -15,21 +15,21 @@ class StokBarang extends Model
     protected $primaryKey = 'id_stok_barang';
     protected $keyType = 'string';
     protected $fillable = [
-        'kode_barang','nama_barang','quantity','satuan'
+        'kode_barang', 'nama_barang', 'quantity', 'satuan', 'deskripsi_barang'
     ];
-   
-    public function barangmasuk(){
+
+    public function barangmasuk()
+    {
         return $this->hasMany(BarangMasuk::class, 'id_stok_barang', 'id_stok_barang');
     }
 
-    public function detail_permintaan_barang(){
+    public function detail_permintaan_barang()
+    {
         return $this->hasMany(DetailPermintaanBarang::class, 'id_stok_barang', 'id_stok_barang');
     }
 
-    public function detail_pengiriman_barang(){
+    public function detail_pengiriman_barang()
+    {
         return $this->hasMany(DetailPengirimanBarang::class, 'id_stok_barang', 'id_stok_barang');
     }
-
-
-    
 }

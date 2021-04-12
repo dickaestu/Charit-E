@@ -10,7 +10,7 @@ $(document).ready(function () {
     });
 
     $(".table_penerimaan").DataTable({
-        order: [[0, "desc"]],
+        ordering: false,
     });
 
     $("#table_riwayat").DataTable();

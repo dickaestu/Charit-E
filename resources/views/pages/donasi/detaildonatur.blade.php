@@ -61,7 +61,7 @@
                     </div>
                 </div>
             </div>
-
+            
             <div class="col-12 col-md-6">
                 <div class="section-title mt-2">
                     <h6>Daftar Donasi Yang Belum Di Terima Posko</h6>
@@ -78,11 +78,13 @@
                                 
                                 <tbody>
                                     
+                                    @foreach ($donasiNotVerif as $item)
                                     <tr>
-                                        <td>01 April 2021</td>
-                                        <td>Okka</td>
-                                        <td>baju dan obat obatan</td>
+                                        <td>{{ $item->tanggal_donasi }}</td>
+                                        <td>{{ $item->is_anonim ? 'Anonim' : $item->user->name }}</td>
+                                        <td>{{ $item->keterangan_donasi }}</td>
                                     </tr>
+                                    @endforeach
                                     
                                 </tbody>
                             </table>
@@ -92,7 +94,7 @@
             </div>
         </div>
         
-        <div class="row">
+        {{-- <div class="row">
             <div class="col">
                 <div class="section-title mt-2">
                     <h2>Daftar Barang Yang Tersedia Di Posko</h2>
@@ -121,7 +123,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         
         
         
