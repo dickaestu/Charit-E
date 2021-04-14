@@ -28,7 +28,7 @@ class StokBarangController extends Controller
     {
         $request->validate([
             'nama_barang' => ['required', 'string', 'max:100'],
-            'satuan' => ['required', 'string', 'in:dus,sak,buah,unit,pcs,lembar'],
+            'satuan' => ['required', 'string', 'in:dus,sak,buah,unit,pcs,lembar,paket'],
             'deskripsi_barang' => ['required', 'max:255'],
         ], [
             'nama_barang.required' => 'Nama barang tidak boleh kosong',
@@ -78,7 +78,7 @@ class StokBarangController extends Controller
     {
         $request->validate([
             'nama_barang' => ['required', 'string', 'max:100'],
-            'satuan' => ['required', 'string', 'in:dus,sak,buah,unit,pcs,lembar'],
+            'satuan' => ['required', 'string', 'in:dus,sak,buah,unit,pcs,lembar,paket'],
             'deskripsi_barang' => ['required', 'max:255'],
         ]);
 

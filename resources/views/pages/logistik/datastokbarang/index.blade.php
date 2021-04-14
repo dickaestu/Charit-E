@@ -139,6 +139,7 @@
                                         <option value="unit">unit</option>
                                         <option value="pcs">pcs</option>
                                         <option value="lembar">lembar</option>
+                                        <option value="paket">paket</option>
                                     </select>
                                     @error ('satuan')
                                     <div class="invalid-feedback">

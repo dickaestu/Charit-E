@@ -3,25 +3,27 @@
 namespace App\LogistikModel;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Donasi;
-use App\LogistikModel\StokBarang;
+use App\User;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class BarangMasuk extends Model
 {
     use SoftDeletes;
     protected $table = 'barang_masuk';
+    public $incrementing = false;
     protected $primaryKey = 'id_barang_masuk';
     protected $keyType = 'string';
     protected $fillable = [
-        'id_barang_masuk','id_donasi','id_stok_barang','jumlah','tanggal_barang_masuk'
+        'id_barang_masuk', 'tanggal_barang_masuk', 'user_id'
     ];
 
-    public function donasi(){
-        return $this->belongsTo(Donasi::class, 'id_donasi', 'id_donasi');
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'user_id');
     }
 
-    public function stokbarang(){
-        return $this->belongsTo(StokBarang::class, 'id_stok_barang', 'id_stok_barang')->withTrashed();
+    public function detailBarangMasuk()
+    {
+        return $this->hasMany(DetailBarangMasuk::class, 'id_barang_masuk', 'id_barang_masuk');
     }
 }

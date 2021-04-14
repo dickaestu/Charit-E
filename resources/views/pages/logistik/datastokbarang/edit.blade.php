@@ -48,6 +48,7 @@
             <option  value="unit" @if ($item->satuan == 'unit') selected @endif>unit</option>
             <option  value="pcs" @if ($item->satuan == 'pcs') selected @endif>pcs</option>
             <option  value="lembar" @if ($item->satuan == 'lembar') selected @endif>lembar</option>
+            <option  value="paket" @if ($item->satuan == 'paket') selected @endif>paket</option>
             </select>
             @error ('satuan')
                 <div class="invalid-feedback">

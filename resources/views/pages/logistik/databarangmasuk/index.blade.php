@@ -5,11 +5,15 @@
 <link href="{{url('backend_assets/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
 @endpush
 @section('content')
-  <!-- Begin Page Content -->
-  <div class="container-fluid">
-
-
-
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    @if (session('sukses'))
+    <div class="alert alert-danger" role="alert">
+        {{session('sukses')}}
+    </div>    
+    @endif
+    
+    <a href="{{ route('data-barang-masuk-logistik.create') }}" class="btn btn-primary btn-icon mb-2"><i class="fas fa-plus"></i> Tambah Barang Masuk</a>
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -17,52 +21,39 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="tableBarang" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="tableBarangMasuk" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>ID Barang Masuk</th>
-                            <th>ID Donasi</th>
                             <th>Tanggal Masuk</th>
-                            <th>Nama</th>
-                          
-                            <th>Nama Barang</th>
-                            <th>Qty</th>
-                            <th>satuan</th>
+                            <th>Created By</th>   
+                            <th>Action</th>   
                             
-
                         </tr>
                     </thead>
                     <tbody>
-                     @forelse ($items as $item)
-                     <tr>
-                        <td>{{$item->id_barang_masuk}}</td>
-                        <td>{{$item->id_donasi}}</td>
-                        <td>{{$item->tanggal_barang_masuk}}</td>
-                        <td>{{$item->donasi->nama_donatur}}</td>
-                        <td>{{$item->stokbarang->nama_barang}}</td>
-                        <td>{{$item->jumlah}}</td>
-                        <td>{{$item->stokbarang->satuan}}</td>
-                      
-                    </tr>
-                     @empty
+                        @foreach ($items as $item)
                         <tr>
-                            <td colspan="6" class="text-center">Data Kosong</td>    
-                        </tr>    
-
-                     @endforelse
-
-
+                            <td>{{$item->id_barang_masuk}}</td>
+                            <td>{{$item->tanggal_barang_masuk}}</td>
+                            <td>{{$item->user->name}}</td>
+                            <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
+                        </tr>
+                        
+                        @endforeach
+                        
+                        
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-
+    
 </div>
 <!-- /.container-fluid -->
 
 @endsection
-     
+
 
 @push('addon-script')
 
@@ -73,11 +64,11 @@
 <!-- Page level custom scripts -->
 <script>
     $(document).ready(function() {
-    $('#tableBarang').DataTable( {
-        "order": [[ 2, "desc" ]]
+        $('#tableBarangMasuk').DataTable( {
+            "order": [[ 0, "desc" ]]
+        } );
     } );
-} );
-
+    
 </script>
 
 @endpush
