@@ -15,8 +15,9 @@
     
     <nav class="breadcrumb bg-transparent">
         <a class="breadcrumb-item" href="{{ route('data-barang-masuk-logistik') }}">Kembali</a>
-        <span class="breadcrumb-item active">Detail {{ $items[0]->id_barang_masuk }}</span>
+        <span class="breadcrumb-item active">Detail {{ $id_barang_masuk }}</span>
     </nav>
+
     
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
@@ -44,11 +45,11 @@
                             <td>
                                 <div class="d-flex">
                                     <a href="{{ route('data-barang-masuk-logistik.detail.edit',$item->id_detail_barang_masuk) }}" class="btn btn-sm btn-warning mr-1">Edit</a>
-                                    <form action="#" method="post">
+                                    {{-- <form action="{{ route('data-barang-masuk-logistik.detail.delete',$item->id_detail_barang_masuk) }}" method="post">
                                         @csrf
                                         @method('DELETE')
                                         <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Apakah anda yakin?')">Delete</button>
-                                    </form>
+                                    </form> --}}
                                 </div>
                             </td>
                         </tr>

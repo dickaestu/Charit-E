@@ -63,19 +63,22 @@
                                 <td>{{$item->quantity}}</td>
                                 <td>{{$item->satuan}}</td>
                                 <td>
-                                    <a  href="{{route('data-stok-barang.edit', $item->id_stok_barang)}}"
-                                        class="btn btn-warning btn-sm">Edit</a> 
+                                    <div class="d-flex">
+                                        <a  href="{{route('data-stok-barang.edit', $item->id_stok_barang)}}"
+                                        class="btn btn-warning btn-sm btn-icon"><i class="fas fa-pencil-alt"></i></a> 
+                                        <a href="#" class="btn btn-info btn-icon btn-sm ml-1"><i class="fas fa-download"></i></a>
+                                    </div>
                                         {{-- @if ($item->quantity > 0)
                                             <button name="hapus" id="hapus" disabled
                                             class="btn btn-secondary btn-sm">Hapus</button>
                                             @else --}}
                                             
-                                            <form class="d-inline" action="{{route('data-stok-barang.destroy',$item->id_stok_barang)}}" method="post">
+                                            {{-- <form  action="{{route('data-stok-barang.destroy',$item->id_stok_barang)}}" method="post">
                                                 @csrf
                                                 @method('delete')
                                                 <button name="hapus" id="hapus" onclick="return confirm('Apakah anda yakin ingin menghapus data?');"
                                                 class="btn btn-danger btn-sm">Hapus</button>
-                                            </form>
+                                            </form> --}}
                                             {{-- @endif --}}
                                             
                                         </td>

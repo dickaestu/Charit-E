@@ -83,11 +83,34 @@ class DataBarangMasukController extends Controller
         return redirect()->route('data-barang-masuk-logistik')->with('sukses', 'Data Berhasil Dibuat');
     }
 
+    public function destroy($id)
+    {
+        $barangMasuk = BarangMasuk::findOrFail($id);
+
+        foreach ($barangMasuk->detailBarangMasuk as $detail) {
+            $detailBarangMasuk = DetailBarangMasuk::findOrfail($detail->id_detail_barang_masuk);
+            $stokBarang = StokBarang::findOrFail($detailBarangMasuk->id_stok_barang);
+
+            // Delete stok sebelumnya
+            $stokBarang->quantity -= $detailBarangMasuk->jumlah;
+            $stokBarang->save();
+
+            $detailBarangMasuk->delete();
+        }
+
+        $barangMasuk->delete();
+
+        return redirect()->back()->with('sukses', 'Data Berhasil Dihapus');
+    }
+
     public function detailBarangMasuk($id)
     {
+        $id_barang_masuk = $id;
         $items = DetailBarangMasuk::where('id_barang_masuk', $id)->get();
-        return view('pages.logistik.databarangmasuk.detail', compact('items'));
+        return view('pages.logistik.databarangmasuk.detail', compact('items', 'id_barang_masuk'));
     }
+
+
 
     public function detailBarangMasukEdit($id)
     {
@@ -123,5 +146,19 @@ class DataBarangMasukController extends Controller
 
 
         return redirect()->route('data-barang-masuk-logistik.detail', $detailBarangMasuk->id_barang_masuk)->with('sukses', 'Data Berhasil Di Update');
+    }
+
+    public function detailBarangMasukDelete($id)
+    {
+        $detailBarangMasuk = DetailBarangMasuk::findOrfail($id);
+        $stokBarang = StokBarang::findOrFail($detailBarangMasuk->id_stok_barang);
+
+        // Delete stok sebelumnya
+        $stokBarang->quantity -= $detailBarangMasuk->jumlah;
+        $stokBarang->save();
+
+        $detailBarangMasuk->delete();
+
+        return redirect()->route('data-barang-masuk-logistik.detail', $detailBarangMasuk->id_barang_masuk)->with('sukses', 'Data Berhasil Di Hapus');
     }
 }

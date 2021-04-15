@@ -37,38 +37,47 @@
                             <td>{{$item->id_barang_masuk}}</td>
                             <td>{{$item->tanggal_barang_masuk}}</td>
                             <td>{{$item->user->name}}</td>
-                            <td><a href="{{ route('data-barang-masuk-logistik.detail',$item->id_barang_masuk) }}" class="btn btn-sm btn-info">Detail</a></td>
-                        </tr>
-                        
-                        @endforeach
-                        
-                        
-                    </tbody>
-                </table>
+                            <td>
+                                <div class="d-flex">
+                                    <a href="{{ route('data-barang-masuk-logistik.detail',$item->id_barang_masuk) }}" class="btn btn-sm btn-info">Detail</a>
+                                    <form action="{{ route('data-barang-masuk-logistik.delete',$item->id_barang_masuk) }}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-danger btn-sm ml-1" onclick="return confirm('Apakah anda yakin?')">Delete</button>
+                                    </form>
+                                </div>
+                            </td>
+                            </tr>
+                            
+                            @endforeach
+                            
+                            
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
+        
     </div>
+    <!-- /.container-fluid -->
     
-</div>
-<!-- /.container-fluid -->
-
-@endsection
-
-
-@push('addon-script')
-
-<!-- Page level plugins -->
-<script src="{{url('backend_assets/vendor/datatables/jquery.dataTables.min.js')}}"></script>
-<script src="{{url('backend_assets/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
-
-<!-- Page level custom scripts -->
-<script>
-    $(document).ready(function() {
-        $('#tableBarangMasuk').DataTable( {
-            "order": [[ 0, "desc" ]]
+    @endsection
+    
+    
+    @push('addon-script')
+    
+    <!-- Page level plugins -->
+    <script src="{{url('backend_assets/vendor/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{url('backend_assets/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
+    
+    <!-- Page level custom scripts -->
+    <script>
+        $(document).ready(function() {
+            $('#tableBarangMasuk').DataTable( {
+                "order": [[ 0, "desc" ]]
+            } );
         } );
-    } );
+        
+    </script>
     
-</script>
-
-@endpush
+    @endpush
