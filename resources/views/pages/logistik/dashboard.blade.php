@@ -15,27 +15,7 @@
 
     <!-- Content Row -->
     <div class="row">
-
-      <!-- Donasi Harian Card Example -->
-      <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-primary shadow h-100 py-2">
-          <div class="card-body">
-            <div class="row no-gutters align-items-center">
-              <div class="col mr-2">
-                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Barang Masuk</div>
-                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $barang }}</div>
-                <div class=" text-gray mt-1"> ({{ \Carbon\Carbon::now()->format('D, M - Y') }})</div>
-              </div>
-              <div class="col-auto">
-                <i class="fas fa-gift fa-2x text-gray-300"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <!-- Bencana Card Example -->
+      <!-- Permintaan logistik Card Example -->
       <div class="col-xl-3 col-md-6 mb-4">
         <div class="card border-left-danger shadow h-100 py-2">
           <div class="card-body">
@@ -52,26 +32,7 @@
         </div>
       </div>
 
-      <!-- Donasi  -->
-      <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-info shadow h-100 py-2">
-          <div class="card-body">
-            <div class="row no-gutters align-items-center">
-              <div class="col mr-2">
-                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Donasi Pending</div>
-                <div class="row no-gutters align-items-center">
-                  <div class="col-auto">
-                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ $pending }}</div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-auto">
-                <i class="fas fa-spinner fa-2x text-gray-300"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+     
 
      
     </div>

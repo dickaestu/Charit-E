@@ -12,11 +12,20 @@
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
+    
+
     <!-- Nav Item - Data Permintaan -->
     <li class="nav-item {{Request::is('posko') ? ' active' : '' }}">
       <a class="nav-link" href="{{route('data-permintaan')}}">
         <i class="fas fa-fw fa-clipboard-list"></i>
         <span>Data Permintaan</span></a>
+    </li>
+
+    <!-- Nav Item - Donasi Masuk -->
+    <li class="nav-item {{Request::is('posko/donasi-masuk*') ? ' active' : '' }}">
+      <a class="nav-link" href="{{route('donasi-masuk-posko')}}">
+        <i class="fas fa-fw fa-hand-holding-heart"></i>
+        <span>Donasi Masuk</span></a>
     </li>
   
     <!-- Nav Item - Profile Posko Collapse Menu -->

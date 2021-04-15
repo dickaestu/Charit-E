@@ -1,4 +1,4 @@
-@extends('layouts.logistik.logistik')
+@extends('layouts.posko.posko')
 @section('title','Tambah Barang Masuk')
 
 @section('content')
@@ -27,14 +27,23 @@
   
   <form action="{{ route('verifikasi-sukses',$donasi) }}" method="post">
     @csrf
+    <div class="form-group">
+      <label >Tanggal Donasi Masuk</label>
+      <input style="width:200px" type="date" required name="tanggal_donasi_masuk" class="form-control @error('tanggal_donasi_masuk') is-invalid @enderror" >
+      @error ('tanggal_donasi_masuk')
+      <div class="invalid-feedback">
+        {{$message}}
+      </div>
+      @enderror
+    </div>
     <table class="table table-responsive table-borderless">
       <thead>
         <tr>
           <th>Nama Barang</th>
           <th>Quantity</th>
-          <th><button type="button" id="tambah" class="btn btn-sm btn-success mt-3"><i
+          <th><button type="button" id="tambah" class="btn btn-sm btn-success mt-2"><i
             class="fas fa-plus"> Tambah</i></button></th>
-            <th><button type="button" id="reset-btn" class="btn btn-sm btn-danger mt-3"><i
+            <th><button type="button" id="reset-btn" class="btn btn-sm btn-danger mt-2"><i
               class="fas fa-trash"> Reset</i></button></th>
             </tr>
           </thead>
@@ -42,9 +51,10 @@
           
           <tbody>
             <tr>
-              <td>  <select class="form-control form-control-sm " id="id_stok_barang"
+              <td>  
+                <select class="form-control form-control-sm " required id="id_stok_barang"
                 name="id_stok_barang[]">
-                <option >Silahkan pilih</option>
+                <option value="">Silahkan pilih</option>
                 @foreach ($stokbarang as $stok)
                 <option value="{{$stok->id_stok_barang}}">{{$stok->nama_barang}} / {{$stok->satuan}}</option>    
                 @endforeach
@@ -53,7 +63,7 @@
             </td>
             
             <td>                 
-              <input type="number" class="form-control form-control-sm" min="1"  id="jumlah" name="jumlah[]">               
+              <input type="number" required class="form-control form-control-sm" min="1"  id="jumlah" name="jumlah[]">               
             </td>
             
           </tr>
@@ -91,14 +101,14 @@
         $("#insert-form").append(
         '<table class="table table-responsive table-borderless">'+
           '<tr>'+
-            '<td><select class="form-control form-control-sm" id="id_stok_barang" name="id_stok_barang[]">'+
-              '<option>Silahkan pilih</option>'+
+            '<td><select required class="form-control form-control-sm" id="id_stok_barang" name="id_stok_barang[]">'+
+              '<option value="">Silahkan pilih</option>'+
               ' @foreach ($stokbarang as $stok) <option value="{{$stok->id_stok_barang}}">{{$stok->nama_barang}} / {{$stok->satuan}}</option> @endforeach'+
               ' </select>'+
               '</td>'+
               
               '<td>'+
-                ' <input type="number" class="form-control form-control-sm " min="1" id="jumlah" name="jumlah[]">'+
+                ' <input type="number" required class="form-control form-control-sm " min="1" id="jumlah" name="jumlah[]">'+
                 ' </td>'+
                 '<td>'+ 
                   '<button type="button" class="btn remove">' +

@@ -27,7 +27,7 @@ class Donasi extends Model
 
     public function aktivitasdonasi()
     {
-        return $this->belongsTo(AktivitasDonasi::class, 'id_aktivitas_donasi', 'id_aktivitas_donasi')->withTrashed();
+        return $this->belongsTo(AktivitasDonasi::class, 'id_aktivitas_donasi', 'id_aktivitas_donasi');
     }
 
     public function barangmasuk()

@@ -19,12 +19,7 @@
         <span>Dashboard</span></a>
     </li>
 
-    <!-- Nav Item - Donasi Masuk -->
-    <li class="nav-item {{Request::is('logistik/donasi-masuk') ? ' active' : '' }}">
-      <a class="nav-link" href="{{route('donasi-masuk-logistik')}}">
-        <i class="fas fa-fw fa-hand-holding-heart"></i>
-        <span>Donasi Masuk</span></a>
-    </li>
+    
 
 
     <!-- Nav Item - Data Stok Barang Collapse Menu -->

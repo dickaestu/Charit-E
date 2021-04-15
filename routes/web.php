@@ -181,15 +181,7 @@ Route::prefix('logistik')
       ->group(function () {
             Route::get('/', 'DashboardController@index')
                   ->name('dashboard-logistik');
-            Route::get('/donasi-masuk', 'DonasiMasukController@index')
-                  ->name('donasi-masuk-logistik');
-            Route::get('/donasi-masuk/{id}/verifikasi-barang', 'DonasiMasukController@verifikasibarang')
-                  ->name('verifikasi-barang');
-            Route::post('/donasi-masuk/{id}/verifikasi-barang/sukses', 'DonasiMasukController@sukses')
-                  ->name('verifikasi-sukses');
-
             Route::resource('data-stok-barang', 'StokBarangController');
-
 
             Route::get('/data-barang-masuk', 'DataBarangMasukController@index')
                   ->name('data-barang-masuk-logistik');
@@ -307,6 +299,14 @@ Route::prefix('posko')
       ->group(function () {
             Route::resource('/info-posko', 'InfoPoskoController');
             Route::resource('/sub-posko', 'SubPoskoController');
+
+            Route::get('/donasi-masuk', 'DonasiMasukController@index')
+                  ->name('donasi-masuk-posko');
+            Route::get('/donasi-masuk/{id}/verifikasi-barang', 'DonasiMasukController@verifikasibarang')
+                  ->name('verifikasi-barang.posko');
+            Route::post('/donasi-masuk/{id}/verifikasi-barang/sukses', 'DonasiMasukController@sukses')
+                  ->name('verifikasi-sukses');
+
             Route::get('/', 'DataPermintaanController@index')
                   ->name('data-permintaan');
             Route::get('/data-permintaan/tambah', 'DataPermintaanController@tambah')
