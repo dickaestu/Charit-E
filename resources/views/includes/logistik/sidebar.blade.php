@@ -35,7 +35,7 @@
     </li>
 
     <!-- Nav Item - Data Barang Masuk -->
-    <li class="nav-item {{Request::is('logistik/data-barang-masuk') ? ' active' : '' }}">
+    <li class="nav-item {{Request::is('logistik/data-barang-masuk*') ? ' active' : '' }}">
       <a class="nav-link" href="{{route('data-barang-masuk-logistik')}}">
         <i class="fas fa-fw fa-sign-in-alt"></i>
         <span>Data Barang Masuk</span></a>

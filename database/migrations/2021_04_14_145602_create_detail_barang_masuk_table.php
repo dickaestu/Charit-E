@@ -14,7 +14,7 @@ class CreateDetailBarangMasukTable extends Migration
     public function up()
     {
         Schema::create('detail_barang_masuk', function (Blueprint $table) {
-            $table->string('id_detail_barang_masuk', 20)->primary();
+            $table->increments('id_detail_barang_masuk');
             $table->string('id_barang_masuk', 20);
             $table->string('id_stok_barang', 20);
             $table->integer('jumlah');

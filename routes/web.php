@@ -193,6 +193,12 @@ Route::prefix('logistik')
 
             Route::get('/data-barang-masuk', 'DataBarangMasukController@index')
                   ->name('data-barang-masuk-logistik');
+            Route::get('/data-barang-masuk/detail/{id}', 'DataBarangMasukController@detailBarangMasuk')
+                  ->name('data-barang-masuk-logistik.detail');
+            Route::get('/data-barang-masuk/detail-edit/{id}', 'DataBarangMasukController@detailBarangMasukEdit')
+                  ->name('data-barang-masuk-logistik.detail.edit');
+            Route::put('/data-barang-masuk/detail-edit/{id}', 'DataBarangMasukController@detailBarangMasukUpdate')
+                  ->name('data-barang-masuk-logistik.detail.update');
             Route::get('/data-barang-masuk/create', 'DataBarangMasukController@create')
                   ->name('data-barang-masuk-logistik.create');
             Route::post('/data-barang-masuk', 'DataBarangMasukController@store')

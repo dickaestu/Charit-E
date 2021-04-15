@@ -44,13 +44,8 @@ class DataBarangMasukController extends Controller
             ];
             $idBarangMasuk = IdGenerator::generate($generate_id_barang_masuk);
 
-            $generate_id_detail_barang_masuk = [
-                'table' => 'detail_barang_masuk', 'field' => 'id_detail_barang_masuk', 'length' => 20, 'prefix' => 'DBRMSK-' . date('ym'),
-                'reset_on_prefix_change' => true
-            ];
-            foreach ($request->id_stok_barang as $item => $v) {
 
-                $idDetailBarangMasuk = IdGenerator::generate($generate_id_detail_barang_masuk);
+            foreach ($request->id_stok_barang as $item => $v) {
                 $request->validate([
                     'id_stok_barang' => ['required', 'exists:stok_barang,id_stok_barang'],
                     'jumlah' => ['required'],
@@ -61,7 +56,6 @@ class DataBarangMasukController extends Controller
                 ]);
 
                 $detail[] = [
-                    'id_detail_barang_masuk' => $idDetailBarangMasuk,
                     'id_barang_masuk' => $idBarangMasuk,
                     'id_stok_barang' => $request->id_stok_barang[$item],
                     'jumlah' => $request->jumlah[$item],
@@ -74,9 +68,8 @@ class DataBarangMasukController extends Controller
                 'tanggal_barang_masuk' => $request->tanggal_barang_masuk,
                 'user_id' => Auth::id()
             ]);
-            DetailBarangMasuk::insert($detail);
 
-            // $barangMasuk->detailBarangMasuk()->createMany($detail);
+            $barangMasuk->detailBarangMasuk()->createMany($detail);
         }
         foreach ($request->id_stok_barang as $item => $v) {
             $stokbarang = StokBarang::where('id_stok_barang', $request->id_stok_barang[$item])->get();
@@ -88,5 +81,47 @@ class DataBarangMasukController extends Controller
 
 
         return redirect()->route('data-barang-masuk-logistik')->with('sukses', 'Data Berhasil Dibuat');
+    }
+
+    public function detailBarangMasuk($id)
+    {
+        $items = DetailBarangMasuk::where('id_barang_masuk', $id)->get();
+        return view('pages.logistik.databarangmasuk.detail', compact('items'));
+    }
+
+    public function detailBarangMasukEdit($id)
+    {
+        $item = DetailBarangMasuk::findOrFail($id);
+        $stokBarang = StokBarang::all();
+        return view('pages.logistik.databarangmasuk.detail-edit', compact('item', 'stokBarang'));
+    }
+
+    public function detailBarangMasukUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'id_stok_barang' => ['required', 'exists:stok_barang,id_stok_barang'],
+            'jumlah' => ['required'],
+        ], [
+            'id_stok_barang.required' => 'Anda belum memilih barang',
+            'id_stok_barang.exists' => 'Anda belum memilih barang',
+            'jumlah.required' => 'Tidak boleh kosong',
+        ]);
+
+        $detailBarangMasuk = DetailBarangMasuk::findOrfail($id);
+        $stokBarang = StokBarang::findOrFail($detailBarangMasuk->id_stok_barang);
+
+        $data = $request->all();
+        // Delete stok sebelumnya
+        $stokBarang->quantity -= $detailBarangMasuk->jumlah;
+        $stokBarang->save();
+
+        $detailBarangMasuk->update($data);
+        $newDetailBarangMasuk = DetailBarangMasuk::findOrFail($id);
+
+        $newDetailBarangMasuk->stokBarang->quantity += $request->jumlah;
+        $newDetailBarangMasuk->stokBarang->save();
+
+
+        return redirect()->route('data-barang-masuk-logistik.detail', $detailBarangMasuk->id_barang_masuk)->with('sukses', 'Data Berhasil Di Update');
     }
 }
