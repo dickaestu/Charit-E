@@ -307,6 +307,19 @@ Route::prefix('posko')
             Route::post('/donasi-masuk/{id}/verifikasi-barang/sukses', 'DonasiMasukController@sukses')
                   ->name('verifikasi-sukses');
 
+            Route::get('/donasi-masuk/detail/{id}', 'DetailDonasiMasukController@index')
+                  ->name('detail-donasi.posko.index');
+            Route::delete('/donasi-masuk/detail/{id}', 'DetailDonasiMasukController@destroy')
+                  ->name('detail-donasi.posko.delete');
+            Route::get('/donasi-masuk/detail-create/{id}', 'DetailDonasiMasukController@create')
+                  ->name('detail-donasi.posko.create');
+            Route::post('/donasi-masuk/detail-create/{id}', 'DetailDonasiMasukController@store')
+                  ->name('detail-donasi.posko.store');
+            Route::get('/donasi-masuk/detail-edit/{id}', 'DetailDonasiMasukController@edit')
+                  ->name('detail-donasi.posko.edit');
+            Route::put('/donasi-masuk/detail-edit/{id}', 'DetailDonasiMasukController@update')
+                  ->name('detail-donasi.posko.update');
+
             Route::get('/', 'DataPermintaanController@index')
                   ->name('data-permintaan');
             Route::get('/data-permintaan/tambah', 'DataPermintaanController@tambah')

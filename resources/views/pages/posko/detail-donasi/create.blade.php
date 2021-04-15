@@ -1,13 +1,16 @@
 @extends('layouts.posko.posko')
-@section('title','Verifikasi Donasi')
+@section('title','Tambah Detail Donasi')
 
 @section('content')
 
 <!-- Begin Page Content -->
-<div class="container-fluid">
+<div class="container-fluid ">
   
   
-  
+  <nav class="breadcrumb bg-transparent p-0">
+    <a class="breadcrumb-item" href="{{ route('detail-donasi.posko.index',$donasi) }}">Kembali</a>
+    <span class="breadcrumb-item active">{{ $donasi }}</span>
+  </nav>
   <h5 class="mb-3">Silahkan Masukkan Barang</h5>
   @if ($errors->any())
   <div class="alert alert-danger">
@@ -25,17 +28,9 @@
   @endif
   
   
-  <form action="{{ route('verifikasi-sukses',$donasi) }}" method="post">
+  <form action="{{ route('detail-donasi.posko.store',$donasi) }}" method="post">
     @csrf
-    <div class="form-group">
-      <label >Tanggal Donasi Masuk</label>
-      <input style="width:200px" type="date" required name="tanggal_donasi_masuk" class="form-control @error('tanggal_donasi_masuk') is-invalid @enderror" >
-      @error ('tanggal_donasi_masuk')
-      <div class="invalid-feedback">
-        {{$message}}
-      </div>
-      @enderror
-    </div>
+    
     <table class="table table-responsive table-borderless">
       <thead>
         <tr>
@@ -77,7 +72,7 @@
       
       <div class="row d-flex justify-content-center mb-5">
         <div class="col-auto col-md-6">
-          <button type="submit" onclick="return confirm('Pastikan barang yang diverifikasi sudah benar');" class="btn btn-primary btn-block">Kirim</button>
+          <button type="submit" onclick="return confirm('Pastikan barang yang di masukkan sudah benar');" class="btn btn-primary btn-block">Kirim</button>
         </div>
       </div>
     </form>   

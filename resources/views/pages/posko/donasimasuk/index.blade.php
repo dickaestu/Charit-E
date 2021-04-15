@@ -26,6 +26,8 @@
                             <th>ID Donasi</th>
                             <th>Tanggal Donasi</th>
                             <th>Nama</th>
+                            <th>ID Info Posko</th>
+                            <th>Lokasi Bencana</th>
                             <th>keterangan</th>
                             <th>Status</th>
                             <th>Aksi</th>
@@ -36,23 +38,28 @@
                         <tr>
                             <td>{{$item->id_donasi}}</td>
                             <td>{{Carbon\Carbon::create($item->tanggal_donasi)->format('d - m - Y')}}</td>
-                            <td>{{$item->user->name}}</td>
+                            <td>{{$item->is_anonim ? 'Anonim' : $item->user->name}}</td>
+                            <td>{{ $item->aktivitasdonasi->id_info_posko }}</td>
+                            <td>{{ $item->aktivitasdonasi->info_posko->lokasi_bencana }}</td>
+                            
                             
                             <td>{{$item->keterangan_donasi}}</td>
                             <td class="{{$item->status_verifikasi ? 'text-success' : 'text-muted'}}">{{$item->status_verifikasi ? 'Verified' : 'Pending'}}</td>
                             <td>
-                                @if ($item->status_verifikasi==false)
-                                <a  href="{{route('verifikasi-barang.posko',$item->id_donasi)}}"
-                                    class="btn btn-success btn-sm">Verifikasi</a>
-                                    @else
-                                    <button disabled class="btn btn-secondary btn-sm">Verifikasi</button>
-                                    @endif
-                                    
-                                    <a target="_blank" href="{{Storage::url($item->foto_bukti)}}" name="hapus" id="hapus">Lihat
-                                        Foto</a>
+                                <div class="d-flex">
+                                    @if ($item->status_verifikasi==false)
+                                    <a  href="{{route('verifikasi-barang.posko',$item->id_donasi)}}"
+                                        class="btn btn-success btn-sm mr-1">Verifikasi</a>
+                                        @else
+                                        <a href="{{ route('detail-donasi.posko.index',$item->id_donasi) }}" class="btn btn-info btn-sm mr-1">Detail Donasi</a>
+                                        @endif
+                                        
+                                        <a target="_blank" href="{{Storage::url($item->foto_bukti)}}" name="hapus" id="hapus">Lihat
+                                            Foto</a>
+                                        </div>
                                     </td>
                                 </tr>
-                        @endforeach
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -71,11 +78,11 @@
         <script src="{{url('backend_assets/vendor/datatables/jquery.dataTables.min.js')}}"></script>
         <script src="{{url('backend_assets/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
         
-        <!-- Page level custom scripts -->
-        <script src="{{url('backend_assets/js/demo/datatables-demo.js')}}"></script>
         <script>
             $(document).ready(function() {
-                $('#tableDonasi').DataTable( );
+                $('#tableDonasi').DataTable({
+                    "ordering":false
+                } );
             } );
         </script>
         @endpush

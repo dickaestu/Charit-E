@@ -1,5 +1,5 @@
-@extends('layouts.logistik.logistik')
-@section('title','Detail Barang Masuk')
+@extends('layouts.posko.posko')
+@section('title','Detail Donasi Masuk')
 @push('addon-style')
 <!-- Custom styles for this page -->
 <link href="{{url('backend_assets/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
@@ -14,19 +14,20 @@
     @endif
     
     <nav class="breadcrumb bg-transparent">
-        <a class="breadcrumb-item" href="{{ route('data-barang-masuk-logistik') }}">Kembali</a>
-        <span class="breadcrumb-item active">Detail {{ $id_barang_masuk }}</span>
+        <a class="breadcrumb-item" href="{{ route('donasi-masuk-posko') }}">Kembali</a>
+        <span class="breadcrumb-item active">Detail {{ $id_donasi }}</span>
     </nav>
 
+    <a href="{{ route('detail-donasi.posko.create',$id_donasi) }}" class="btn btn-primary mb-2">Tambah Detail Donasi</a>
     
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Detail Barang Masuk</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Detail Donasi Masuk</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="tableBarangMasuk" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="tableDetailDonasiMasuk" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -44,9 +45,9 @@
                             <td>{{$item->jumlah}}</td>
                             <td>
                                 <div class="d-flex">
-                                    <a href="{{ route('data-barang-masuk-logistik.detail.edit',$item->id_detail_barang_masuk) }}" class="btn btn-sm btn-warning mr-1">Edit</a>
-                                @if (count($items) >1)
-                                    <form action="{{ route('data-barang-masuk-logistik.detail.delete',$item->id_detail_barang_masuk) }}" method="post">
+                                    <a href="{{ route('detail-donasi.posko.edit',$item->id_detail_donasi) }}" class="btn btn-sm btn-warning mr-1">Edit</a>
+                                    @if (count($items) >1)
+                                    <form action="{{ route('detail-donasi.posko.delete',$item->id_detail_donasi) }}" method="post">
                                         @csrf
                                         @method('DELETE')
                                         <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Apakah anda yakin?')">Delete</button>
@@ -80,7 +81,7 @@
 <!-- Page level custom scripts -->
 <script>
     $(document).ready(function() {
-        $('#tableBarangMasuk').DataTable( {
+        $('#tableDetailDonasiMasuk').DataTable( {
         } );
     } );
     
