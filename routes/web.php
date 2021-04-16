@@ -298,7 +298,12 @@ Route::prefix('posko')
       ->middleware(['auth', 'posko'])
       ->group(function () {
             Route::resource('/info-posko', 'InfoPoskoController');
-            Route::resource('/sub-posko', 'SubPoskoController');
+            Route::get('/sub-posko/{id}', 'SubPoskoController@index')->name('sub-posko.index');
+            Route::get('/sub-posko/create/{id}', 'SubPoskoController@create')->name('sub-posko.create');
+            Route::post('/sub-posko/create/{id}', 'SubPoskoController@store')->name('sub-posko.store');
+            Route::get('/sub-posko/edit/{id}', 'SubPoskoController@edit')->name('sub-posko.edit');
+            Route::put('/sub-posko/edit/{id}', 'SubPoskoController@update')->name('sub-posko.update');
+            Route::delete('/sub-posko/{id}', 'SubPoskoController@destroy')->name('sub-posko.destroy');
 
             Route::get('/donasi-masuk', 'DonasiMasukController@index')
                   ->name('donasi-masuk-posko');

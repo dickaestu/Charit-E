@@ -35,20 +35,6 @@
         <span>Info Posko</span></a>
     </li>
 
-
-
-    <!-- Nav Item - Data Daftar Posko Collapse Menu -->
-    <li class="nav-item {{Request::is('posko/sub-posko') ? ' active' : '' }}">
-      <a class="nav-link" href="{{route('sub-posko.index')}}">
-        <i class="fas fa-fw fa-list"></i>
-        <span>Data Sub Posko</span></a>
-    </li>
-
-    
-
-
-
-
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 

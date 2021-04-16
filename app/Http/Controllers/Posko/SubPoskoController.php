@@ -8,6 +8,7 @@ use App\PoskoModel\SubPosko;
 use App\PoskoModel\InfoPosko;
 use Auth;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+
 class SubPoskoController extends Controller
 {
     /**
@@ -15,16 +16,13 @@ class SubPoskoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {    
-            $infoposko = InfoPosko::with('subposko')->where('user_id', Auth::user()->user_id)->get();
-         
-                $items = SubPosko::with('info_posko')->get();
-                return view('pages.posko.subposko.index', [
-                    'items'=>$items,
-                    'infoposko'=> $infoposko
-                ]);         
-      
+    public function index($id)
+    {
+        $items = SubPosko::with('info_posko')->where('id_info_posko', $id)->get();
+        return view('pages.posko.subposko.index', [
+            'items' => $items,
+            'id_info_posko' => $id
+        ]);
     }
 
     /**
@@ -32,12 +30,10 @@ class SubPoskoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-
-        $info_posko = InfoPosko::where('user_id', Auth::user()->user_id)->get();
-        return view ('pages.posko.subposko.create',[
-            'info_posko'=>$info_posko
+        return view('pages.posko.subposko.create', [
+            'id_info_posko' => $id
         ]);
     }
 
@@ -47,31 +43,28 @@ class SubPoskoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id_info_posko)
     {
-         $request->validate([
-            'id_info_posko'=>['required'],
-            'nama_sub_posko'=>['required','max:50','string'],
-            'nama_penanggung_jawab'=>['required','string','max:100'],
-        ],[
-            'id_info_posko.required'=> 'Tidak boleh kosong',
-            'nama_sub_posko.required'=> 'Nama sub posko tidak boleh kosong',
-            'nama_penanggung_jawab.required'=> 'Nama penanggung jawab tidak boleh kosong'
+        $request->validate([
+            'nama_sub_posko' => ['required', 'max:100', 'string'],
+            'nama_penanggung_jawab' => ['required', 'string', 'max:100'],
+        ], [
+            'nama_sub_posko.required' => 'Nama sub posko tidak boleh kosong',
+            'nama_penanggung_jawab.required' => 'Nama penanggung jawab tidak boleh kosong'
         ]);
 
-        $config=[
-                'table'=>'sub_posko','field'=>'id_sub_posko','length'=> 12,'prefix'=>'SUB-'.date('ym'),
-            'reset_on_prefix_change'=>true
-            ];
-            $id = IdGenerator::generate($config);
+        $config = [
+            'table' => 'sub_posko', 'field' => 'id_sub_posko', 'length' => 20, 'prefix' => 'SUB-' . date('ym'),
+            'reset_on_prefix_change' => true
+        ];
+        $id = IdGenerator::generate($config);
+        $data = $request->all();
+        $data['id_sub_posko'] = $id;
+        $data['id_info_posko'] = $id_info_posko;
 
+        SubPosko::create($data);
 
-            $data = $request->all();
-            $data['id_sub_posko']= $id.Auth::user()->user_id;
-    
-            SubPosko::create($data);
-    
-        return redirect('posko/sub-posko')->with('sukses','Data Berhasil Ditambahkan');
+        return redirect()->route('sub-posko.index', $id_info_posko)->with('sukses', 'Data Berhasil Ditambahkan');
     }
 
 
@@ -84,10 +77,8 @@ class SubPoskoController extends Controller
     public function edit($id)
     {
         $item = SubPosko::findOrFail($id);
-        $info_posko = InfoPosko::where('user_id', Auth::user()->user_id)->get();
-        return view('pages.posko.subposko.edit',[
-            'item'=>$item,
-            'info_posko'=>$info_posko
+        return view('pages.posko.subposko.edit', [
+            'item' => $item,
         ]);
     }
 
@@ -101,20 +92,18 @@ class SubPoskoController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'id_info_posko'=>['required'],
-            'nama_sub_posko'=>['required','max:255','string'],
-            'nama_penanggung_jawab'=>['required','string','max:255'],
-        ],[
-            'id_info_posko.required'=> 'Tidak boleh kosong',
-            'nama_sub_posko.required'=> 'Nama sub posko tidak boleh kosong',
-            'nama_penanggung_jawab.required'=> 'Nama penanggung jawab tidak boleh kosong'
+            'nama_sub_posko' => ['required', 'max:255', 'string'],
+            'nama_penanggung_jawab' => ['required', 'string', 'max:255'],
+        ], [
+            'nama_sub_posko.required' => 'Nama sub posko tidak boleh kosong',
+            'nama_penanggung_jawab.required' => 'Nama penanggung jawab tidak boleh kosong'
         ]);
 
         $data = $request->all();
         $item = SubPosko::findOrFail($id);
 
-        $item ->update($data);
-        return redirect('posko/sub-posko')->with('edit','Data Berhasil Di Ubah');
+        $item->update($data);
+        return redirect()->route('sub-posko.index', $item->id_info_posko)->with('sukses', 'Data Berhasil Di Ubah');
     }
 
     /**
@@ -127,6 +116,6 @@ class SubPoskoController extends Controller
     {
         $item = SubPosko::findOrFail($id);
         $item->delete();
-        return redirect()->route('sub-posko.index')->with('hapus','Data Berhasil Dihapus');
+        return redirect()->route('sub-posko.index', $item->id_info_posko)->with('sukses', 'Data Berhasil Dihapus');
     }
 }
