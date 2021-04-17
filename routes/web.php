@@ -327,9 +327,9 @@ Route::prefix('posko')
 
             Route::get('/', 'DataPermintaanController@index')
                   ->name('data-permintaan');
-            Route::get('/data-permintaan/tambah', 'DataPermintaanController@tambah')
+            Route::get('/data-permintaan/create/{id}', 'DataPermintaanController@create')
                   ->name('tambah-permintaan');
-            Route::post('/data-permintaan/tambah/{id}/proses', 'DataPermintaanController@prosestambah')
+            Route::post('/data-permintaan/create/{id}', 'DataPermintaanController@store')
                   ->name('proses-tambah-permintaan');
             Route::get('/data-permintaan/detail-permintaan/{id}', 'DataPermintaanController@detailpermintaan')
                   ->name('detail-permintaan');

@@ -14,11 +14,11 @@ class DataPermintaanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, $id)
     {
         $items = PermintaanBarang::with(['infoposko'])->where('status_permintaan', 'VERIFIED')->where('status_pengiriman', false)->get();
-        return view('pages.logistik.datapermintaan.index',[
-            'items'=>$items
+        return view('pages.logistik.datapermintaan.index', [
+            'items' => $items
         ]);
     }
 
@@ -26,13 +26,11 @@ class DataPermintaanController extends Controller
     {
         $info = PermintaanBarang::findOrFail($id);
         $items = DetailPermintaanBarang::with(['stokbarang'])->where('id_permintaan_barang', $id)->get();
-  
-        return view('pages.logistik.datapermintaan.detailpermintaan',[
-            'items'=>$items,
-            'info'=>$info,
-          
+
+        return view('pages.logistik.datapermintaan.detailpermintaan', [
+            'items' => $items,
+            'info' => $info,
+
         ]);
     }
-
-    
 }

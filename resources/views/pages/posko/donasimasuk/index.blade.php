@@ -46,7 +46,7 @@
                             <td>{{$item->keterangan_donasi}}</td>
                             <td class="{{$item->status_verifikasi ? 'text-success' : 'text-muted'}}">{{$item->status_verifikasi ? 'Verified' : 'Pending'}}</td>
                             <td>
-                                <div class="d-flex">
+                                <div class="d-flex align-items-center">
                                     @if ($item->status_verifikasi==false)
                                     <a  href="{{route('verifikasi-barang.posko',$item->id_donasi)}}"
                                         class="btn btn-success btn-sm mr-1">Verifikasi</a>

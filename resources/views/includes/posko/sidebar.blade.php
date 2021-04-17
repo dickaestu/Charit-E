@@ -15,7 +15,7 @@
     
 
     <!-- Nav Item - Data Permintaan -->
-    <li class="nav-item {{Request::is('posko') ? ' active' : '' }}">
+    <li class="nav-item {{Request::is('posko') || Request::is('posko/data-permintaan/detail-permintaan*') ? ' active' : '' }}">
       <a class="nav-link" href="{{route('data-permintaan')}}">
         <i class="fas fa-fw fa-clipboard-list"></i>
         <span>Data Permintaan</span></a>
@@ -29,7 +29,7 @@
     </li>
   
     <!-- Nav Item - Profile Posko Collapse Menu -->
-    <li class="nav-item {{Request::is('posko/info-posko') ? ' active' : '' }}">
+    <li class="nav-item {{Request::is('posko/info-posko*') ? ' active' : '' }}">
       <a class="nav-link" href="{{route('info-posko.index')}}">
         <i class="fas fa-fw fa-campground"></i>
         <span>Info Posko</span></a>

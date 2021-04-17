@@ -23,76 +23,51 @@ class DataPermintaanController extends Controller
      */
     public function index(Request $request)
     {
-        $infoposko = InfoPosko::where('user_id', Auth::user()->user_id)->get();
-        $items = PermintaanBarang::with(['infoposko.jenis_bencana', 'pengirimanbarang'])->get();
-
+        $items = PermintaanBarang::with(['infoposko.jenis_bencana', 'pengirimanbarang'])
+            ->whereHas('infoposko', function ($q) {
+                $q->where('user_id', Auth::id());
+            })
+            ->get();
         return view('pages.posko.datapermintaan.index', [
             'items' => $items,
-            'infoposko' => $infoposko,
         ]);
     }
 
-    public function tambah(Request $request)
+    public function create(Request $request, $id)
     {
-        $infoposko = InfoPosko::where('user_id', Auth::user()->user_id)->get();
         $stokbarang = StokBarang::where('quantity', '>', 0)->get();
-        $config = [
-            'table' => 'permintaan_barang', 'field' => 'id_permintaan_barang', 'length' => 12, 'prefix' => 'REQ-' . date('ym'),
-            'reset_on_prefix_change' => true
-        ];
-        $id_permintaan = IdGenerator::generate($config);
-        $id = $id_permintaan . mt_rand(10, 99) . Auth::user()->user_id;
 
-
-        return view('pages.posko.datapermintaan.tambah', [
-            'infoposko' => $infoposko,
+        return view('pages.posko.datapermintaan.create', [
+            'id_info_posko' => $id,
             'stokbarang' => $stokbarang,
-            'id_permintaan' => $id
         ]);
     }
 
 
 
-    public function prosestambah(Request $request, $id_permintaan)
+    public function store(Request $request, $id_info_posko)
     {
-
         $request->validate([
-            'id_info_posko' => ['required', 'exists:info_posko,id_info_posko'],
             'id_stok_barang' => ['required', 'exists:stok_barang,id_stok_barang'],
             'jumlah' => ['required', 'min:1'],
-            'keterangan_permintaan' => ['required', 'string', 'max:150'],
+            'keterangan_permintaan' => ['required', 'string', 'max:255'],
         ], [
-            'id_info_posko.required' => 'Anda belum memilih lokasi bencana',
-            'id_info_posko.exists' => 'Anda belum memilih lokasi bencana',
             'keterangan_permintaan.required' => 'Keterangan tidak boleh kosong',
             'id_stok_barang.required' => 'Anda belum memilih barang',
             'id_stok_barang.exists' => 'Anda belum memilih barang',
             'jumlah.required' => 'Tidak boleh kosong'
         ]);
 
-        $data = new PermintaanBarang;
-        $data->id_permintaan_barang = $id_permintaan;
-        $data->id_info_posko = $request->id_info_posko;
-        $data->keterangan_permintaan = $request->keterangan_permintaan;
-        $data->status_permintaan = 'PENDING';
-        $data->status_penerimaan = false;
-        $data->status_pengiriman = false;
-        $data->tanggal_permintaan = Carbon::now();
-        $data->save();
-
-
-
         $config = [
-            'table' => 'detail_permintaan_barang', 'field' => 'id_detail_permintaan_barang', 'length' => 14, 'prefix' => 'REQD-' . date('ym'),
+            'table' => 'permintaan_barang', 'field' => 'id_permintaan_barang', 'length' => 20, 'prefix' => 'REQ-' . date('ym'),
             'reset_on_prefix_change' => true
         ];
-        $id_detail = IdGenerator::generate($config);
+        $id_permintaan = IdGenerator::generate($config);
 
         if (count($request->id_stok_barang) > 0) {
 
             foreach ($request->id_stok_barang as $item => $v) {
                 $detail[] = array(
-                    'id_detail_permintaan_barang' => $id_detail . mt_rand(10, 99) . (Auth::user()->user_id + mt_rand(10, 99)),
                     'id_permintaan_barang' => $id_permintaan,
                     'id_stok_barang' => $request->id_stok_barang[$item],
                     'jumlah' => $request->jumlah[$item],
@@ -100,9 +75,21 @@ class DataPermintaanController extends Controller
                     'updated_at' => Carbon::now()
                 );
             }
-            DetailPermintaanBarang::insert($detail);
+            // DetailPermintaanBarang::insert($detail);
+
+            $permintaanBarang = PermintaanBarang::create([
+                'id_permintaan_barang' => $id_permintaan,
+                'id_info_posko' => $id_info_posko,
+                'keterangan_permintaan' => $request->keterangan_permintaan,
+                'status_permintaan' => 'PENDING',
+                'status_penerimaan' => false,
+                'status_pengiriman' => false,
+                'tanggal_permintaan' => Carbon::now(),
+            ]);
+
+            $permintaanBarang->detailpermintaanBarang()->createMany($detail);
         }
-        return redirect('/posko')->with('sukses', 'Permintaan Berhasil Data Akan Segera Di Proses');
+        return redirect()->route('info-posko.index')->with('sukses', 'Permintaan Berhasil Dibuat, Data Akan Segera Di Proses');
     }
 
     public function detailpermintaan(Request $request, $id)
@@ -116,10 +103,10 @@ class DataPermintaanController extends Controller
     public function hapus($id)
     {
         $item = PermintaanBarang::findOrFail($id);
-        $detail = DetailPermintaanBarang::where('id_permintaan_barang', $id)->delete();
 
+        $item->detailPermintaanBarang()->delete();
         $item->delete();
 
-        return redirect('/posko');
+        return redirect('/posko')->with('sukses', 'Data Berhasil Di Hapus');
     }
 }

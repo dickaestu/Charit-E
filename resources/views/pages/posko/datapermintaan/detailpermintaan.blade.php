@@ -2,53 +2,61 @@
 @section('title','Detail Permintaan')
 
 @section('content')
-  
-      <!-- Begin Page Content -->
-      <div class="container-fluid ">
 
-      
-        <!-- DataTales Example -->
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Detail Permintaan</h6>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Nama Barang</th>
-                                <th>Jumlah</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                          
-                            @foreach ($items as $item )    
-                                <tr>
-                                    <td>{{$loop->iteration}}</td>
-                                    <td>{{$item->stokbarang->nama_barang}} / {{$item->stokbarang->satuan}}</td>
-                                    <td>{{$item->jumlah}}</td>        
-                                </tr>
-                              
-                            @endforeach
-                      
+<!-- Begin Page Content -->
+<div class="container-fluid ">
+    <nav class="breadcrumb pl-0 bg-transparent">
+        <a class="breadcrumb-item" href="{{ route('data-permintaan') }}">Kembali</a>
+        <span class="breadcrumb-item active">Detail Permintaan</span>
+    </nav>
+    
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Detail Permintaan</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama Barang</th>
+                            <th>Jumlah</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
                         
-
+                        @foreach ($items as $item )    
+                        <tr>
+                            <td>{{$loop->iteration}}</td>
+                            <td>{{$item->stokbarang->nama_barang}} / {{$item->stokbarang->satuan}}</td>
+                            <td>{{$item->jumlah}}</td>        
+                        </tr>
                         
-
-
-
-                        </tbody>
-                    </table>
-                </div>
+                        @endforeach
+                        
+                    </tbody>
+                </table>
             </div>
         </div>
-
-
-
-
     </div>
-    <!-- /.container-fluid -->
+    
+    
+    
+    
+</div>
+<!-- /.container-fluid -->
 @endsection
+
+
+@push('addon-script')
+<script>
+    $(document).ready(function() {
+        $('#dataTable').DataTable( {
+        } );
+    } );    
+</script>    
+
+@endpush

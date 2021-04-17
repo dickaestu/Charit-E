@@ -14,9 +14,9 @@ class CreateDetailPermintaanBarangTable extends Migration
     public function up()
     {
         Schema::create('detail_permintaan_barang', function (Blueprint $table) {
-            $table->string('id_detail_permintaan_barang',20)->primary();
-            $table->string('id_permintaan_barang',20);
-            $table->string('id_stok_barang',20);
+            $table->increments('id_detail_permintaan_barang');
+            $table->string('id_permintaan_barang', 20);
+            $table->string('id_stok_barang', 20);
             $table->integer('jumlah');
             $table->softDeletes();
             $table->timestamps();

@@ -73,21 +73,29 @@
                                     <td>{{$item->jumlah_korban_jiwa}}</td>
                                     <td>{{$item->alamat_posko}}</td>
                                     <td>
-                                        <a href="{{route('info-posko.edit', $item->id_info_posko)}}"
-                                            class="btn btn-warning btn-sm">Edit</a>
-                                            @if ($item->is_active)
-                                            <button class="btn btn-secondary btn-sm mt-1" disabled >
-                                                Hapus
-                                            </button>
-                                            @else 
-                                            <form action="{{route('info-posko.destroy',$item->id_info_posko)}}" method="post">
-                                                @csrf 
-                                                @method('DELETE')
-                                                <button name="hapus" id="hapus" 
-                                                class="btn  btn-danger btn-sm mt-1" onclick="return confirm('Apakah anda yakin ingin menghapus data?');">Hapus</button>
-                                            </form>
-                                            @endif
-                                        <a href="{{ route('sub-posko.index',$item->id_info_posko) }}" class="btn btn-info btn-sm mt-1">Sub Posko</a>
+                                        <div class="d-inline">
+                                            <div class="d-flex align-items-center mb-1">
+                                                <a href="{{route('info-posko.edit', $item->id_info_posko)}}"
+                                                    class="btn btn-warning btn-sm mr-1">Edit</a>
+                                                    @if ($item->is_active)
+                                                    <button class="btn btn-secondary btn-sm" disabled >
+                                                        Hapus
+                                                    </button>
+                                                    @else 
+                                                    <form action="{{route('info-posko.destroy',$item->id_info_posko)}}" method="post">
+                                                        @csrf 
+                                                        @method('DELETE')
+                                                        <button name="hapus" id="hapus" 
+                                                        class="btn  btn-danger btn-sm" onclick="return confirm('Apakah anda yakin ingin menghapus data?');">Hapus</button>
+                                                    </form>
+                                                    @endif
+                                                </div>
+                                                <div class="d-flex align-items-center">
+                                                    <a href="{{ route('sub-posko.index',$item->id_info_posko) }}" class="btn btn-info btn-sm">Sub Posko</a>
+                                                    <a href="{{route('tambah-permintaan', $item->id_info_posko)}}" class="btn btn-success ml-1 btn-sm">Buat Permintaan</a>
+                                                    
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>              
                                     @endforeach

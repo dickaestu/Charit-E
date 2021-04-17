@@ -13,17 +13,18 @@ class DetailPermintaanBarang extends Model
 
     protected $table = 'detail_permintaan_barang';
     protected $primaryKey = 'id_detail_permintaan_barang';
-    protected $keyType = 'string';
     protected $fillable = [
-        'id_detail_permintaan_barang','id_permintaan_barang','id_stok_barang',
+        'id_detail_permintaan_barang', 'id_permintaan_barang', 'id_stok_barang',
         'jumlah'
     ];
 
-    public function stokbarang(){
+    public function stokbarang()
+    {
         return $this->belongsTo(StokBarang::class, 'id_stok_barang', 'id_stok_barang')->withTrashed();
     }
 
-    public function permintaanbarang(){
+    public function permintaanbarang()
+    {
         return $this->belongsTo(PermintaanBarang::class, 'id_permintaan_barang', 'id_permintaan_barang');
     }
 }
