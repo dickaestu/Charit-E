@@ -9,7 +9,7 @@
 @section('content')
 <nav class="ml-3" aria-label="breadcrumb">
     <ol class="breadcrumb bg-transparent">
-      <li class="breadcrumb-item"><a style="text-decoration: none"  href="{{ route('data-permintaan-admin') }}">Data Permintaan</a></li>
+      <li class="breadcrumb-item"><a style="text-decoration: none"  href="{{ route('data-permintaan-admin') }}">Kembali</a></li>
       <li class="breadcrumb-item active" aria-current="page">Detail Permintaan</li>
     </ol>
   </nav>
@@ -51,7 +51,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="detailPermintaan" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -96,4 +96,11 @@
 
     <!-- Page level custom scripts -->
     <script src="{{url('backend_assets/js/demo/datatables-demo.js')}}"></script>
+
+    <script>
+    $(document).ready(function() {
+        $('#detailPermintaan').DataTable( {
+        } );
+    } );
+    </script>
 @endpush

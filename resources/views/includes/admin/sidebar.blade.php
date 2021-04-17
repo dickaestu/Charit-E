@@ -34,7 +34,7 @@
     </li>
 
     <!-- Nav Item - Permintaan Logistik -->
-    <li class="nav-item {{Request::is('admin/data-permintaan') ? ' active' : '' }}">
+    <li class="nav-item {{Request::is('admin/data-permintaan*') ? ' active' : '' }}">
       <a class="nav-link" href="{{route('data-permintaan-admin')}}">
         <i class="fas fa-fw fa-boxes"></i>
         <span>Permintaan Logistik</span></a>

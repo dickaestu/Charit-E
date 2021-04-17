@@ -17,8 +17,8 @@ class PermintaanLogistikController extends Controller
     public function index(Request $request)
     {
         $items = PermintaanBarang::with(['infoposko'])->get();
-        return view('pages.admin.datapermintaan.permintaanlogistik',[
-            'items'=>$items
+        return view('pages.admin.datapermintaan.index', [
+            'items' => $items
         ]);
     }
 
@@ -26,9 +26,9 @@ class PermintaanLogistikController extends Controller
     {
         $info = PermintaanBarang::findOrFail($id);
         $items = DetailPermintaanBarang::with(['stokbarang'])->where('id_permintaan_barang', $id)->get();
-        return view('pages.admin.datapermintaan.detailpermintaan',[
-            'items'=>$items,
-            'info'=>$info
+        return view('pages.admin.datapermintaan.detailpermintaan', [
+            'items' => $items,
+            'info' => $info
         ]);
     }
 
@@ -37,7 +37,7 @@ class PermintaanLogistikController extends Controller
         $data['status_permintaan'] = 'VERIFIED';
         $item = PermintaanBarang::findOrFail($id);
         $item->update($data);
-        return redirect('admin/data-permintaan')->with('verified','Data Berhasil Di Verifikasi');
+        return redirect('admin/data-permintaan')->with('sukses', 'Data Berhasil Di Verifikasi');
     }
 
     public function tolak($id)
@@ -45,8 +45,6 @@ class PermintaanLogistikController extends Controller
         $data['status_permintaan'] = 'BATAL';
         $item = PermintaanBarang::findOrFail($id);
         $item->update($data);
-        return redirect('admin/data-permintaan')->with('batal','Permintaan Di Berhasil Tolak');
+        return redirect('admin/data-permintaan')->with('sukses', 'Permintaan Di Berhasil Tolak');
     }
-
-    
 }
