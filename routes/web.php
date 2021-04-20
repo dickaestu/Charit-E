@@ -338,12 +338,23 @@ Route::prefix('posko')
                   ->name('detail-permintaan');
             Route::post('/data-permintaan/hapus/{id}', 'DataPermintaanController@hapus')
                   ->name('hapus-data-permintaan');
+
             Route::get('/buat-laporan-penerimaan/{id}', 'PenerimaanBarangController@create')
                   ->name('tambah-laporan-penerimaan');
-            Route::post('/buat-laporan-penerimaan/create/{id_penerimaan}/{id}', 'PenerimaanBarangController@store')
-                  ->name('store');
+            Route::post('/buat-laporan-penerimaan/create/{id_pengiriman_barang}', 'PenerimaanBarangController@store')
+                  ->name('penerimaan-barang-posko.store');
             Route::get('/detail-laporan-penerimaan/{id}', 'PenerimaanBarangController@detailpenerimaan')
                   ->name('detail-penerimaan-posko');
+            Route::post('/detail-laporan-penerimaan/{id}', 'PenerimaanBarangController@detailpenerimaanStore')
+                  ->name('detail-penerimaan-posko.store');
+            Route::get('/detail-laporan-penerimaan/create/{id}', 'PenerimaanBarangController@detailpenerimaanCreate')
+                  ->name('detail-penerimaan-posko.create');
+            Route::put('/detail-laporan-penerimaan/{id}', 'PenerimaanBarangController@update')
+                  ->name('detail-penerimaan-posko.update');
+            Route::delete('/detail-laporan-penerimaan/{id}', 'PenerimaanBarangController@destroy')
+                  ->name('detail-penerimaan-posko.destroy');
+            Route::get('/detail-laporan-penerimaan/edit/{id}', 'PenerimaanBarangController@edit')
+                  ->name('detail-penerimaan-posko.edit');
       });
 // Auth::routes(['verify' => true]);
 Auth::routes();

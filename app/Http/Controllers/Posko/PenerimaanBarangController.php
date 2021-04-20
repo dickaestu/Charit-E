@@ -8,10 +8,8 @@ use Carbon\Carbon;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use App\LogistikModel\StokBarang;
 use App\PoskoModel\PenerimaanBarang;
-use App\PoskoModel\PermintaanBarang;
 use App\PoskoModel\DetailPenerimaanBarang;
 use App\LogistikModel\PengirimanBarang;
-use Auth;
 
 class PenerimaanBarangController extends Controller
 {
@@ -22,38 +20,30 @@ class PenerimaanBarangController extends Controller
      */
     public function create(Request $request, $id_permintaan)
     {
-        $id_pengiriman = PengirimanBarang::where('id_permintaan_barang', $id_permintaan)->get();
-        foreach ($id_pengiriman as $id) {
-            if ($id->id_permintaan_barang == $id_permintaan) {
+        $pengiriman_barang = PengirimanBarang::where('id_permintaan_barang', $id_permintaan)->first();
+        if ($pengiriman_barang == null) {
+            return redirect('/posko')->with('error', 'Mohon Maaf, Anda Belum Bisa Membuat Laporan Karena Barang Belum Dikirim');
+        } else {
+
+            if ($pengiriman_barang->id_permintaan_barang == $id_permintaan) {
                 $stok = StokBarang::all();
 
-                $config = [
-                    'table' => 'penerimaan_barang', 'field' => 'id_penerimaan_barang', 'length' => 12, 'prefix' => 'RCV-' . date('ym'),
-                    'reset_on_prefix_change' => true
-                ];
-                $id_penerimaan = IdGenerator::generate($config);
-                $id = $id_penerimaan . Auth::user()->user_id;
-
-                $id_permintaan = $id_permintaan;
-
-                return view('pages.posko.createpenerimaan', [
+                return view('pages.posko.data-penerimaan.create', [
                     'stokbarang' => $stok,
-                    'id_pengiriman' => $id_pengiriman,
-                    'id_penerimaan' => $id,
-                    'id_permintaan' => $id_permintaan
+                    'pengiriman_barang' => $pengiriman_barang,
                 ]);
             }
         }
-        return redirect('/posko')->with('error', 'Mohon Maaf, Anda Belum Bisa Membuat Laporan Karena Barang Belum Dikirim');
     }
 
 
-    public function store(Request $request, $id_permintaan, $id)
+    public function store(Request $request, $id_pengiriman_barang)
     {
         $request->validate([
             'id_stok_barang' => ['required', 'exists:stok_barang,id_stok_barang'],
             'jumlah' => ['required'],
             'keterangan_penerimaan' => ['required', 'string', 'max:250'],
+            'tanggal_penerimaan' => ['required']
         ], [
             'keterangan_penerimaan.required' => 'Keterangan tidak boleh kosong',
             'id_stok_barang.required' => 'Anda belum memilih barang',
@@ -61,52 +51,123 @@ class PenerimaanBarangController extends Controller
             'jumlah.required' => 'Tidak boleh kosong'
         ]);
 
-        $data = new PenerimaanBarang;
-        $data->id_penerimaan_barang = $id;
-        $data->id_pengiriman_barang = $request->id_pengiriman_barang;
-        $data->keterangan_penerimaan = $request->keterangan_penerimaan;
-        $data->tanggal_penerimaan = $request->tanggal_penerimaan;
-        $data->save();
-
-        $config = [
-            'table' => 'detail_penerimaan_barang', 'field' => 'id_detail_penerimaan_barang', 'length' => 12, 'prefix' => 'D-RCV-' . date('ym'),
-            'reset_on_prefix_change' => true
-        ];
-        $id_detail = IdGenerator::generate($config);
-
         if (count($request->id_stok_barang) > 0) {
 
+            $config = [
+                'table' => 'penerimaan_barang', 'field' => 'id_penerimaan_barang', 'length' => 20, 'prefix' => 'RCV-' . date('ym'),
+                'reset_on_prefix_change' => true
+            ];
+            $id_penerimaan_barang = IdGenerator::generate($config);
             foreach ($request->id_stok_barang as $item => $v) {
                 $detail[] = array(
-                    'id_detail_penerimaan_barang' => $id_detail . mt_rand(10, 99) . (Auth::user()->user_id + mt_rand(10, 99)),
-                    'id_penerimaan_barang' => $id,
+                    // 'id_penerimaan_barang' => $id_penerimaan_barang,
                     'id_stok_barang' => $request->id_stok_barang[$item],
-                    'jumlah_penerimaan' => $request->jumlah[$item],
+                    'jumlah' => $request->jumlah[$item],
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now()
                 );
             }
-            DetailPenerimaanBarang::insert($detail);
-            $data2['status_penerimaan'] = true;
-            $item2 = PermintaanBarang::findOrFail($id_permintaan);
-            $item2->update($data2);
+
+
+            $penerimaan_barang = PenerimaanBarang::create([
+                'id_penerimaan_barang' => $id_penerimaan_barang,
+                'id_pengiriman_barang' => $id_pengiriman_barang,
+                'keterangan_penerimaan' => $request->keterangan_penerimaan,
+                'tanggal_penerimaan' => $request->tanggal_penerimaan
+            ]);
+
+            $penerimaan_barang->detailPenerimaanBarang()->createMany($detail);
+
+            $penerimaan_barang->pengirimanBarang->permintaanBarang->update([
+                'status_penerimaan' => true
+            ]);
         }
         return redirect('/posko')->with('penerimaan', 'Laporan Penerimaan Telah Di Buat');
     }
 
-    public function detailpenerimaan(Request $request, $id)
+    public function edit($id)
     {
-        $permintaan = PermintaanBarang::findOrFail($id);
-        $pengiriman = PengirimanBarang::where('id_permintaan_barang', $permintaan->id_permintaan_barang)->get();
-        foreach ($pengiriman as $kirim) {
-            $penerimaan = PenerimaanBarang::where('id_pengiriman_barang', $kirim->id_pengiriman_barang)->get();
+        $item = DetailPenerimaanBarang::findOrFail($id);
+        $stokBarang = StokBarang::all();
+        return view('pages.posko.detail-penerimaan.edit', compact('item', 'stokBarang'));
+    }
 
-            foreach ($penerimaan as $terima) {
-                $items = DetailPenerimaanBarang::with(['stokbarang'])->where('id_penerimaan_barang', $terima->id_penerimaan_barang)->get();
-                return view('pages.posko.detailpenerimaan', [
-                    'items' => $items
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'id_stok_barang' => ['required', 'exists:stok_barang,id_stok_barang'],
+            'jumlah' => ['required'],
+        ], [
+            'id_stok_barang.required' => 'Anda belum memilih barang',
+            'id_stok_barang.exists' => 'Anda belum memilih barang',
+            'jumlah.required' => 'Tidak boleh kosong',
+        ]);
+
+        $detailPenerimaanBarang = DetailPenerimaanBarang::findOrfail($id);
+
+        $data = $request->all();
+
+        $detailPenerimaanBarang->update($data);
+
+        return redirect()->route('detail-penerimaan-posko', $detailPenerimaanBarang->penerimaanBarang->pengirimanBarang->id_permintaan_barang)->with('sukses', 'Data Berhasil Di Update');
+    }
+
+    public function destroy($id)
+    {
+        $item = DetailPenerimaanBarang::findOrFail($id);
+
+        $item->delete();
+
+        return redirect()->back()->with('sukses', 'Data berhasil di hapus');
+    }
+
+    public function detailpenerimaan(Request $request, $id_permintaan_barang)
+    {
+        $pengiriman = PengirimanBarang::where('id_permintaan_barang', $id_permintaan_barang)->firstOrFail();
+        $penerimaan = PenerimaanBarang::where('id_pengiriman_barang', $pengiriman->id_pengiriman_barang)->first();
+
+        $items = DetailPenerimaanBarang::with(['stokbarang'])->where('id_penerimaan_barang', $penerimaan->id_penerimaan_barang)->get();
+        return view('pages.posko.detail-penerimaan.index', [
+            'items' => $items,
+            'id_penerimaan_barang' => $penerimaan->id_penerimaan_barang
+        ]);
+    }
+
+    public function detailpenerimaanCreate($id_penerimaan_barang)
+    {
+        $penerimaanBarang = PenerimaanBarang::findOrFail($id_penerimaan_barang);
+        $stokbarang = StokBarang::all();
+
+        return view('pages.posko.detail-penerimaan.create', compact('penerimaanBarang', 'stokbarang'));
+    }
+
+    public function detailpenerimaanStore(Request $request, $id_penerimaan_barang)
+    {
+
+        $penerimaanBarang = PenerimaanBarang::findOrFail($id_penerimaan_barang);
+        if (count($request->id_stok_barang) > 0) {
+
+            foreach ($request->id_stok_barang as $item => $v) {
+
+                $request->validate([
+                    'id_stok_barang' => ['required', 'exists:stok_barang,id_stok_barang'],
+                    'jumlah' => ['required'],
+                ], [
+                    'id_stok_barang.required' => 'Anda belum memilih barang',
+                    'id_stok_barang.exists' => 'Anda belum memilih barang',
+                    'jumlah.required' => 'Tidak boleh kosong',
                 ]);
+
+                $detail[] = [
+                    'id_stok_barang' => $request->id_stok_barang[$item],
+                    'jumlah' => $request->jumlah[$item],
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
+                ];
             }
+            $penerimaanBarang->detailPenerimaanBarang()->createMany($detail);
         }
+
+        return redirect()->route('detail-penerimaan-posko', $penerimaanBarang->pengirimanBarang->id_permintaan_barang)->with('sukses', 'Data berhasil ditambah');
     }
 }

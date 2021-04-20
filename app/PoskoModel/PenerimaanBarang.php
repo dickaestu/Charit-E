@@ -14,18 +14,21 @@ class PenerimaanBarang extends Model
     protected $table = 'penerimaan_barang';
     protected $primaryKey = 'id_penerimaan_barang';
     protected $keyType = 'string';
+    public $incrementing = false;
     protected $fillable = [
-        'id_penerimaan_barang','id_pengiriman_barang','keterangan_penerimaan','status_penerimaan','status_pengiriman',
+        'id_penerimaan_barang', 'id_pengiriman_barang', 'keterangan_penerimaan', 'status_penerimaan', 'status_pengiriman',
         'tanggal_penerimaan'
     ];
 
-   
 
-    public function detailpenerimaanbarang(){
+
+    public function detailPenerimaanBarang()
+    {
         return $this->hasMany(DetailPenerimaanBarang::class, 'id_penerimaan_barang', 'id_penerimaan_barang');
     }
 
-    public function pengirimanbarang(){
+    public function pengirimanBarang()
+    {
         return $this->belongsTo(PengirimanBarang::class, 'id_pengiriman_barang', 'id_pengiriman_barang');
     }
 }
