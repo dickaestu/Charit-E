@@ -15,7 +15,7 @@ class CreatePengirimanBarangTable extends Migration
     {
         Schema::create('pengiriman_barang', function (Blueprint $table) {
             $table->string('id_pengiriman_barang', 20)->primary();
-            $table->string('id_permintaan_barang', 20)->unique();
+            $table->string('id_permintaan_barang', 20);
             $table->text('keterangan_pengiriman');
             $table->date('tanggal_pengiriman');
             $table->softDeletes();

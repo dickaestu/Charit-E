@@ -2,7 +2,7 @@
 @section('title','Data Pengiriman Logistik')
 
 @push('addon-style')
-    <!-- Custom styles for this page -->
+<!-- Custom styles for this page -->
 <link href="{{url('backend_assets/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
 @endpush
 
@@ -11,9 +11,9 @@
     @if (session('sukses'))
     <div class="alert alert-success" role="alert">
         {{session('sukses')}}
-      </div>    
+    </div>    
     @endif
-
+    
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -33,37 +33,51 @@
                             <th>Bencana</th>
                             <th>Lokasi Bencana</th>
                             <th>Aksi</th>
-
+                            
                         </tr>
                     </thead>
                     <tbody>
-                       @foreach ($items as $item)
-                       <tr>
-                        <td>{{$item->id_pengiriman_barang}}</td>
-                        <td>{{$item->id_permintaan_barang}}</td>
-                        <td>{{\Carbon\Carbon::create($item->tanggal_pengiriman)->format('d - m - Y')}}</td>
-                        <td>{{$item->permintaanbarang->id_info_posko}}</td>
-                        <td>{{$item->permintaanbarang->infoposko->user->name}}</td>
-                        <td>{{$item->permintaanbarang->infoposko->alamat_posko}}</td>
-                        <td>{{$item->permintaanbarang->infoposko->jenis_bencana->nama_bencana}}</td>
-                        <td>{{$item->permintaanbarang->infoposko->lokasi_bencana}}</td>
-                    
-                        <td>
-                        <a href="{{route('detail-pengiriman-logistik', $item->id_pengiriman_barang)}}"
-                                class="btn btn-sm btn-info btn-inline">Detail Pengiriman</a>              
-                       
-                        </td>
-                    </tr>
-
-                    @endforeach
-
-
+                        @foreach ($items as $item)
+                        <tr>
+                            <td>{{$item->id_pengiriman_barang}}</td>
+                            <td>{{$item->id_permintaan_barang}}</td>
+                            <td>{{\Carbon\Carbon::create($item->tanggal_pengiriman)->format('d - m - Y')}}</td>
+                            <td>{{$item->permintaanBarang->id_info_posko}}</td>
+                            <td>{{$item->permintaanBarang->infoposko->user->name}}</td>
+                            <td>{{$item->permintaanBarang->infoposko->alamat_posko}}</td>
+                            <td>{{$item->permintaanBarang->infoposko->jenis_bencana->nama_bencana}}</td>
+                            <td>{{$item->permintaanBarang->infoposko->lokasi_bencana}}</td>
+                            
+                            <td>
+                                <div class="d-flex align-items-start">
+                                    <a href="{{route('detail-pengiriman-logistik', $item->id_pengiriman_barang)}}"
+                                        class="btn btn-sm btn-info mr-1">Detail Pengiriman
+                                    </a>              
+                                    @if (!$item->permintaanbarang->status_penerimaan)
+                                    <form action="{{ route('data-pengiriman-logistik.destroy',$item->id_pengiriman_barang) }}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin?')">
+                                            Hapus
+                                        </button>
+                                    </form>
+                                    @else 
+                                    <button class="btn btn-secondary btn-sm" disabled>Hapus</button>
+                                    @endif
+                                </div>
+                                
+                            </td>
+                        </tr>
+                        
+                        @endforeach
+                        
+                        
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-
+    
 </div>
 @endsection
 
@@ -71,17 +85,17 @@
 
 
 @push('addon-script')
-    <!-- Page level plugins -->
-    <script src="{{url('backend_assets/vendor/datatables/jquery.dataTables.min.js')}}"></script>
-    <script src="{{url('backend_assets/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
+<!-- Page level plugins -->
+<script src="{{url('backend_assets/vendor/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{url('backend_assets/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
 
-    <!-- Page level custom scripts -->
-    
-    <script>
-        $(document).ready(function() {
-            $('#tablePengirimanLogistik').DataTable( {
-                "order": [[ 0, "desc" ]]
-            } );
-        } );    
-    </script>
-    @endpush
+<!-- Page level custom scripts -->
+
+<script>
+    $(document).ready(function() {
+        $('#tablePengirimanLogistik').DataTable( {
+            "order": [[ 0, "desc" ]]
+        } );
+    } );    
+</script>
+@endpush

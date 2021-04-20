@@ -209,6 +209,9 @@ Route::prefix('logistik')
                   ->name('create-pengiriman');
             Route::post('/buat-pengiriman/{id_permintaan_barang}', 'DataPengirimanController@store')
                   ->name('proses-tambah-pengiriman');
+            Route::delete('/pengiriman/{id_pengiriman_barang}', 'DataPengirimanController@destroy')
+                  ->name('data-pengiriman-logistik.destroy');
+
 
             Route::get('/data-pengiriman', 'DataPengirimanController@index')
                   ->name('data-pengiriman-logistik');

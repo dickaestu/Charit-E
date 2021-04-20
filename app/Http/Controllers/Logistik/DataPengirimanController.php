@@ -21,7 +21,7 @@ class DataPengirimanController extends Controller
      */
     public function index(Request $request)
     {
-        $items = PengirimanBarang::with('detailpengirimanbarang', 'permintaanbarang')->get();
+        $items = PengirimanBarang::all();
         return view('pages.logistik.datapengiriman.index', [
             'items' => $items
         ]);
@@ -110,5 +110,25 @@ class DataPengirimanController extends Controller
             }
         }
         return redirect('/logistik/data-pengiriman')->with(['sukses' => 'Data Pengiriman Berhasil Di Buat']);
+    }
+
+    public function destroy($id)
+    {
+        $pengiriman_barang = PengirimanBarang::findOrFail($id);
+
+        foreach ($pengiriman_barang->detailPengirimanBarang as $detail) {
+            $stokBarang = StokBarang::findOrFail($detail->id_stok_barang);
+            $stokBarang->quantity += $detail->jumlah;
+            $stokBarang->save();
+
+            $detail->delete();
+        }
+        $pengiriman_barang->permintaanBarang->update([
+            'status_pengiriman' => false
+        ]);
+
+        $pengiriman_barang->delete();
+
+        return redirect()->back()->with('sukses', 'Data berhasil di hapus');
     }
 }
