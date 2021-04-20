@@ -10,8 +10,8 @@
 <div class="container-fluid">
 
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb bg-transparent">
-          <li class="breadcrumb-item"><a style="text-decoration: none" href="{{ route('data-permintaan-logistik') }}">Data Permintaan</a></li>
+        <ol class="breadcrumb bg-transparent pl-0">
+          <li class="breadcrumb-item"><a style="text-decoration: none" href="{{ route('data-permintaan-logistik') }}">Kembali</a></li>
           <li class="breadcrumb-item active" aria-current="page">Detail Permintaan</li>
         </ol>
       </nav>
@@ -52,7 +52,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="tableDetail" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -90,4 +90,9 @@
 
     <!-- Page level custom scripts -->
     <script src="{{url('backend_assets/js/demo/datatables-demo.js')}}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#tableDetail').DataTable();
+        } );    
+    </script>
 @endpush

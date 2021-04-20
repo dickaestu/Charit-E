@@ -14,7 +14,7 @@ class DataPermintaanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, $id)
+    public function index(Request $request)
     {
         $items = PermintaanBarang::with(['infoposko'])->where('status_permintaan', 'VERIFIED')->where('status_pengiriman', false)->get();
         return view('pages.logistik.datapermintaan.index', [

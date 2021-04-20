@@ -17,9 +17,7 @@
       <a class="nav-link" href="{{route('dashboard-logistik')}}">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <span>Dashboard</span></a>
-    </li>
-
-    
+    </li>    
 
 
     <!-- Nav Item - Data Stok Barang Collapse Menu -->
@@ -37,7 +35,7 @@
     </li>
 
     <!-- Nav Item - Data Permintaan -->
-    <li class="nav-item {{Request::is('logistik/data-permintaan') ? ' active' : '' }}">
+    <li class="nav-item {{Request::is('logistik/data-permintaan*') ? ' active' : '' }}">
       <a class="nav-link" href="{{route('data-permintaan-logistik')}}">
         <i class="fas fa-fw fa-clipboard-check"></i>
         <span>Data Permintaan</span></a>

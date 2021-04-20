@@ -21,11 +21,13 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="tablePengirimanLogistik" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>ID Pengiriman</th>
+                            <th>ID Permintaan</th>
                             <th>Tanggal Pengiriman</th>
+                            <th>ID Info Posko</th>
                             <th>Nama Posko</th>
                             <th>Alamat Posko</th>
                             <th>Bencana</th>
@@ -35,10 +37,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                       @forelse ($items as $item)
+                       @foreach ($items as $item)
                        <tr>
                         <td>{{$item->id_pengiriman_barang}}</td>
+                        <td>{{$item->id_permintaan_barang}}</td>
                         <td>{{\Carbon\Carbon::create($item->tanggal_pengiriman)->format('d - m - Y')}}</td>
+                        <td>{{$item->permintaanbarang->id_info_posko}}</td>
                         <td>{{$item->permintaanbarang->infoposko->user->name}}</td>
                         <td>{{$item->permintaanbarang->infoposko->alamat_posko}}</td>
                         <td>{{$item->permintaanbarang->infoposko->jenis_bencana->nama_bencana}}</td>
@@ -51,12 +55,7 @@
                         </td>
                     </tr>
 
-                       @empty
-                           <tr>
-                               <td colspan="7" class="text-center">Data Kosong</td>
-                           </tr>
-                       
-                       @endforelse
+                    @endforeach
 
 
                     </tbody>
@@ -77,5 +76,12 @@
     <script src="{{url('backend_assets/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
 
     <!-- Page level custom scripts -->
-    <script src="{{url('backend_assets/js/demo/datatables-demo.js')}}"></script>
-@endpush
+    
+    <script>
+        $(document).ready(function() {
+            $('#tablePengirimanLogistik').DataTable( {
+                "order": [[ 0, "desc" ]]
+            } );
+        } );    
+    </script>
+    @endpush

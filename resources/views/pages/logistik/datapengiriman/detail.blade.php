@@ -9,8 +9,8 @@
 @section('content')
 <div class="container-fluid">
     <nav class="" aria-label="breadcrumb">
-        <ol class="breadcrumb bg-transparent">
-          <li class="breadcrumb-item"><a style="text-decoration: none"  href="{{ route('data-pengiriman-logistik') }}">Data Pengiriman</a></li>
+        <ol class="breadcrumb bg-transparent pl-0">
+          <li class="breadcrumb-item"><a style="text-decoration: none"  href="{{ route('data-pengiriman-logistik') }}">Kembali</a></li>
           <li class="breadcrumb-item active" aria-current="page">Detail Pengiriman</li>
         </ol>
       </nav>
