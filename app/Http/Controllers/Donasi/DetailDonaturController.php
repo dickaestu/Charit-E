@@ -19,10 +19,13 @@ class DetailDonaturController extends Controller
         $item = AktivitasDonasi::findOrFail($id);
         $donasiNotVerif = Donasi::with('aktivitasdonasi')->where('status_verifikasi', false)
             ->where('id_aktivitas_donasi', $id)->orderBy('tanggal_donasi', 'desc')->get();
+        $donasiVerif = Donasi::with('aktivitasdonasi')->where('status_verifikasi', true)
+            ->where('id_aktivitas_donasi', $id)->orderBy('tanggal_donasi', 'desc')->get();
 
         return view('pages.donasi.detaildonatur', [
             'item' => $item,
             'donasiNotVerif' => $donasiNotVerif,
+            'donasiVerif' => $donasiVerif,
         ]);
     }
 }

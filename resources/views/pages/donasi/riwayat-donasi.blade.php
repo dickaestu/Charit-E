@@ -35,7 +35,6 @@
                     
                         <th>Tanggal Donasi</th>
                         <th>ID Donasi</th>
-                        <th>Jenis Donasi</th>
                         <th>Keterangan</th>
                         <th>Status</th>
                     </tr>
@@ -48,7 +47,6 @@
                     <tr>
                         <td>{{Carbon\Carbon::create($item->tanggal_donasi)->format('d - m - Y')}}</td>
                         <td>{{$item->id_donasi}}</td>
-                        <td>{{$item->jenis_donasi}}</td>
                         <td>{{$item->keterangan_donasi}}</td>
                          <td class="{{$item->status_verifikasi ? 'text-success' : 'text-muted'}}">
                             {{$item->status_verifikasi ? 'Verified' : 'Pending'}}

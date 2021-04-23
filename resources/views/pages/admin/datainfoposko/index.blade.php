@@ -32,31 +32,28 @@
                             <th>Jumlah Korban</th>
                             <th>Jumlah Korban Jiwa</th>
                             <th>Jumlah Sub Posko</th>
+                            <th>Nama Penanggung Jawab</th>
+                            <th>No Hp Penanggung Jawab</th>
                             <th>Detail Sub Posko</th>
 
                         </tr>
                     </thead>
                     <tbody>
-                       {{-- @forelse ($items as $item)
-                            <tr>
-                                <td>{{$item->user->name}}</td>
-                                <td>{{$item->alamat_posko}}</td>
-                                <td>{{Carbon\Carbon::create($item->tanggal_kejadian)->format('d-m-Y')}}</td>
-                                <td>{{$item->jenis_bencana->nama_bencana}}</td>
-                                <td>{{$item->lokasi_bencana}}</td>
-                                <td>{{$item->jumlah_korban}}</td>
-                                <td>{{$item->jumlah_korban_jiwa}}</td>
-                                <td>{{$item->subposko->count()}}</td>
-                                <td>
-                                <a href="{{route('detail-data-subposko',$item->id_info_posko)}}" class="btn btn-sm btn-info btn-inline">Detail</a>
-                                </td>
-                            </tr>
-                       @empty
-                           <tr>
-                               <td colspan="9" class="text-center">Data Kosong</td>
-                           </tr>
-                       
-                       @endforelse --}}
+                      @foreach ($infoPosko as $posko)
+                          <tr>
+                              <td>{{ $posko->user->name }}</td>
+                              <td>{{ $posko->alamat_posko }}</td>
+                              <td>{{ Carbon\Carbon::create($posko->tanggal_kejadian)->format('d-M-Y') }}</td>
+                              <td>{{ $posko->jenis_bencana->nama_bencana }}</td>
+                              <td>{{ $posko->lokasi_bencana }}</td>
+                              <td>{{ $posko->jumlah_korban }}</td>
+                              <td>{{ $posko->jumlah_korban_jiwa }}</td>
+                              <td>{{ $posko->subPosko->count() }}</td>
+                              <td>{{ $posko->nama_penanggung_jawab }}</td>
+                              <td>{{ $posko->no_hp_penanggung_jawab }}</td>
+                              <td><a href="{{ route('detail-data-subposko',$posko->id_info_posko) }}" class="btn btn-sm btn-info">Detail</a></td>
+                          </tr>
+                      @endforeach
 
 
                     </tbody>
@@ -151,21 +148,8 @@
     <script>
         $(document).ready(function(){
             $('#tableInfoPosko').DataTable({
-                "order": [[ 2, "desc" ]],
-                processing:true,
-                serverside:true,
-                ajax:"{{ route('ajax.get.info.posko') }}",
-                columns:[
-                    {data:'nama_posko',name:'nama_posko'},
-                    {data:'alamat_posko',name:'alamat_posko'}, 
-                    {data:'tanggal_kejadian',name:'tanggal_kejadian'},
-                    {data:'nama_bencana',name:'nama_bencana'},
-                    {data:'lokasi_bencana',name:'lokasi_bencana'},
-                    {data:'jumlah_korban',name:'jumlah_korban'},
-                    {data:'jumlah_korban_jiwa',name:'jumlah_korban_jiwa'},
-                    {data:'jumlah_sub_posko',name:'jumlah_sub_posko'},
-                    {data:'detail_sub_posko',name:'detail_sub_posko'},
-                ]
+                // "order": [[ 2, "desc" ]],
+                
             });
         });
     </script>

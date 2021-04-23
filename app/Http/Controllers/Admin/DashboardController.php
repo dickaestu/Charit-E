@@ -26,7 +26,6 @@ class DashboardController extends Controller
         $donasi = Donasi::where('tanggal_donasi', $date_donasi)->where('status_verifikasi', true)->count();
         $bencana = InfoPosko::whereMonth('tanggal_kejadian', $month_bencana)->whereYear('tanggal_kejadian', $year_bencana)->count();
         $request_logistik = PermintaanBarang::where('status_permintaan', 'PENDING')->count();
-        $user = User::where('role', 'DONATUR')->count();
         $data = [];
         for ($i = 1; $i < 13; $i++) {
             $data[] = InfoPosko::whereMonth('tanggal_kejadian', $i)->whereYear('tanggal_kejadian', $year_bencana)->count();
@@ -36,7 +35,6 @@ class DashboardController extends Controller
 
         return view('pages.admin.dashboard', [
             'donasi' => $donasi,
-            'user' => $user,
             'bencana' => $bencana,
             'request_logistik' => $request_logistik,
             'data' => $data,

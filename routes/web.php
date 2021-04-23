@@ -164,10 +164,6 @@ Route::prefix('admin')
                   'as' => 'ajax.get.barang.masuk'
             ]);
 
-            Route::get('getinfoposko', [
-                  'uses' => 'InfoPoskoController@getinfoposko',
-                  'as' => 'ajax.get.info.posko'
-            ]);
             Route::get('getdataaktivitas', [
                   'uses' => 'LapAktivitasDonasiController@getdataaktivitas',
                   'as' => 'ajax.get.data.aktivitas.donasi'

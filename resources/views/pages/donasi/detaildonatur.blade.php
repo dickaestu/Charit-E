@@ -31,12 +31,12 @@
     <div class="container-fluid">
         
         <div class="row">
-            <div class="col-12 col-lg-6">
+            <div class="col-12 col-md-6">
                 <div class="section-title mt-2">
                     <h6>Daftar Donasi Yang Sudah Di Terima Posko</h6>
                     <div class="card px-2 py-4 shadow-sm">
                         <div class="table-responsive">
-                            <table class="table table-bordered table_penerimaan"  width="100%" cellspacing="0">
+                            <table class="table table-bordered" id="verified"  width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
                                         <th>Tanggal Donasi</th>
@@ -48,12 +48,14 @@
                                 
                                 <tbody>
                                     
+                                    @foreach ($donasiVerif as $item)
                                     <tr>
-                                        <td>05 April 2021</td>
-                                        <td>08 April 2021</td>
-                                        <td>Ayu</td>
-                                        <td>baju dan obat obatan</td>
+                                        <td>{{ \Carbon\Carbon::create($item->tanggal_donasi)->format('d-M-Y') }}</td>
+                                        <td>{{ \Carbon\Carbon::create($item->detailDonasi[0]->tanggal_donasi_masuk)->format('d-M-Y') }}</td>
+                                        <td>{{ $item->is_anonim ? 'Anonim' : $item->user->name }}</td>
+                                        <td>{{ $item->keterangan_donasi }}</td>
                                     </tr>
+                                    @endforeach
                                     
                                 </tbody>
                             </table>
@@ -67,7 +69,7 @@
                     <h6>Daftar Donasi Yang Belum Di Terima Posko</h6>
                     <div class="card px-2 py-4 shadow-sm">
                         <div class="table-responsive">
-                            <table class="table table-bordered table_penerimaan"  width="100%" cellspacing="0">
+                            <table class="table table-bordered" id="notVerified"  width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
                                         <th>Tanggal Donasi</th>
@@ -80,7 +82,7 @@
                                     
                                     @foreach ($donasiNotVerif as $item)
                                     <tr>
-                                        <td>{{ $item->tanggal_donasi }}</td>
+                                        <td>{{ \Carbon\Carbon::create( $item->tanggal_donasi )->format('d-M-Y') }}</td>
                                         <td>{{ $item->is_anonim ? 'Anonim' : $item->user->name }}</td>
                                         <td>{{ $item->keterangan_donasi }}</td>
                                     </tr>
@@ -135,8 +137,20 @@
 </section>
 <!-- End Active Campaign Area -->
 
-
-
-
 @endsection
+
+@push('addon-script')
+<script>
+    $(document).ready(function () {
+        $("#verified").DataTable({
+            order: [[0, false]],
+        });
+        $("#notVerified").DataTable({
+            order: [[0, false]],
+        });
+    });
+    
+</script>    
+
+@endpush
 

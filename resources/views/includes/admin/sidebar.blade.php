@@ -43,7 +43,7 @@
 
 
     <!-- Nav Item - Info Posko -->
-    <li class="nav-item {{Request::is('admin/data-info-posko') ? ' active' : '' }}">
+    <li class="nav-item {{Request::is('admin/data-info-posko*') ? ' active' : '' }}">
       <a class="nav-link" href="{{route('data-info-posko')}}">
         <i class="fas fa-fw fa-campground"></i>
         <span>Data Info Posko</span></a>

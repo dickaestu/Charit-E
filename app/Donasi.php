@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\User;
 use App\LogistikModel\BarangMasuk;
 use App\AdminModel\AktivitasDonasi;
+use App\PoskoModel\DetailDonasi;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
@@ -30,8 +31,8 @@ class Donasi extends Model
         return $this->belongsTo(AktivitasDonasi::class, 'id_aktivitas_donasi', 'id_aktivitas_donasi');
     }
 
-    public function barangmasuk()
+    public function detailDonasi()
     {
-        return $this->hasMany(BarangMasuk::class, 'id_donasi', 'id_donasi');
+        return $this->hasMany(DetailDonasi::class, 'id_donasi', 'id_donasi');
     }
 }
