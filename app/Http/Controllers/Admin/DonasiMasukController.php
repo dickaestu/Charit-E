@@ -18,49 +18,29 @@ class DonasiMasukController extends Controller
      */
     public function index()
     {
-        $items = Donasi::with(['user'])->get();
-        return view('pages.admin.laporandonasimasuk',[
-            'items'=> $items
+        $items = Donasi::with(['aktivitasdonasi', 'aktivitasdonasi.info_posko.jenis_bencana'])->where('status_verifikasi', true)->get();
+        return view('pages.admin.laporandonasimasuk', [
+            'items' => $items
         ]);
     }
 
-    public function getdatadonasi()
-    {
-       return \DataTables::eloquent(Donasi::with(['aktivitasdonasi','aktivitasdonasi.info_posko.jenis_bencana'])->select('donasi.*')->where('status_verifikasi',true))
-       ->editColumn('tanggal_donasi',function($d){
-        return Carbon::create($d->tanggal_donasi)->format('d-m-Y');
-       })
-       ->editColumn('status_verifikasi',function($d){
-        return $d->status_verifikasi ?'<font class="text-success"> Verified </font>' : 'Pending';
-       })
-       ->editColumn('nama_bencana',function($d){
-        return $d->aktivitasdonasi->info_posko->jenis_bencana->nama_bencana;
-       })
-       ->editColumn('lokasi_bencana',function($d){
-        return $d->aktivitasdonasi->info_posko->lokasi_bencana;
-       })
-       ->rawColumns(['tanggal_donasi','status_verifikasi','lokasi_bencana','nama_bencana'])
-       ->toJson();
-    }
+
 
     public function export()
     {
-        $donasi = Donasi::where('status_verifikasi',true)->get();
-        $pdf = PDF::loadView('exports.admin.donasimasuk',['items'=>$donasi]);
-        return $pdf->download('donasimasuk.pdf');
-
+        $donasi = Donasi::where('status_verifikasi', true)->get();
+        $pdf = PDF::loadView('exports.admin.donasi-masuk', ['items' => $donasi])->setPaper('a4', 'landscape');
+        // return $pdf->download('donasimasuk.pdf');
+        return $pdf->stream();
     }
 
     public function exportBulan(Request $request)
     {
 
         $startDate =  Carbon::create($request->from);
-        $endDate   = Carbon::create($request->to)->addDays(1) ;
-        $donasi = Donasi::where('status_verifikasi',true)->whereBetween('created_at',[$startDate,$endDate])->get();
-        $pdf = PDF::loadView('exports.admin.donasimasuk',['items'=>$donasi]);
+        $endDate   = Carbon::create($request->to)->addDays(1);
+        $donasi = Donasi::where('status_verifikasi', true)->whereBetween('created_at', [$startDate, $endDate])->get();
+        $pdf = PDF::loadView('exports.admin.donasimasuk', ['items' => $donasi]);
         return $pdf->download('donasimasuk.pdf');
-
     }
-
-   
 }

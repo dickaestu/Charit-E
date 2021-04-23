@@ -9,8 +9,8 @@
 @section('content')
 <div class="container-fluid">
 
-    {{-- <a href="{{ route('export-donasi-masuk-admin') }}" class="btn btn-primary mb-2">Cetak Semua</a>
-    <form action="{{ route('export-donasi-masuk-admin-bulan') }}" method="post">
+    <a href="{{ route('export-donasi-masuk-admin') }}" class="btn btn-primary mb-2">Cetak Semua</a>
+    {{-- <form action="{{ route('export-donasi-masuk-admin-bulan') }}" method="post">
         @csrf
         <div class="col col-md-5">
             <div class="card mb-2">
@@ -47,13 +47,22 @@
                             <th>Lokasi Bencana</th>
                             <th>Nama Donatur</th>
                             <th>Status Verifikasi</th>
-                            <th>Jenis Donasi</th>
-                            <th>keterangan</th>
-
+                            <th>Keterangan</th>
                         </tr>
                     </thead>
                     <tbody>
-                    
+                    @foreach ($items as $item)
+                        <tr>
+                            <td>{{ $item->id_donasi }}</td>    
+                            <td>{{ \Carbon\Carbon::create($item->tanggal_donasi)->format('d-M-Y') }}</td>
+                            <td>{{ $item->aktivitasdonasi->info_posko->jenis_bencana->nama_bencana }}</td>    
+                            <td>{{ $item->aktivitasdonasi->info_posko->lokasi_bencana }}</td>    
+                            <td>{{ $item->is_anonim ? 'Anonim' : $item->user->name }}</td>
+                            <td>{{ $item->status_verifikasi ? 'Verified' : 'Not Verified' }}</td>    
+                            <td>{{ $item->keterangan_donasi }}</td>    
+                        </tr>    
+
+                    @endforeach
 
                     </tbody>
                 </table>
@@ -74,20 +83,6 @@
     <script>
         $(document).ready(function(){
             $('#tableDonasi').DataTable({
-                processing:true,
-                serverside:true,
-                ajax:"{{ route('ajax.get.data.donasi') }}",
-                columns:[
-                  
-                    {data:'id_donasi',name:'id_donasi'},
-                    {data:'tanggal_donasi',name:'tanggal_donasi'}, 
-                    {data:'nama_bencana',name:'nama_bencana'}, 
-                    {data:'lokasi_bencana',name:'lokasi_bencana'},
-                    {data:'nama_donatur',name:'nama_donatur'},
-                    {data:'status_verifikasi',name:'status_verifikasi'},
-                    {data:'jenis_donasi',name:'jenis_donasi'},
-                    {data:'keterangan_donasi',name:'keterangan_donasi'},
-                ]
             });
         });
     </script>

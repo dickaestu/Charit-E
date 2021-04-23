@@ -83,8 +83,8 @@ Route::prefix('admin')
                   ->name('laporan-aktivitas-donasi');
 
             // Export PDF
-            // Route::get('/export-pdf-donasi-masuk','DonasiMasukController@export')
-            //       ->name('export-donasi-masuk-admin');
+            Route::get('/export-pdf-donasi-masuk', 'DonasiMasukController@export')
+                  ->name('export-donasi-masuk-admin');
             // Route::get('/export-pdf-permintaan-logistik','LapPermintaanLogistikController@export')
             //       ->name('export-permintaan-logistik-admin');
             // Route::get('/export-pdf-pengiriman-logistik','LapPengirimanLogistikController@export')
