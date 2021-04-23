@@ -39,8 +39,6 @@ class InfoPoskoController extends Controller
         ]);
     }
 
-
-
     public function export()
     {
         $items = InfoPosko::with('subposko', 'jenis_bencana', 'user')->orderBy('tanggal_kejadian', 'asc')->get();
@@ -66,9 +64,10 @@ class InfoPoskoController extends Controller
     public function exportSubPosko($id)
     {
         $items = SubPosko::where('id_info_posko', $id)->get();
-        $item2 = InfoPosko::findOrFail($id);
-        $pdf = PDF::loadView('exports.admin.data-sub-posko', ['items' => $items, 'itemm' => $item2]);
-        return $pdf->download('sub_posko.pdf');
+        $infoPosko = InfoPosko::findOrFail($id);
+        $pdf = PDF::loadView('exports.admin.data-sub-posko', ['items' => $items, 'infoPosko' => $infoPosko]);
+        // return $pdf->download('sub_posko.pdf');
+        return $pdf->stream();
     }
 
 
