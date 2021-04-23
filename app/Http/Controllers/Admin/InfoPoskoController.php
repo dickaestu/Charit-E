@@ -21,7 +21,7 @@ class InfoPoskoController extends Controller
     public function index()
     {
 
-        $items = JenisBencana::withTrashed()->get();
+        $items = JenisBencana::all();
         $infoPosko = InfoPosko::with('subposko', 'jenis_bencana', 'user')->get();
         return view('pages.admin.datainfoposko.index', [
             'jenis_bencana' => $items,
@@ -44,13 +44,13 @@ class InfoPoskoController extends Controller
     public function export()
     {
         $items = InfoPosko::with('subposko', 'jenis_bencana', 'user')->orderBy('tanggal_kejadian', 'asc')->get();
-        $pdf = PDF::loadView('exports.admin.data-info-posko', ['items' => $items]);
-        return $pdf->download('info-posko.pdf');
+        $pdf = PDF::loadView('exports.admin.data-info-posko', ['items' => $items])->setPaper('a4', 'landscape');
+        // return $pdf->download('info-posko.pdf');
+        return $pdf->stream();
     }
 
     public function exportBulan(Request $request)
     {
-
         $startDate =  Carbon::create($request->from)->format('Y-m-d');
         $endDate   = Carbon::create($request->to)->format('Y-m-d');
         $items = InfoPosko::with('subposko', 'jenis_bencana', 'user')->whereBetween('tanggal_kejadian', [$startDate, $endDate])->orderBy('tanggal_kejadian', 'asc')->get();
@@ -58,8 +58,9 @@ class InfoPoskoController extends Controller
             'items' => $items,
             'startDate' => $startDate,
             'endDate' => $endDate
-        ]);
-        return $pdf->download('info-posko.pdf');
+        ])->setPaper('a4', 'landscape');
+        // return $pdf->download('info-posko.pdf');
+        return $pdf->stream();
     }
 
     public function exportSubPosko($id)
@@ -75,7 +76,8 @@ class InfoPoskoController extends Controller
     {
         $jenis_bencana = JenisBencana::withTrashed()->findOrFail($request->id_jenis_bencana);
         $items = InfoPosko::with('subposko', 'jenis_bencana', 'user')->where('id_jenis_bencana', $request->id_jenis_bencana)->orderBy('tanggal_kejadian', 'asc')->get();
-        $pdf = PDF::loadView('exports.admin.info-posko-bencana', ['items' => $items, 'jenis_bencana' => $jenis_bencana]);
-        return $pdf->download('info-posko.pdf');
+        $pdf = PDF::loadView('exports.admin.info-posko-bencana', ['items' => $items, 'jenis_bencana' => $jenis_bencana])->setPaper('a4', 'landscape');
+        // return $pdf->download('info-posko.pdf');
+        return $pdf->stream();
     }
 }
