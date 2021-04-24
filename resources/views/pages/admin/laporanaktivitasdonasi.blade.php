@@ -26,16 +26,26 @@
                         <tr>
                             <th>ID Aktivitas Donasi</th>
                             <th>Tanggal Kejadian</th>
+                            <th>ID Info Posko</th>
                             <th>Nama Posko</th>
                             <th>Nama Bencana</th>
                             <th>Lokasi Bencana</th>
-                            <th>Jumlah Donasi Uang</th>
-                            <th>Jumlah Donasi Barang</th>
-                            <th>Total Donasi</th>
-
+                            <th>Total Donasi Yang Diterima</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($items as $item)
+                            <tr>
+                                <td>{{ $item->id_aktivitas_donasi }}</td>    
+                                <td>{{ $item->tanggal_kejadian }}</td>  
+                                <td>{{ $item->id_info_posko }}</td>  
+                                <td>{{ $item->nama_posko }}</td>  
+                                <td>{{ $item->nama_bencana }}</td>  
+                                <td>{{ $item->lokasi_bencana }}</td>  
+                                <td>{{ $item->total_donasi }}</td>  
+                            </tr>    
+
+                        @endforeach
                     
 
                     </tbody>
@@ -94,20 +104,7 @@
     <script>
         $(document).ready(function(){
             $('#tableAktivitas').DataTable({
-                processing:true,
-                serverside:true,
-                ajax:"{{ route('ajax.get.data.aktivitas.donasi') }}",
-                columns:[
-                  
-                    {data:'id_aktivitas_donasi',name:'id_aktivitas_donasi'},
-                    {data:'tanggal_kejadian',name:'tanggal_kejadian'}, 
-                    {data:'name',name:'name'}, 
-                    {data:'nama_bencana',name:'nama_bencana'}, 
-                    {data:'lokasi_bencana',name:'lokasi_bencana'}, 
-                    {data:'donasi_uang',name:'donasi_uang'}, 
-                    {data:'donasi_barang',name:'donasi_barang'}, 
-                    {data:'total_donasi',name:'total_donasi'}, 
-                ]
+              
             });
         });
     </script>

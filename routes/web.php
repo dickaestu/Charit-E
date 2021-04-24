@@ -135,10 +135,7 @@ Route::prefix('admin')
                   ->name('print-aktivitas-donasi-bencana-admin');
 
             // Ajax Url
-            Route::get('getdatadonasi', [
-                  'uses' => 'DonasiMasukController@getdatadonasi',
-                  'as' => 'ajax.get.data.donasi'
-            ]);
+
             Route::get('getpermintaanlogistik', [
                   'uses' => 'LapPermintaanLogistikController@getpermintaan',
                   'as' => 'ajax.get.permintaan.logistik'
@@ -162,11 +159,6 @@ Route::prefix('admin')
             Route::get('getbarangmasuk', [
                   'uses' => 'LapBarangMasukController@getbarangmasuk',
                   'as' => 'ajax.get.barang.masuk'
-            ]);
-
-            Route::get('getdataaktivitas', [
-                  'uses' => 'LapAktivitasDonasiController@getdataaktivitas',
-                  'as' => 'ajax.get.data.aktivitas.donasi'
             ]);
       });
 

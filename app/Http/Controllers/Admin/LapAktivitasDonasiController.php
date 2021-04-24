@@ -21,67 +21,60 @@ class LapAktivitasDonasiController extends Controller
      */
     public function index(Request $request)
     {
-        $jenis_bencana = JenisBencana::withTrashed()->get();
-        return view ('pages.admin.laporanaktivitasdonasi',[
-            'jenis_bencana'=>$jenis_bencana,
+        $jenis_bencana = JenisBencana::all();
+        $aktivitas_donasi = AktivitasDonasi::all();
+
+        foreach ($aktivitas_donasi as $aktivitas) {
+            $data[] = (object) [
+                'id_aktivitas_donasi' => $aktivitas->id_aktivitas_donasi,
+                'total_donasi' => Donasi::where('id_aktivitas_donasi', $aktivitas->id_aktivitas_donasi)->where('status_verifikasi', true)->count(),
+                'tanggal_kejadian' => Carbon::create($aktivitas->info_posko->tanggal_kejadian)->format('d-m-Y'),
+                'id_info_posko' => $aktivitas->id_info_posko,
+                'nama_posko' => $aktivitas->info_posko->user->name,
+                'nama_bencana' =>  $aktivitas->info_posko->jenis_bencana->nama_bencana,
+                'lokasi_bencana' => $aktivitas->info_posko->lokasi_bencana
+            ];
+        }
+
+        return view('pages.admin.laporanaktivitasdonasi', [
+            'jenis_bencana' => $jenis_bencana,
+            'items' => $data
         ]);
     }
 
-  
-    public function getdataaktivitas()
-    {
-       return \DataTables::eloquent(AktivitasDonasi::with(['info_posko.jenis_bencana','info_posko.user','donasi'])->withTrashed()->select('aktivitas_donasi.*'))
-       ->editColumn('tanggal_kejadian',function($d){
-        return Carbon::create($d->info_posko->tanggal_kejadian)->format('d-m-Y');
-       })
-       ->editColumn('name',function($d){
-        return $d->info_posko->user->name;
-       })   
-       ->editColumn('lokasi_bencana',function($d){
-        return $d->info_posko->lokasi_bencana;
-       }) 
-       ->editColumn('nama_bencana',function($d){
-        return $d->info_posko->jenis_bencana->nama_bencana;
-       }) 
-       ->editColumn('donasi_uang',function($d){
-        $donasi=Donasi::where('status_verifikasi', true)->where('id_aktivitas_donasi',$d->id_aktivitas_donasi)->where('jenis_donasi','uang')->sum('keterangan_donasi');
-        return 'Rp. '.number_format($donasi, 0,',','.');
-       }) 
-       ->editColumn('donasi_barang',function($d){
-        $donasi=Donasi::where('status_verifikasi', true)->where('id_aktivitas_donasi',$d->id_aktivitas_donasi)->where('jenis_donasi','pokok')->count();
-        return $donasi;
-       }) 
-       ->editColumn('total_donasi',function($d){
-        $donasi=Donasi::where('status_verifikasi', true)->where('id_aktivitas_donasi',$d->id_aktivitas_donasi)->count();
-        return $donasi.' Donasi';
-       }) 
 
-       ->rawColumns(['tanggal_kejadian','name','lokasi_bencana','nama_bencana','donasi_uang','donasi_barang','total_donasi'])
-       ->toJson();
-    }
 
     public function export()
     {
-        $items = AktivitasDonasi::with(['info_posko.jenis_bencana','info_posko.user','donasi'])->withTrashed()->get();
-        $pdf = PDF::loadView('exports.admin.aktivitas-donasi',['items'=>$items]);
-        return $pdf->download('aktivitas-donasi.pdf');
-
+        $aktivitas_donasi = AktivitasDonasi::with(['info_posko.jenis_bencana', 'info_posko.user', 'donasi'])->get();
+        foreach ($aktivitas_donasi as $aktivitas) {
+            $data[] = (object) [
+                'id_aktivitas_donasi' => $aktivitas->id_aktivitas_donasi,
+                'total_donasi' => Donasi::where('id_aktivitas_donasi', $aktivitas->id_aktivitas_donasi)->where('status_verifikasi', true)->count(),
+                'tanggal_kejadian' => Carbon::create($aktivitas->info_posko->tanggal_kejadian)->format('d-m-Y'),
+                'id_info_posko' => $aktivitas->id_info_posko,
+                'nama_posko' => $aktivitas->info_posko->user->name,
+                'nama_bencana' =>  $aktivitas->info_posko->jenis_bencana->nama_bencana,
+                'lokasi_bencana' => $aktivitas->info_posko->lokasi_bencana
+            ];
+        }
+        $pdf = PDF::loadView('exports.admin.aktivitas-donasi', ['items' => $data])->setPaper('a4', 'landscape');
+        // return $pdf->download('aktivitas-donasi.pdf');
+        return $pdf->stream();
     }
 
- 
+
 
     public function exportBencana(Request $request)
     {
         $jenis_bencana = JenisBencana::withTrashed()->findOrFail($request->id_jenis_bencana);
-        $info = InfoPosko::where('id_jenis_bencana',$request->id_jenis_bencana)->get();
+        $info = InfoPosko::where('id_jenis_bencana', $request->id_jenis_bencana)->get();
 
-            $pdf = PDF::loadView('exports.admin.aktivitas-donasi-bencana',[
-                'info'=>$info,
-                'jenis_bencana'=>$jenis_bencana
-                
-                ]);
-            return $pdf->download('Aktivitas_Donasi.pdf');
-        
-  
+        $pdf = PDF::loadView('exports.admin.aktivitas-donasi-bencana', [
+            'info' => $info,
+            'jenis_bencana' => $jenis_bencana
+
+        ]);
+        return $pdf->download('Aktivitas_Donasi.pdf');
     }
 }
