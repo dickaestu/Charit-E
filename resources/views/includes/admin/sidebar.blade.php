@@ -35,9 +35,9 @@
 
     <!-- Nav Item - Permintaan Logistik -->
     <li class="nav-item {{Request::is('admin/data-permintaan*') ? ' active' : '' }}">
-      <a class="nav-link" href="{{route('data-permintaan-admin')}}">
+      <a class="nav-link" class="d-flex align-items-center" href="{{route('data-permintaan-admin')}}">
         <i class="fas fa-fw fa-boxes"></i>
-        <span>Permintaan Logistik</span></a>
+        <span >Permintaan Logistik <permintaan-logisitik-unverif :user="{{ Auth::user() }}"></permintaan-logisitik-unverif></span> </a>
     </li>
 
 

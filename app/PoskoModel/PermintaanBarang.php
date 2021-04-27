@@ -8,10 +8,12 @@ use App\LogistikModel\PengirimanBarang;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 
 class PermintaanBarang extends Model
 {
     use SoftDeletes;
+    use Notifiable;
 
     protected $table = 'permintaan_barang';
     protected $primaryKey = 'id_permintaan_barang';

@@ -47,4 +47,11 @@ class PermintaanLogistikController extends Controller
         $item->update($data);
         return redirect('admin/data-permintaan')->with('sukses', 'Permintaan Di Berhasil Tolak');
     }
+
+    public function permintaanUnverif()
+    {
+        $data = PermintaanBarang::where('status_permintaan', 'PENDING')->get();
+
+        return response()->json($data);
+    }
 }

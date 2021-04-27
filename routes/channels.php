@@ -1,5 +1,6 @@
 <?php
 
+use App\PoskoModel\PermintaanBarang;
 use Illuminate\Support\Facades\Broadcast;
 
 /*
@@ -14,5 +15,9 @@ use Illuminate\Support\Facades\Broadcast;
 */
 
 Broadcast::channel('App.User.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
+    return (int) $user->user_id === (int) $id;
+});
+
+Broadcast::channel('App.PoskoModel.PermintaanBarang', function ($item) {
+    return $item;
 });

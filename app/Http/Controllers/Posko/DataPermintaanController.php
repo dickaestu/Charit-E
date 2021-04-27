@@ -11,6 +11,7 @@ use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Carbon\Carbon;
 use App\PoskoModel\PermintaanBarang;
 use App\LogistikModel\PengirimanBarang;
+use App\Notifications\PermintaanBarang as NotificationsPermintaanBarang;
 use App\PoskoModel\DetailPermintaanBarang;
 use App\PoskoModel\PenerimaanBarang;
 
@@ -88,6 +89,7 @@ class DataPermintaanController extends Controller
             ]);
 
             $permintaanBarang->detailpermintaanBarang()->createMany($detail);
+            $permintaanBarang->notify(new NotificationsPermintaanBarang($permintaanBarang));
         }
         return redirect()->route('info-posko.index')->with('sukses', 'Permintaan Berhasil Dibuat, Data Akan Segera Di Proses');
     }

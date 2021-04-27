@@ -57,6 +57,9 @@ Route::prefix('admin')
                   ->name('detail-penerimaan-admin');
             Route::post('/data-permintaan/verifikasi/{id}', 'PermintaanLogistikController@verifikasi')
                   ->name('verifikasi-permintaan');
+            Route::get('/data-permintaan/unverif', 'PermintaanLogistikController@permintaanUnverif')
+                  ->name('permintaan-unverif');
+
             Route::post('/data-permintaan/tolak/{id}', 'PermintaanLogistikController@tolak')
                   ->name('tolak-permintaan');
             Route::get('/data-info-posko', 'InfoPoskoController@index')
