@@ -1,5 +1,6 @@
 <?php
 
+use App\AdminModel\JenisBencana;
 use App\PoskoModel\PermintaanBarang;
 use Illuminate\Support\Facades\Broadcast;
 
@@ -19,5 +20,13 @@ Broadcast::channel('App.User.{id}', function ($user, $id) {
 });
 
 Broadcast::channel('App.PoskoModel.PermintaanBarang', function ($item) {
+    return $item;
+});
+
+Broadcast::channel('chat', function ($item) {
+    return $item;
+});
+
+Broadcast::channel('verifikasiPermintaan', function ($item) {
     return $item;
 });

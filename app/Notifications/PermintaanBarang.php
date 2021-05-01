@@ -4,6 +4,7 @@ namespace App\Notifications;
 
 use App\PoskoModel\PermintaanBarang as PoskoModelPermintaanBarang;
 use Carbon\Carbon;
+use Illuminate\Broadcasting\Channel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -81,15 +82,22 @@ class PermintaanBarang extends Notification
     public function toBroadcast($notifiable)
     {
         return [
-            'data' => [
-                'id_permintaan_barang' => $this->permintaanBarang->id_permintaan_barang,
-                'id_info_posko' => $this->permintaanBarang->id_info_posko,
-                'keterangan_permintaan' => $this->permintaanBarang->keterangan_permintaan,
-                'status_permintaan' => $this->permintaanBarang->status_permintaan,
-                'status_pengiriman' => $this->permintaanBarang->status_pengiriman,
-                'status_penerimaan' => $this->permintaanBarang->status_penerimaan,
-                'tanggal_penerimaan' => $this->permintaanBarang->tanggal_penerimaan,
-            ],
+            'id_permintaan_barang' => $this->permintaanBarang->id_permintaan_barang,
+            'id_info_posko' => $this->permintaanBarang->id_info_posko,
+            'keterangan_permintaan' => $this->permintaanBarang->keterangan_permintaan,
+            'status_permintaan' => $this->permintaanBarang->status_permintaan,
+            'status_pengiriman' => $this->permintaanBarang->status_pengiriman,
+            'status_penerimaan' => $this->permintaanBarang->status_penerimaan,
+            'tanggal_penerimaan' => $this->permintaanBarang->tanggal_penerimaan,
+            'created_at' => Carbon::now()->diffForHumans(),
+
+        ];
+    }
+
+    public function broadcastOn()
+    {
+        return [
+            new Channel('verifikasiPermintaan')
         ];
     }
 }

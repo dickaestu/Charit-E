@@ -107,7 +107,7 @@
     <script>
         $(document).ready(function() {
             $('#tablePermintaan').DataTable( {
-                "order": [[ 4, "asc" ]]
+                "order": [[ 0, false ]]
             } );
         } );
     </script>
