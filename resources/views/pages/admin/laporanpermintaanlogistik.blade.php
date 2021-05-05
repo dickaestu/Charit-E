@@ -2,7 +2,7 @@
 @section('title','Laporan Permintaan Logistik')
 
 @push('addon-style')
-    <!-- Custom styles for this page -->
+<!-- Custom styles for this page -->
 <link href="{{url('backend_assets/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
 @endpush
 
@@ -17,13 +17,13 @@
                     <label for="from">Dari Tanggal :</label>
                     <div class="input-group mb-2 mr-sm-2">
                         <input required style="cursor: pointer;" type="date" class="form-control datepicker" name="from" id="from"
-                            placeholder="Pilih Tanggal">
+                        placeholder="Pilih Tanggal">
                     </div>
-    
+                    
                     <label for="to">Sampai Tanggal :</label>
                     <div class="input-group mb-2 mr-sm-2">
                         <input required style="cursor: pointer;" type="date" class="form-control datepicker" name="to" id="to"
-                            placeholder="Pilih Tanggal">
+                        placeholder="Pilih Tanggal">
                     </div>
                     <button type="submit" class="btn btn-primary btn-secondary">Cetak</button>
                 </div>
@@ -47,46 +47,43 @@
                             <th>Status Penerimaan</th>
                             <th>Keterangan</th>
                             <th>Aksi</th>
-
+                            
                         </tr>
                     </thead>
                     <tbody>
-                    
-
+                        @foreach ($items as $item)
+                        <tr>
+                            <td>{{ $item->id_permintaan_barang }}</td>
+                            <td>{{ Carbon\Carbon::create($item->tanggal_permintaan)->format('d-M-Y') }}</td>
+                            <td>{{ $item->infoposko->lokasi_bencana }}</td>
+                            <td>{{ $item->status_permintaan }}</td>
+                            <td>{{ $item->status_penerimaan ? 'Diterima' : "Belum Diterima" }}</td>
+                            <td>{{ $item->keterangan_permintaan }}</td>
+                            <td><a href="{{ route('laporan-detail-permintaan-admin',$item->id_permintaan_barang) }}" class="btn btn-sm btn-info">Detail</a></td>
+                        </tr>
+                        
+                        @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-
-
+    
+    
 </div>
 @endsection
 
 
 @push('addon-script')
-    <!-- Page level plugins -->
-    <script src="{{url('backend_assets/vendor/datatables/jquery.dataTables.min.js')}}"></script>
-    <script src="{{url('backend_assets/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
+<!-- Page level plugins -->
+<script src="{{url('backend_assets/vendor/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{url('backend_assets/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
 
- <!-- Page level custom scripts -->
- <script>
+<!-- Page level custom scripts -->
+<script>
     $(document).ready(function(){
         $('#tablePermintaan').DataTable({
-            processing:true,
-            serverside:true,
-            ajax:"{{ route('ajax.get.permintaan.logistik') }}",
-            columns:[
-              
-                {data:'id_permintaan_barang',name:'id_permintaan_barang'},
-                {data:'tanggal_permintaan',name:'tanggal_permintaan'},
-                {data:'infoposko.lokasi_bencana',name:'infoposko.lokasi_bencana'},
-                {data:'status_permintaan',name:'id_permintaan_barang'},
-                {data:'status_penerimaan',name:'status_penerimaan'},
-                {data:'keterangan_permintaan',name:'keterangan_permintaan'},
-                {data:'detail_permintaan',name:'detail_permintaan'},
-                
-            ]
+            
         });
     });
 </script>

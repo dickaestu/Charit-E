@@ -52,7 +52,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                    
+                        @foreach ($items as $item)
+                            <tr>
+                                <td>{{ $item->id_pengiriman_barang }}</td>
+                                <td>{{ $item->id_permintaan_barang }}</td>
+                                <td>{{ Carbon\Carbon::create($item->tanggal_pengiriman)->format("d-M-Y") }}</td>
+                                <td>{{ $item->permintaanBarang->infoposko->user->name }}</td>
+                                <td>{{ $item->permintaanBarang->infoposko->alamat_posko }}</td>
+                                <td>{{ $item->permintaanBarang->infoposko->jenis_bencana->nama_bencana }}</td>
+                                <td>{{ $item->keterangan_pengiriman }}</td>
+                                <td><a href="{{ route('detail-pengiriman-admin',$item->id_pengiriman_barang) }}" class="btn btn-sm btn-info">Detail</a></td>
+                            </tr>    
+                        
+                        @endforeach
 
                     </tbody>
                 </table>
@@ -72,19 +84,7 @@
     <script>
         $(document).ready(function(){
             $('#tablePengiriman').DataTable({
-                processing:true,
-                serverside:true,
-                ajax:"{{ route('ajax.get.pengiriman.logistik') }}",
-                columns:[
-                    {data:'id_pengiriman_barang',name:'id_pengiriman_barang'},
-                    {data:'id_permintaan_barang',name:'id_permintaan_barang'}, 
-                    {data:'tanggal_pengiriman',name:'tanggal_pengiriman'},
-                    {data:'name',name:'name'},
-                    {data:'alamat_posko',name:'alamat_posko'},
-                    {data:'nama_bencana',name:'nama_bencana'},
-                    {data:'keterangan_pengiriman',name:'keterangan_pengiriman'},
-                    {data:'detail_pengiriman',name:'detail_pengiriman'},
-                ]
+              
             });
         });
     </script>

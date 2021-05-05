@@ -53,7 +53,18 @@
                     </thead>
                     <tbody>
                     
-
+                        @foreach ($items as $item)
+                            <tr>
+                                <td>{{ $item->id_penerimaan_barang }}</td>
+                                <td>{{ $item->id_pengiriman_barang }}</td>
+                                <td>{{ Carbon\Carbon::create($item->tanggal_penerimaan)->format('d-M-Y') }}</td>
+                                <td>{{ $item->pengirimanbarang->permintaanbarang->infoposko->user->name }}</td>
+                                <td>{{ $item->pengirimanbarang->permintaanbarang->infoposko->alamat_posko }}</td>
+                                <td>{{ $item->pengirimanbarang->permintaanbarang->infoposko->jenis_bencana->nama_bencana }}</td>
+                                <td>{{ $item->keterangan_penerimaan }}</td>
+                                <td><a href="{{ route('detail-penerimaan-admin',$item->id_penerimaan_barang) }}" class="btn btn-sm btn-info">Detail</a></td>
+                            </tr>
+                        @endforeach
 
                     </tbody>
                 </table>
@@ -75,19 +86,7 @@
     <script>
         $(document).ready(function(){
             $('#tablePenerimaan').DataTable({
-                processing:true,
-                serverside:true,
-                ajax:"{{ route('ajax.get.penerimaan.logistik') }}",
-                columns:[
-                    {data:'id_penerimaan_barang',name:'id_penerimaan_barang'},
-                    {data:'id_pengiriman_barang',name:'id_pengiriman_barang'}, 
-                    {data:'tanggal_penerimaan',name:'tanggal_penerimaan'},
-                    {data:'name',name:'name'},
-                    {data:'alamat_posko',name:'alamat_posko'},
-                    {data:'nama_bencana',name:'nama_bencana'},
-                    {data:'keterangan_penerimaan',name:'keterangan_penerimaan'},
-                    {data:'detail_penerimaan',name:'detail_penerimaan'},
-                ]
+               
             });
         });
     </script>

@@ -69,8 +69,12 @@ Route::prefix('admin')
 
             Route::get('/laporan-donasi-masuk', 'DonasiMasukController@index')
                   ->name('laporan-donasi-masuk');
+
             Route::get('/laporan-permintaan', 'LapPermintaanLogistikController@index')
                   ->name('laporan-permintaan');
+            Route::get('/laporan-permintaan/detail/{id}', 'LapPermintaanLogistikController@detailpermintaan')
+                  ->name('laporan-detail-permintaan-admin');
+
             Route::get('/laporan-pengiriman', 'LapPengirimanLogistikController@index')
                   ->name('laporan-pengiriman');
             Route::get('/laporan-penerimaan', 'LapPenerimaanLogistikController@index')
@@ -80,8 +84,8 @@ Route::prefix('admin')
                   ->name('laporan-jumlah-stok');
             Route::get('/laporan-barang-masuk', 'LapBarangMasukController@index')
                   ->name('laporan-barang-masuk');
-            Route::get('/laporan-pembelian-barang', 'LapPembelianBarangController@index')
-                  ->name('laporan-pembelian-barang');
+            Route::get('/laporan-barang-masuk/detail/{id}', 'LapBarangMasukController@detail')
+                  ->name('laporan-detail-barang-masuk-admin');
             Route::get('/laporan-aktivitas-donasi', 'LapAktivitasDonasiController@index')
                   ->name('laporan-aktivitas-donasi');
 

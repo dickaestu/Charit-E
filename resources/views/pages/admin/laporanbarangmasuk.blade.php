@@ -2,13 +2,13 @@
 @section('title','Laporan Barang Masuk')
 
 @push('addon-style')
-    <!-- Custom styles for this page -->
+<!-- Custom styles for this page -->
 <link href="{{url('backend_assets/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
 @endpush
 
 @section('content')
 <div class="container-fluid">
-
+    
     {{-- <a href="{{ route('export-barang-masuk-admin') }}" class="btn btn-primary mb-2">Cetak Semua</a>
     <form action="{{ route('export-barang-masuk-admin-bulan') }}" method="post">
         @csrf
@@ -18,13 +18,13 @@
                     <label for="from">Dari Tanggal :</label>
                     <div class="input-group mb-2 mr-sm-2">
                         <input required style="cursor: pointer;" type="date" class="form-control datepicker" name="from" id="from"
-                            placeholder="Pilih Tanggal">
+                        placeholder="Pilih Tanggal">
                     </div>
-    
+                    
                     <label for="to">Sampai Tanggal :</label>
                     <div class="input-group mb-2 mr-sm-2">
                         <input required style="cursor: pointer;" type="date" class="form-control datepicker" name="to" id="to"
-                            placeholder="Pilih Tanggal">
+                        placeholder="Pilih Tanggal">
                     </div>
                     <button type="submit" class="btn btn-primary btn-secondary">Cetak</button>
                 </div>
@@ -42,49 +42,45 @@
                     <thead>
                         <tr>
                             <th>ID Barang Masuk</th>
-                            <th>ID Donasi</th>
                             <th>Tanggal Masuk</th>
-                            <th>Nama</th>
-                            <th>Nama Barang</th>
-                            <th>Jumlah</th>
-                            <th>satuan</th>
+                            <th>Created By</th>
+                            <th>Action</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
-                      
-
+                        @foreach ($items as $item)
+                        
+                        <tr>
+                            <td>{{ $item->id_barang_masuk }}</td>
+                            <td>{{ Carbon\Carbon::create($item->tanggal_barang_masuk)->format('d-M-Y') }}</td>
+                            <td>{{ $item->user->name }}</td>
+                            <td><a href="{{ route('laporan-detail-barang-masuk-admin',$item->id_barang_masuk) }}" class="btn btn-sm btn-info">Detail</a></td>
+                        </tr>
+                        
+                        @endforeach
+                        
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-
+    
 </div>
 @endsection
 
 
 @push('addon-script')
-    <!-- Page level plugins -->
-    <script src="{{url('backend_assets/vendor/datatables/jquery.dataTables.min.js')}}"></script>
-    <script src="{{url('backend_assets/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
+<!-- Page level plugins -->
+<script src="{{url('backend_assets/vendor/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{url('backend_assets/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
 
-    <!-- Page level custom scripts -->
-    <script>
-        $(document).ready(function(){
-            $('#tableBarangMasuk').DataTable({
-                processing:true,
-                serverside:true,
-                ajax:"{{ route('ajax.get.barang.masuk') }}",
-                columns:[
-                    {data:'id_barang_masuk',name:'id_barang_masuk'},
-                    {data:'id_donasi',name:'id_donasi'}, 
-                    {data:'tanggal_masuk',name:'tanggal_masuk'},
-                    {data:'name',name:'name'},
-                    {data:'nama_barang',name:'nama_barang'},
-                    {data:'jumlah',name:'jumlah'},
-                    {data:'satuan_barang',name:'satuan_barang'},
-                ]
-            });
+<!-- Page level custom scripts -->
+<script>
+    $(document).ready(function(){
+        $('#tableBarangMasuk').DataTable({
+            
         });
-    </script>
+    });
+</script>
 @endpush

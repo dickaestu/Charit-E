@@ -19,50 +19,58 @@ class LapPermintaanLogistikController extends Controller
      */
     public function index(Request $request)
     {
-        return view('pages.admin.laporanpermintaanlogistik');
+        $items = PermintaanBarang::where('status_permintaan', 'VERIFIED')->get();
+        return view('pages.admin.laporanpermintaanlogistik', compact('items'));
+    }
+
+    public function detailpermintaan($id)
+    {
+        $info = PermintaanBarang::findOrFail($id);
+        $items = DetailPermintaanBarang::with(['stokbarang'])->where('id_permintaan_barang', $id)->get();
+        return view('pages.admin.laporandetailpermintaan', [
+            'items' => $items,
+            'info' => $info
+        ]);
     }
 
     public function getpermintaan()
     {
-       return \DataTables::eloquent(PermintaanBarang::with(['infoposko'])->select('permintaan_barang.*')->where('status_permintaan','VERIFIED'))
-       ->editColumn('tanggal_permintaan',function($d){
-        return Carbon::create($d->tanggal_permintaan)->format('d-m-Y');
-       })
-       ->editColumn('status_penerimaan',function($d){
-        return $d->status_penerimaan ?' Diterima' : 'Belum Diterima';
-       })
-       ->addColumn('detail_permintaan',function($d){
-        return '<a href="/admin/data-permintaan/detail/'.$d->id_permintaan_barang.'" class="btn btn-sm btn-info">Detail</a>';
-       })
-       ->rawColumns(['tanggal_permintaan','status_pengiriman','status_penerimaan','detail_permintaan'])
-       ->toJson();
+        return \DataTables::eloquent(PermintaanBarang::with(['infoposko'])->select('permintaan_barang.*')->where('status_permintaan', 'VERIFIED'))
+            ->editColumn('tanggal_permintaan', function ($d) {
+                return Carbon::create($d->tanggal_permintaan)->format('d-m-Y');
+            })
+            ->editColumn('status_penerimaan', function ($d) {
+                return $d->status_penerimaan ? ' Diterima' : 'Belum Diterima';
+            })
+            ->addColumn('detail_permintaan', function ($d) {
+                return '<a href="/admin/data-permintaan/detail/' . $d->id_permintaan_barang . '" class="btn btn-sm btn-info">Detail</a>';
+            })
+            ->rawColumns(['tanggal_permintaan', 'status_pengiriman', 'status_penerimaan', 'detail_permintaan'])
+            ->toJson();
     }
 
     public function export()
     {
         $items = PermintaanBarang::with('infoposko')->get();
-        $pdf = PDF::loadView('exports.admin.permintaan-logistik',['items'=>$items]);
+        $pdf = PDF::loadView('exports.admin.permintaan-logistik', ['items' => $items]);
         return $pdf->download('permintaan-logistik.pdf');
-
     }
 
     public function exportBulan(Request $request)
     {
 
         $startDate =  Carbon::create($request->from);
-        $endDate   = Carbon::create($request->to)->addDays(1) ;
-        $items = PermintaanBarang::with('infoposko')->whereBetween('created_at',[$startDate,$endDate])->get();
-        $pdf = PDF::loadView('exports.admin.permintaan-logistik',['items'=>$items]);
+        $endDate   = Carbon::create($request->to)->addDays(1);
+        $items = PermintaanBarang::with('infoposko')->whereBetween('created_at', [$startDate, $endDate])->get();
+        $pdf = PDF::loadView('exports.admin.permintaan-logistik', ['items' => $items]);
         return $pdf->download('permintaan-logistik.pdf');
-
     }
 
     public function exportDetail($id)
     {
-        $items = DetailPermintaanBarang::where('id_permintaan_barang',$id)->get();
+        $items = DetailPermintaanBarang::where('id_permintaan_barang', $id)->get();
         $permintaan = PermintaanBarang::findOrFail($id);
-        $pdf = PDF::loadView('exports.admin.detail.detail-permintaan-logistik',['items'=>$items,'permintaan'=>$permintaan]);
+        $pdf = PDF::loadView('exports.admin.detail.detail-permintaan-logistik', ['items' => $items, 'permintaan' => $permintaan]);
         return $pdf->download('detail-permintaan-logistik.pdf');
-
     }
 }
