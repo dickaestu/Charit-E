@@ -10,7 +10,7 @@
 <div class="container-fluid">
 
     <div class="row ml-1 mb-3">
-        <a href="{{ route('export-aktivitas-donasi-admin') }}" class="btn btn-sm btn-primary ml-2 mt-2 shadow-sm">Cetak Semua</a>
+        <a target="_blank" href="{{ route('export-aktivitas-donasi-admin') }}" class="btn btn-sm btn-primary ml-2 mt-2 shadow-sm">Cetak Semua</a>
       
         <button data-toggle="modal" data-target="#modalCetakBencana" class="btn btn-sm shadow-sm btn-success ml-2 mt-2">Cetak Berdasarkan Bencana</button>
     </div>
@@ -71,7 +71,7 @@
           </button>
         </div>
         <div class="modal-body">
-            <form action="{{ route('print-aktivitas-donasi-bencana-admin') }}" method="post">
+            <form target="_blank" action="{{ route('print-aktivitas-donasi-bencana-admin') }}" method="post">
                 @csrf
             
                     <div class="card mb-2">

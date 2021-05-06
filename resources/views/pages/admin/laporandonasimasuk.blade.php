@@ -9,7 +9,7 @@
 @section('content')
 <div class="container-fluid">
 
-    <a href="{{ route('export-donasi-masuk-admin') }}" class="btn btn-primary mb-2">Cetak Semua</a>
+    <a href="{{ route('export-donasi-masuk-admin') }}" target="_blank" class="btn btn-primary mb-2">Cetak Semua</a>
     {{-- <form action="{{ route('export-donasi-masuk-admin-bulan') }}" method="post">
         @csrf
         <div class="col col-md-5">

@@ -10,7 +10,7 @@
    <!-- Begin Page Content -->
    <div class="container-fluid">
 
-    <a href="{{ route('export-stok-barang') }}" class="btn btn-primary mb-2">Cetak</a>
+    <a href="{{ route('export-stok-barang') }}" target="_blank" class="btn btn-primary mb-2">Cetak</a>
      <!-- DataTales Example -->
      <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -30,7 +30,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                     
+                        @foreach ($items as $item)
+                            <tr>
+                                <td>{{ $item->id_stok_barang }}</td>
+                                <td>{{ $item->nama_barang }}</td>
+                                <td>{{ $item->quantity }}</td>
+                                <td>{{ $item->satuan }}</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -54,16 +61,7 @@
     <script>
         $(document).ready(function(){
             $('#tableStok').DataTable({
-                processing:true,
-                serverside:true,
-                ajax:"{{ route('ajax.get.stok.barang') }}",
-                columns:[
-                  
-                    {data:'id_stok_barang',name:'id_stok_barang'},
-                    {data:'nama_barang',name:'nama_barang'}, 
-                    {data:'quantity',name:'quantity'},
-                    {data:'satuan',name:'satuan'},
-                ]
+              
             });
         });
     </script>

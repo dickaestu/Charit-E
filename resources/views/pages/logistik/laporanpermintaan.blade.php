@@ -9,8 +9,8 @@
    <!-- Begin Page Content -->
    <div class="container-fluid">
 
-    <a href="{{ route('export-permintaan-logistik') }}" class="btn btn-primary mb-2">Cetak Semua</a>
-    <form action="{{ route('export-permintaan-logistik-bulan') }}" method="post">
+    <a href="{{ route('export-permintaan-logistik') }}" target="_blank" class="btn btn-primary mb-2">Cetak Semua</a>
+    <form target="_blank" action="{{ route('export-permintaan-logistik-bulan') }}" method="post">
         @csrf
         <div class="col col-md-5">
             <div class="card mb-2">
@@ -52,7 +52,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                    
+                    @foreach ($items as $item)
+                        <tr>
+                            <td>{{ $item->id_permintaan_barang }}</td>
+                            <td>{{ Carbon\Carbon::create($item->tanggal_permintaan)->format('d-M-Y') }}</td>
+                            <td>{{ $item->infoPosko->jenis_bencana->nama_bencana }}</td>
+                            <td>{{ $item->status_permintaan }}</td>
+                            <td>{{ $item->status_penerimaan ? ' Diterima' : 'Belum Diterima' }}</td>
+                            <td>{{ $item->keterangan_permintaan }}</td>
+                            <td><a target="_blank" href="{{ route('print-detail-permintaan',$item->id_permintaan_barang) }}" class="btn btn-sm btn-info">Print Detail</a></td>
+                        </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>
@@ -75,20 +85,7 @@
  <script>
     $(document).ready(function(){
         $('#tablePermintaan').DataTable({
-            processing:true,
-            serverside:true,
-            ajax:"{{ route('ajax.get.permintaan') }}",
-            columns:[
-              
-                {data:'id_permintaan_barang',name:'id_permintaan_barang'},
-                {data:'tanggal_permintaan',name:'tanggal_permintaan'},
-                {data:'infoposko.lokasi_bencana',name:'infoposko.lokasi_bencana'},
-                {data:'status_permintaan',name:'id_permintaan_barang'},
-                {data:'status_penerimaan',name:'status_penerimaan'},
-                {data:'keterangan_permintaan',name:'keterangan_permintaan'},
-                {data:'detail_permintaan',name:'detail_permintaan'},
-                
-            ]
+            
         });
     });
 </script>

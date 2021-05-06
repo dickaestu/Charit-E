@@ -215,8 +215,6 @@ Route::prefix('logistik')
 
             Route::get('/laporan-permintaan', 'LapPermintaanController@index')
                   ->name('laporan-permintaan-logistik');
-            Route::get('/laporan-donasi-masuk', 'LapDonasiMasukController@index')
-                  ->name('laporan-donasi-masuk-logistik');
             Route::get('/laporan-stok-barang', 'LapStokBarangController@index')
                   ->name('laporan-stok-barang-logistik');
             Route::get('/laporan-pengiriman', 'LapPengirimanController@index')
@@ -227,8 +225,6 @@ Route::prefix('logistik')
 
 
             // Export PDF
-            Route::get('/export-pdf-donasi-masuk', 'DonasiMasukController@export')
-                  ->name('export-donasi-masuk');
             Route::get('/export-pdf-permintaan-logistik', 'LapPermintaanController@export')
                   ->name('export-permintaan-logistik');
             Route::get('/export-pdf-pengiriman-logistik', 'LapPengirimanController@export')
@@ -239,8 +235,6 @@ Route::prefix('logistik')
                   ->name('export-barang-masuk');
 
             // Export PDF berdasarkan bulan
-            Route::post('/export-pdf-donasi-masuk-bulan', 'DonasiMasukController@exportBulan')
-                  ->name('export-donasi-masuk-bulan');
             Route::post('/export-pdf-permintaan-logistik-bulan', 'LapPermintaanController@exportBulan')
                   ->name('export-permintaan-logistik-bulan');
             Route::post('/export-pdf-pengiriman-logistik-bulan', 'LapPengirimanController@exportBulan')
@@ -254,15 +248,8 @@ Route::prefix('logistik')
             Route::get('/export-detail-pengiriman/{id}', 'LapPengirimanController@exportDetail')
                   ->name('print-detail-pengiriman');
 
-            // Export Lain-lain
-            Route::post('/export-donasi-masuk-bencana', 'DonasiMasukController@exportBencana')
-                  ->name('print-donasi-masuk-bencana');
 
             // Ajax Url
-            Route::get('getdatadonasi', [
-                  'uses' => 'DonasiMasukController@getdatadonasi',
-                  'as' => 'ajax.donasi.masuk'
-            ]);
             Route::get('getpermintaanlogistik', [
                   'uses' => 'LapPermintaanController@getpermintaan',
                   'as' => 'ajax.get.permintaan'
@@ -271,10 +258,6 @@ Route::prefix('logistik')
                   'uses' => 'LapPengirimanController@getpengiriman',
                   'as' => 'ajax.get.pengiriman'
             ]);
-            Route::get('getdatauangmasuk', [
-                  'uses' => 'LapUangDonasiController@getdatauang',
-                  'as' => 'ajax.get.uang.masuk'
-            ]);
             Route::get('getstokbarang', [
                   'uses' => 'LapStokBarangController@getstokbarang',
                   'as' => 'ajax.get.stok.barang'
@@ -282,10 +265,6 @@ Route::prefix('logistik')
             Route::get('getbarangmasuk', [
                   'uses' => 'LapBarangMasukController@getbarangmasuk',
                   'as' => 'ajax.barang.masuk'
-            ]);
-            Route::get('getpengeluaran', [
-                  'uses' => 'LapPengeluaranUangController@getpengeluaran',
-                  'as' => 'ajax.pengeluaran'
             ]);
       });
 

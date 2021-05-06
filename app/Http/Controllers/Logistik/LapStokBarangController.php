@@ -18,20 +18,21 @@ class LapStokBarangController extends Controller
      */
     public function index(Request $request)
     {
-        return view('pages.logistik.laporanstokbarang');
+        $items = StokBarang::all();
+        return view('pages.logistik.laporanstokbarang', compact('items'));
     }
 
     public function getstokbarang()
     {
-       return \DataTables::eloquent(StokBarang::select('stok_barang.*'))
-       ->toJson();
+        return \DataTables::eloquent(StokBarang::select('stok_barang.*'))
+            ->toJson();
     }
 
     public function export()
     {
         $items = StokBarang::all();
-        $pdf = PDF::loadView('exports.logistik.stokbarang',['items'=>$items]);
-        return $pdf->download('stok_barang.pdf');
-
+        $pdf = PDF::loadView('exports.logistik.stokbarang', ['items' => $items]);
+        // return $pdf->download('stok_barang.pdf');
+        return $pdf->stream();
     }
 }

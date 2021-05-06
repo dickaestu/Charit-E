@@ -10,7 +10,7 @@
 <div class="container-fluid">
 
     <div class="row ml-1 mb-3">
-        <a href="{{ route('export-info-posko-admin') }}" class="btn btn-sm btn-primary ml-2 mt-2 shadow-sm">Cetak Semua</a>
+        <a target="_blank" href="{{ route('export-info-posko-admin') }}" class="btn btn-sm btn-primary ml-2 mt-2 shadow-sm">Cetak Semua</a>
         <button data-toggle="modal" data-target="#modalCetakTanggal"  class="btn btn-sm shadow-sm btn-success ml-2 mt-2">Cetak Berdasarkan Tanggal</button>
         <button data-toggle="modal" data-target="#modalCetakBencana" class="btn btn-sm shadow-sm btn-warning ml-2 mt-2">Cetak Berdasarkan Bencana</button>
     </div>
@@ -76,7 +76,7 @@
           </button>
         </div>
         <div class="modal-body">
-            <form action="{{ route('export-info-posko-admin-bulan') }}" method="post">
+            <form target="_blank" action="{{ route('export-info-posko-admin-bulan') }}" method="post">
                 @csrf
             
                     <div class="card mb-2">
@@ -115,7 +115,7 @@
           </button>
         </div>
         <div class="modal-body">
-            <form action="{{ route('print-info-posko-bencana-admin') }}" method="post">
+            <form target="_blank" action="{{ route('print-info-posko-bencana-admin') }}" method="post">
                 @csrf
             
                     <div class="card mb-2">

@@ -47,7 +47,7 @@
     </tbody>
 </table>
 
-<table style="text-align: center; margin-top: 10px;" border="1" cellspacing="0" cellpadding="8" width="100%">
+<table style="text-align: center; margin-top: 10px;margin-bottom:50px" border="1" cellspacing="0" cellpadding="8" width="100%">
     <thead>
         <tr>
             <th>ID Permintaan</th>
@@ -74,35 +74,20 @@
        
     </tbody>
 </table>    
-<table style="margin-top: 30px" width="640px">
-    <tr>
-        <td align="right">Jakarta, {{ \Carbon\Carbon::now()->format('d - m - Y') }}</td>
-    </tr>
-    <tr>
-        <td align="left">Mengetahui, <span style="margin-left:465px">Dilaporkan Oleh,</span></td>
-    </tr>
-    <tr>
-        <td align="left">Pimpinan <span style="margin-left:485px">Logistik</span></td>
-    </tr>
-    <tr><td></td></tr>
-    <tr><td></td></tr>
-    <tr><td></td></tr>
-    <tr><td></td></tr>
-    <tr><td></td></tr>
-    <tr><td></td></tr>
-    <tr><td></td></tr>
-    <tr><td></td></tr>
-    <tr><td></td></tr>
-    <tr><td></td></tr>
-    <tr><td></td></tr>
-    <tr><td></td></tr>
-    <tr><td></td></tr>
-    <tr><td></td></tr>
-    <tr>
-        <td align="left">.................................. 
-            <span style="margin-left:420px">..................................</span></td>
-    </tr>
-</table>
+ <div style=" display: flex;">
+    <div >
+        <p>Jakarta, {{ \Carbon\Carbon::now()->format('d - m - Y') }}</p>
+        <p>Mengetahui,</p>
+        <p style="margin-bottom: 40px">Pimpinan</p>
+        <p>................................</p>
+    </div>
+    <div style="text-align: right">
+        <p>Jakarta, {{ \Carbon\Carbon::now()->format('d - m - Y') }}</p>
+        <p>Dilaporkan Oleh,</p>
+        <p style="margin-bottom: 40px">Logistik</p>
+        <p>................................</p>
+    </div>
+</div>
 
   
 
