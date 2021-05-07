@@ -31,7 +31,7 @@ class LapStokBarangController extends Controller
     public function export()
     {
         $items = StokBarang::all();
-        $pdf = PDF::loadView('exports.logistik.stokbarang', ['items' => $items]);
+        $pdf = PDF::loadView('exports.logistik.stokbarang', ['items' => $items])->setPaper('a4', 'landscape');
         // return $pdf->download('stok_barang.pdf');
         return $pdf->stream();
     }

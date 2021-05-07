@@ -247,6 +247,8 @@ Route::prefix('logistik')
                   ->name('print-detail-permintaan');
             Route::get('/export-detail-pengiriman/{id}', 'LapPengirimanController@exportDetail')
                   ->name('print-detail-pengiriman');
+            Route::get('/export-detail-pengiriman/{id}', 'LapBarangMasukController@exportDetail')
+                  ->name('print-detail-barang-masuk');
 
 
             // Ajax Url

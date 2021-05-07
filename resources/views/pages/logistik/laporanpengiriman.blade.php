@@ -10,8 +10,8 @@
    <!-- Begin Page Content -->
    <div class="container-fluid">
 
-    <a href="{{ route('export-pengiriman-logistik') }}" class="btn btn-primary mb-2">Cetak Semua</a>
-    <form action="{{ route('export-pengiriman-logistik-bulan') }}" method="post">
+    <a target="_blank" href="{{ route('export-pengiriman-logistik') }}" class="btn btn-primary mb-2">Cetak Semua</a>
+    <form target="_blank" action="{{ route('export-pengiriman-logistik-bulan') }}" method="post">
         @csrf
         <div class="col col-md-5">
             <div class="card mb-2">
@@ -54,6 +54,18 @@
                     </thead>
                     <tbody>
                      
+                        @foreach ($items as $item)
+                            <tr>
+                                <td>{{ $item->id_pengiriman_barang }}</td>
+                                <td>{{ $item->id_permintaan_barang }}</td>
+                                <td>{{ Carbon\Carbon::create($item->tanggal_pengiriman)->format('d-M-Y') }}</td>
+                                <td>{{ $item->permintaanbarang->infoposko->user->name }}</td>
+                                <td>{{ $item->permintaanbarang->infoposko->alamat_posko }}</td>
+                                <td>{{ $item->permintaanbarang->infoposko->jenis_bencana->nama_bencana }}</td>
+                                <td>{{ $item->keterangan_pengiriman }}</td>
+                                <td><a target="_blank" href="{{ route('print-detail-pengiriman',$item->id_pengiriman_barang) }}" class="btn btn-sm btn-info">Print Detail</a></td>
+                            </tr>
+                        @endforeach
 
 
                     </tbody>
@@ -78,19 +90,7 @@
     <script>
         $(document).ready(function(){
             $('#tablePengiriman').DataTable({
-                processing:true,
-                serverside:true,
-                ajax:"{{ route('ajax.get.pengiriman') }}",
-                columns:[
-                    {data:'id_pengiriman_barang',name:'id_pengiriman_barang'},
-                    {data:'id_permintaan_barang',name:'id_permintaan_barang'}, 
-                    {data:'tanggal_pengiriman',name:'tanggal_pengiriman'},
-                    {data:'name',name:'name'},
-                    {data:'alamat_posko',name:'alamat_posko'},
-                    {data:'nama_bencana',name:'nama_bencana'},
-                    {data:'keterangan_pengiriman',name:'keterangan_pengiriman'},
-                    {data:'detail_pengiriman',name:'detail_pengiriman'},
-                ]
+                
             });
         });
     </script>

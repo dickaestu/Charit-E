@@ -46,12 +46,8 @@
     <thead>
         <tr>
             <th>ID Barang Masuk</th>
-            <th>ID Donasi</th>
             <th>Tanggal Masuk</th>
-            <th>Nama</th>
-            <th>Nama Barang</th>
-            <th>Jumlah</th>
-            <th>satuan</th> 
+            <th>Created By</th>
         </tr>
     </thead>
     <tbody>
@@ -59,12 +55,8 @@
            
             <tr>
                 <td>{{ $item->id_barang_masuk }}</td>
-                <td>{{ $item->id_donasi }}</td>
                 <td>{{\Carbon\Carbon::create( $item->tanggal_barang_masuk)->format('d - m - Y')}}</td>
-                <td>{{ $item->donasi->nama_donatur }}</td>
-                <td>{{ $item->stokbarang->nama_barang }}</td>
-                <td>{{ $item->jumlah}}</td>
-                <td>{{ $item->stokbarang->satuan}}</td>
+                <td>{{ $item->user->name }}</td>
             </tr>
         
        @endforeach

@@ -10,8 +10,8 @@
    <!-- Begin Page Content -->
    <div class="container-fluid">
 
-    <a href="{{ route('export-barang-masuk') }}" class="btn btn-primary mb-2">Cetak Semua</a>
-    <form action="{{ route('export-barang-masuk-bulan') }}" method="post">
+    <a target="_blank" href="{{ route('export-barang-masuk') }}" class="btn btn-primary mb-2">Cetak Semua</a>
+    <form target="_blank" action="{{ route('export-barang-masuk-bulan') }}" method="post">
         @csrf
         <div class="col col-md-5">
             <div class="card mb-2">
@@ -43,16 +43,23 @@
                     <thead>
                         <tr>
                             <th>ID Barang Masuk</th>
-                            <th>ID Donasi</th>
                             <th>Tanggal Masuk</th>
-                            <th>Nama</th>
-                            <th>Nama Barang</th>
-                            <th>Jumlah</th>
-                            <th>satuan</th>
+                            <th>Created By</th>
+                            <th>Action</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
-                   
+                    @foreach ($items as $item)
+                        
+                        <tr>
+                            <td>{{ $item->id_barang_masuk }}</td>
+                            <td>{{ Carbon\Carbon::create($item->tanggal_barang_masuk)->format('d-M-Y') }}</td>
+                            <td>{{ $item->user->name }}</td>
+                            <td><a target="_blank" href="{{ route('print-detail-barang-masuk',$item->id_barang_masuk) }}" class="btn btn-sm btn-info">Print</a></td>
+                        </tr>
+                        
+                        @endforeach
 
                     </tbody>
                 </table>
@@ -76,18 +83,7 @@
     <script>
         $(document).ready(function(){
             $('#tableBarangMasuk').DataTable({
-                processing:true,
-                serverside:true,
-                ajax:"{{ route('ajax.barang.masuk') }}",
-                columns:[
-                    {data:'id_barang_masuk',name:'id_barang_masuk'},
-                    {data:'id_donasi',name:'id_donasi'}, 
-                    {data:'tanggal_masuk',name:'tanggal_masuk'},
-                    {data:'name',name:'name'},
-                    {data:'nama_barang',name:'nama_barang'},
-                    {data:'jumlah',name:'jumlah'},
-                    {data:'satuan_barang',name:'satuan_barang'},
-                ]
+                
             });
         });
     </script>

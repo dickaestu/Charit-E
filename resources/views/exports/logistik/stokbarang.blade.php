@@ -41,7 +41,7 @@
     
 
 
-<table style="text-align: center; margin-top: 50px; margin-bottom:50px" border="1" cellspacing="0" cellpadding="8" width="100%">
+<table style="text-align: center; margin-top: 50px; " border="1" cellspacing="0" cellpadding="8" width="100%">
     <thead>
         <tr>
             <th>ID Stok Barang</th>
@@ -65,7 +65,7 @@
     </tbody>
 </table>    
 
-<div style=" display: flex;">
+<div style=" display:flex; ">
     <div >
         <p>Jakarta, {{ \Carbon\Carbon::now()->format('d - m - Y') }}</p>
         <p>Mengetahui,</p>

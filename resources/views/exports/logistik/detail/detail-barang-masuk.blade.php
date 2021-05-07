@@ -36,19 +36,15 @@
     
     <div>
         <img style="" src="{{ltrim(public_path('donasi_assets/assets/img/logo.png'),'/')}}" height="auto" width="120">
-        <h2 style="text-align:center; margin-top:-30px">Laporan Detail Permintaan Logistik</h2> 
+        <h2 style="text-align:center; margin-top:-30px">Laporan Detail Barang Masuk</h2> 
     </div>
     
     
     <table style="margin-bottom: 10px;margin-top: 50px" cellpadding="5">
         <tbody>
-            <tr><th align="left">ID Permintaan</th><td>:</td><td>{{ $permintaan->id_permintaan_barang }}</td></tr>
-            <tr><th align="left">Status Permintaan</th><td>:</td><td>{{ $permintaan->status_permintaan }}</td></tr>
-            <tr><th align="left">Tanggal Permintaan</th><td>:</td><td>{{ \Carbon\Carbon::create($permintaan->tanggal_permintaan)->format('d - m - Y') }}</td></tr>
-            <tr><th align="left">Nama Posko</th><td>:</td><td>{{ $permintaan->infoposko->user->name }}</td></tr>
-            <tr><th align="left">Alamat Posko</th><td>:</td><td>{{ $permintaan->infoposko->alamat_posko }}</td></tr>
-            <tr><th align="left">Lokasi Bencana</th><td>:</td><td>{{ $permintaan->infoposko->lokasi_bencana }}</td></tr>
-            <tr><th align="left">Nama Bencana</th><td>:</td><td>{{ $permintaan->infoposko->jenis_bencana->nama_bencana }}</td></tr>
+            <tr><th align="left">ID Barang Masuk</th><td>:</td><td>{{ $barangMasuk->id_barang_masuk }}</td></tr>
+            <tr><th align="left">Tanggal Barang Masuk</th><td>:</td><td>{{ \Carbon\Carbon::create($barangMasuk->tanggal_barang_masuk)->format('d - m - Y') }}</td></tr>
+            <tr><th align="left">Created By</th><td>:</td><td>{{ $barangMasuk->user->name}}</td></tr>
         </tbody>
     </table>
     
