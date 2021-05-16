@@ -200,6 +200,9 @@ Route::prefix('logistik')
                   ->name('data-permintaan-logistik');
             Route::get('/data-permintaan/detail/{id}', 'DataPermintaanController@detailpermintaan')
                   ->name('detail-permintaan-logistik');
+            Route::get('/data-permintaan/verified', 'DataPermintaanController@permintaanVerif')
+                  ->name('permintaan-verif');
+
             Route::get('/buat-pengiriman/{id}', 'DataPengirimanController@create')
                   ->name('create-pengiriman');
             Route::post('/buat-pengiriman/{id_permintaan_barang}', 'DataPengirimanController@store')

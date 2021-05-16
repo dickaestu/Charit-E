@@ -1987,6 +1987,94 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PermintaanLogistikVerif.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PermintaanLogistikVerif.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      permintaanLogistikVerif: []
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    Echo.channel("permintaanLogistikVerified").notification(function (notification) {
+      _this.permintaanLogistikVerif.unshift(notification);
+    });
+  },
+  mounted: function mounted() {
+    var _this2 = this;
+
+    axios.get("/logistik/data-permintaan/verified").then(function (response) {
+      _this2.permintaanLogistikVerif = response.data;
+    });
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/jquery/dist/jquery.js":
 /*!********************************************!*\
   !*** ./node_modules/jquery/dist/jquery.js ***!
@@ -39421,6 +39509,119 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PermintaanLogistikVerif.vue?vue&type=template&id=5dfa80ae&":
+/*!**************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PermintaanLogistikVerif.vue?vue&type=template&id=5dfa80ae& ***!
+  \**************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("li", { staticClass: "nav-item dropdown no-arrow mx-1" }, [
+    _c(
+      "a",
+      {
+        staticClass: "nav-link dropdown-toggle",
+        attrs: {
+          href: "#",
+          id: "alertsDropdown",
+          role: "button",
+          "data-toggle": "dropdown",
+          "aria-haspopup": "true",
+          "aria-expanded": "false"
+        }
+      },
+      [
+        _c("i", { staticClass: "fas fa-bell fa-fw" }),
+        _vm._v(" "),
+        _c("span", { staticClass: "badge badge-danger badge-counter" }, [
+          _vm._v(_vm._s(_vm.permintaanLogistikVerif.length))
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass:
+          "dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in",
+        staticStyle: { "max-height": "300px", overflow: "auto" },
+        attrs: { "aria-labelledby": "alertsDropdown" }
+      },
+      [
+        _c("h6", { staticClass: "dropdown-header" }, [_vm._v("Notifikasi")]),
+        _vm._v(" "),
+        _vm._l(_vm.permintaanLogistikVerif, function(notification, index) {
+          return _c(
+            "a",
+            {
+              key: index,
+              staticClass: "dropdown-item d-flex align-items-center",
+              attrs: { href: "/logistik/data-permintaan" }
+            },
+            [
+              _vm._m(0, true),
+              _vm._v(" "),
+              _c("div", [
+                _c("div", { staticClass: "small text-gray-500" }, [
+                  _vm._v(
+                    "\n          " +
+                      _vm._s(
+                        _vm._f("moment")(notification.created_at, "from")
+                      ) +
+                      "\n        "
+                  )
+                ]),
+                _vm._v(
+                  "\n        Permintaan Barang , ID Permintaan :\n        " +
+                    _vm._s(notification.id_permintaan_barang) +
+                    "\n      "
+                )
+              ])
+            ]
+          )
+        }),
+        _vm._v(" "),
+        _vm.permintaanLogistikVerif.length < 1
+          ? _c(
+              "div",
+              {
+                staticClass:
+                  "dropdown-item d-flex align-items-center justify-content-center"
+              },
+              [_c("div", [_vm._v("Tidak Ada Notifikasi")])]
+            )
+          : _vm._e()
+      ],
+      2
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "mr-3" }, [
+      _c("div", { staticClass: "icon-circle bg-warning" }, [
+        _c("i", { staticClass: "fas fa-exclamation-triangle text-white" })
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js":
 /*!********************************************************************!*\
   !*** ./node_modules/vue-loader/lib/runtime/componentNormalizer.js ***!
@@ -56419,6 +56620,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('permintaan-logisitik-unverif', __webpack_require__(/*! ./components/PermintaanLogistikUnverif.vue */ "./resources/js/components/PermintaanLogistikUnverif.vue")["default"]);
+Vue.component('permintaan-logistik-verif', __webpack_require__(/*! ./components/PermintaanLogistikVerif.vue */ "./resources/js/components/PermintaanLogistikVerif.vue")["default"]);
 Vue.use(__webpack_require__(/*! vue-moment */ "./node_modules/vue-moment/dist/vue-moment.js"));
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -56548,6 +56750,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PermintaanLogistikUnverif_vue_vue_type_template_id_5b11a0b5___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PermintaanLogistikUnverif_vue_vue_type_template_id_5b11a0b5___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/PermintaanLogistikVerif.vue":
+/*!*************************************************************!*\
+  !*** ./resources/js/components/PermintaanLogistikVerif.vue ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _PermintaanLogistikVerif_vue_vue_type_template_id_5dfa80ae___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PermintaanLogistikVerif.vue?vue&type=template&id=5dfa80ae& */ "./resources/js/components/PermintaanLogistikVerif.vue?vue&type=template&id=5dfa80ae&");
+/* harmony import */ var _PermintaanLogistikVerif_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PermintaanLogistikVerif.vue?vue&type=script&lang=js& */ "./resources/js/components/PermintaanLogistikVerif.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _PermintaanLogistikVerif_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _PermintaanLogistikVerif_vue_vue_type_template_id_5dfa80ae___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _PermintaanLogistikVerif_vue_vue_type_template_id_5dfa80ae___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/PermintaanLogistikVerif.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/PermintaanLogistikVerif.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/PermintaanLogistikVerif.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PermintaanLogistikVerif_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./PermintaanLogistikVerif.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PermintaanLogistikVerif.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PermintaanLogistikVerif_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/PermintaanLogistikVerif.vue?vue&type=template&id=5dfa80ae&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/components/PermintaanLogistikVerif.vue?vue&type=template&id=5dfa80ae& ***!
+  \********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PermintaanLogistikVerif_vue_vue_type_template_id_5dfa80ae___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./PermintaanLogistikVerif.vue?vue&type=template&id=5dfa80ae& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PermintaanLogistikVerif.vue?vue&type=template&id=5dfa80ae&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PermintaanLogistikVerif_vue_vue_type_template_id_5dfa80ae___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PermintaanLogistikVerif_vue_vue_type_template_id_5dfa80ae___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

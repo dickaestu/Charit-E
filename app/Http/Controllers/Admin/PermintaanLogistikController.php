@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Notifications\PermintaanBarangVerified;
 use Illuminate\Http\Request;
 use App\PoskoModel\PermintaanBarang;
 use App\PoskoModel\DetailPermintaanBarang;
@@ -37,6 +38,7 @@ class PermintaanLogistikController extends Controller
         $data['status_permintaan'] = 'VERIFIED';
         $item = PermintaanBarang::findOrFail($id);
         $item->update($data);
+        $item->notify(new PermintaanBarangVerified($item));
         return redirect('admin/data-permintaan')->with('sukses', 'Data Berhasil Di Verifikasi');
     }
 

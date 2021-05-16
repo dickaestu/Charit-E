@@ -21,7 +21,8 @@
 
 <body id="page-top">
 
-  <!-- Page Wrapper -->
+  <div id="app">
+    <!-- Page Wrapper -->
   <div id="wrapper">
 
     @include('includes.logistik.sidebar')
@@ -53,6 +54,7 @@
   </a>
 
  
+  </div>
 
 
   @stack('prepend-script')

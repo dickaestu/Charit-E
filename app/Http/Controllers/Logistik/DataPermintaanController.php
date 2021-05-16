@@ -33,4 +33,11 @@ class DataPermintaanController extends Controller
 
         ]);
     }
+
+    public function permintaanVerif()
+    {
+        $data = PermintaanBarang::where('status_permintaan', 'VERIFIED')->where('status_pengiriman', false)->get();
+
+        return response()->json($data);
+    }
 }

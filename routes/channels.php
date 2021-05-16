@@ -30,3 +30,7 @@ Broadcast::channel('chat', function ($item) {
 Broadcast::channel('verifikasiPermintaan', function ($item) {
     return $item;
 });
+
+Broadcast::channel('permintaanLogistikVerified', function ($item) {
+    return $item;
+});

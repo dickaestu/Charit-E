@@ -1,3 +1,6 @@
+
+<link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
 <!-- Custom fonts for this template-->
 <link href="{{url('backend_assets/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
 <link
