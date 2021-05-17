@@ -9,10 +9,13 @@ use App\User;
 use App\AdminModel\AktivitasDonasi;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 
 class InfoPosko extends Model
 {
     use SoftDeletes;
+    use Notifiable;
+
 
     protected $table = 'info_posko';
     protected $primaryKey = 'id_info_posko';

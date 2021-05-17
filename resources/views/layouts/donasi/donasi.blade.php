@@ -14,7 +14,8 @@
 </head>
 
 <body>
-	<!-- Start Preloader Area -->
+	<div id="app">
+		<!-- Start Preloader Area -->
 	<div class="preloader">
 		<div class="spinner">
 			<div class="double-bounce1"></div>
@@ -39,6 +40,7 @@
 	</div>
 	<!-- End Go Top Area -->
 
+	</div>
 
 
 

@@ -1,4 +1,6 @@
 
+  <script src="{{ asset('js/app.js') }}"></script>
+
 	<!-- Jquery Slim JS -->
     <script src="{{url('donasi_assets/assets/js/jquery-3.2.1.slim.min.js')}}"></script>
     <!-- Popper JS -->

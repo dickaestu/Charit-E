@@ -1,4 +1,4 @@
-
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 	<!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{url('donasi_assets/assets/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{url('donasi_assets/assets/css/dataTables.bootstrap4.min.css')}}">

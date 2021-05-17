@@ -54,11 +54,7 @@
 							</div>
 						</div>
 						<ul class="list-group list-group-flush">
-							<li class="list-group-item"><i class="flaticon-man-user"></i> Korban<span class="float-right">
-								{{$item->info_posko->jumlah_korban}} Orang</span></li>
-								<li class="list-group-item"><i class="flaticon-human-outline-with-heart"></i> Korban Jiwa<span
-									class="float-right">
-									{{$item->info_posko->jumlah_korban_jiwa}} Orang</span></li>
+							<info-korban :info_posko="{{ $item }}" :jumlah_korban="{{$item->info_posko->jumlah_korban}}" :jumlah_korban_jiwa="{{$item->info_posko->jumlah_korban_jiwa}}" ></info-korban>
 									<li class="list-group-item"><i class="flaticon-home"></i> Alamat Posko
 										<span class="float-right">{{$item->info_posko->alamat_posko}}</span>
 									</li>

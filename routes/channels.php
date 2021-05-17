@@ -34,3 +34,7 @@ Broadcast::channel('verifikasiPermintaan', function ($item) {
 Broadcast::channel('permintaanLogistikVerified', function ($item) {
     return $item;
 });
+
+Broadcast::channel('infoKorban', function ($item) {
+    return $item;
+});

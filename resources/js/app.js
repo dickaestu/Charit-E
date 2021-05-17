@@ -23,6 +23,7 @@ window.Vue = require('vue');
 
 Vue.component('permintaan-logisitik-unverif', require('./components/PermintaanLogistikUnverif.vue').default);
 Vue.component('permintaan-logistik-verif', require('./components/PermintaanLogistikVerif.vue').default);
+Vue.component('info-korban', require('./components/InfoKorban.vue').default);
 Vue.use(require('vue-moment'));
 
 /**
@@ -33,6 +34,9 @@ Vue.use(require('vue-moment'));
 
 const app = new Vue({
     el: '#app',
-      
-        
+    // data: {
+    //     id_info_posko : "",
+    //     jumlah_korban_jiwa : "",
+    //     jumlah_korban:""
+    // }  
 });

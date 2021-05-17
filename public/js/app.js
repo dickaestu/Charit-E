@@ -1899,6 +1899,54 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InfoKorban.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/InfoKorban.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["jumlah_korban", "jumlah_korban_jiwa", "info_posko"],
+  data: function data() {
+    return {
+      jumlahKorban: this.jumlah_korban,
+      jumlahKorbanJiwa: this.jumlah_korban_jiwa
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    Echo.channel("infoKorban").notification(function (notification) {
+      if (_this.info_posko.id_info_posko == notification.id_info_posko) {
+        _this.jumlahKorban = notification.jumlah_korban;
+        _this.jumlahKorbanJiwa = notification.jumlah_korban_jiwa;
+      }
+    });
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PermintaanLogistikUnverif.vue?vue&type=script&lang=js&":
 /*!************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PermintaanLogistikUnverif.vue?vue&type=script&lang=js& ***!
@@ -39396,6 +39444,46 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InfoKorban.vue?vue&type=template&id=552cad3a&":
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/InfoKorban.vue?vue&type=template&id=552cad3a& ***!
+  \*************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("li", { staticClass: "list-group-item" }, [
+      _c("i", { staticClass: "flaticon-man-user" }),
+      _vm._v(" Korban"),
+      _c("span", { staticClass: "float-right" }, [
+        _vm._v("\n      " + _vm._s(_vm.jumlahKorban) + " Orang")
+      ])
+    ]),
+    _vm._v(" "),
+    _c("li", { staticClass: "list-group-item" }, [
+      _c("i", { staticClass: "flaticon-human-outline-with-heart" }),
+      _vm._v(" Korban Jiwa"),
+      _c("span", { staticClass: "float-right" }, [
+        _vm._v("\n      " + _vm._s(_vm.jumlahKorbanJiwa) + " Orang")
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PermintaanLogistikUnverif.vue?vue&type=template&id=5b11a0b5&":
 /*!****************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PermintaanLogistikUnverif.vue?vue&type=template&id=5b11a0b5& ***!
@@ -56621,6 +56709,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 Vue.component('permintaan-logisitik-unverif', __webpack_require__(/*! ./components/PermintaanLogistikUnverif.vue */ "./resources/js/components/PermintaanLogistikUnverif.vue")["default"]);
 Vue.component('permintaan-logistik-verif', __webpack_require__(/*! ./components/PermintaanLogistikVerif.vue */ "./resources/js/components/PermintaanLogistikVerif.vue")["default"]);
+Vue.component('info-korban', __webpack_require__(/*! ./components/InfoKorban.vue */ "./resources/js/components/InfoKorban.vue")["default"]);
 Vue.use(__webpack_require__(/*! vue-moment */ "./node_modules/vue-moment/dist/vue-moment.js"));
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -56629,7 +56718,12 @@ Vue.use(__webpack_require__(/*! vue-moment */ "./node_modules/vue-moment/dist/vu
  */
 
 var app = new Vue({
-  el: '#app'
+  el: '#app' // data: {
+  //     id_info_posko : "",
+  //     jumlah_korban_jiwa : "",
+  //     jumlah_korban:""
+  // }  
+
 });
 
 /***/ }),
@@ -56683,6 +56777,75 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   disableStats: true // logToConsole: true,
 
 });
+
+/***/ }),
+
+/***/ "./resources/js/components/InfoKorban.vue":
+/*!************************************************!*\
+  !*** ./resources/js/components/InfoKorban.vue ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _InfoKorban_vue_vue_type_template_id_552cad3a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./InfoKorban.vue?vue&type=template&id=552cad3a& */ "./resources/js/components/InfoKorban.vue?vue&type=template&id=552cad3a&");
+/* harmony import */ var _InfoKorban_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./InfoKorban.vue?vue&type=script&lang=js& */ "./resources/js/components/InfoKorban.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _InfoKorban_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _InfoKorban_vue_vue_type_template_id_552cad3a___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _InfoKorban_vue_vue_type_template_id_552cad3a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/InfoKorban.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/InfoKorban.vue?vue&type=script&lang=js&":
+/*!*************************************************************************!*\
+  !*** ./resources/js/components/InfoKorban.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InfoKorban_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./InfoKorban.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InfoKorban.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InfoKorban_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/InfoKorban.vue?vue&type=template&id=552cad3a&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/InfoKorban.vue?vue&type=template&id=552cad3a& ***!
+  \*******************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InfoKorban_vue_vue_type_template_id_552cad3a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./InfoKorban.vue?vue&type=template&id=552cad3a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InfoKorban.vue?vue&type=template&id=552cad3a&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InfoKorban_vue_vue_type_template_id_552cad3a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InfoKorban_vue_vue_type_template_id_552cad3a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 

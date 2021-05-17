@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Posko;
 
 use App\Http\Controllers\Controller;
 use App\AdminModel\JenisBencana;
+use App\Notifications\InfoKorban;
 use App\PoskoModel\InfoPosko;
 use illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -135,6 +136,9 @@ class InfoPoskoController extends Controller
         $item = InfoPosko::findOrFail($id);
 
         $item->update($data);
+
+        $item->notify(new InfoKorban($item));
+
         return redirect('posko/info-posko')->with('edit', 'Data Berhasil Di Ubah');
     }
 
