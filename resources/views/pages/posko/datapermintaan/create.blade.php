@@ -14,6 +14,13 @@
         </ul>
     </div>       
     @endif
+
+    @if (session('error'))
+    <div class="alert alert-danger" role="alert">
+        {{session('error')}}
+    </div>    
+    @endif
+    
     <nav class="breadcrumb bg-transparent p-0">
         <a class="breadcrumb-item" href="{{ route('info-posko.index') }}">Kembali</a>
         <span class="breadcrumb-item active">Buat Permintaan</span>

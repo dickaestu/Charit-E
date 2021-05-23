@@ -76,7 +76,14 @@ class DataPermintaanController extends Controller
                     'updated_at' => Carbon::now()
                 );
             }
-            // DetailPermintaanBarang::insert($detail);
+
+            for ($i = 0; $i < count($detail); $i++) {
+                $max = StokBarang::where('id_stok_barang', $detail[$i]['id_stok_barang'])->first();
+
+                if ($detail[$i]['jumlah'] > $max->quantity) {
+                    return back()->with('error', 'Jumlah yang diinput melebihi jumlah stok');
+                }
+            }
 
             $permintaanBarang = PermintaanBarang::create([
                 'id_permintaan_barang' => $id_permintaan,

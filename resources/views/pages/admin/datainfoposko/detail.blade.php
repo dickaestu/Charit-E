@@ -11,7 +11,7 @@
 <!-- Begin Page Content -->
 <div class="container-fluid ">
     
-    <a href="{{ route('print-sub-posko-admin',$id) }}" class="btn btn-sm btn-primary ml-2 mb-2 shadow-sm">Cetak</a>
+    <a target="_blank" href="{{ route('print-sub-posko-admin',$id) }}" class="btn btn-sm btn-primary ml-2 mb-2 shadow-sm">Cetak</a>
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
