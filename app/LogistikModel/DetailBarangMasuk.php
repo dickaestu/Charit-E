@@ -21,6 +21,6 @@ class DetailBarangMasuk extends Model
 
     public function barangMasuk()
     {
-        return $this->belongsToMany(BarangMasuk::class, 'id_barang_masuk', 'id_barang_masuk');
+        return $this->belongsTo(BarangMasuk::class, 'id_barang_masuk', 'id_barang_masuk');
     }
 }

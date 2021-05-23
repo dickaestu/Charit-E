@@ -234,6 +234,8 @@ Route::prefix('logistik')
                   ->name('export-pengiriman-logistik');
             Route::get('/export-pdf-stok-barang', 'LapStokBarangController@export')
                   ->name('export-stok-barang');
+            Route::get('/export-pdf-jenis-barang/{id}', 'LapStokBarangController@exportJenisBarang')
+                  ->name('export-jenis-barang');
             Route::get('/export-pdf-barang-masuk', 'LapBarangMasukController@export')
                   ->name('export-barang-masuk');
 
