@@ -250,7 +250,7 @@ Route::prefix('logistik')
                   ->name('print-detail-permintaan');
             Route::get('/export-detail-pengiriman/{id}', 'LapPengirimanController@exportDetail')
                   ->name('print-detail-pengiriman');
-            Route::get('/export-detail-pengiriman/{id}', 'LapBarangMasukController@exportDetail')
+            Route::get('/export-detail-barang-masuk/{id}', 'LapBarangMasukController@exportDetail')
                   ->name('print-detail-barang-masuk');
 
 
