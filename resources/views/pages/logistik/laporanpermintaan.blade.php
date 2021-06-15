@@ -60,7 +60,7 @@
                             <td>{{ $item->status_permintaan }}</td>
                             <td>{{ $item->status_penerimaan ? ' Diterima' : 'Belum Diterima' }}</td>
                             <td>{{ $item->keterangan_permintaan }}</td>
-                            <td><a target="_blank" href="{{ route('print-detail-permintaan',$item->id_permintaan_barang) }}" class="btn btn-sm btn-info">Print Detail</a></td>
+                            <td><a target="_blank" href="{{ route('print-detail-permintaan',$item->id_permintaan_barang) }}" class="btn btn-sm btn-info">Cetak Detail</a></td>
                         </tr>
                     @endforeach
                     </tbody>

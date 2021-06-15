@@ -67,6 +67,7 @@ Route::prefix('admin')
             Route::get('/data-info-posko/detail-sub-posko/{id}', 'InfoPoskoController@detailsubposko')
                   ->name('detail-data-subposko');
 
+
             Route::get('/laporan-donasi-masuk', 'DonasiMasukController@index')
                   ->name('laporan-donasi-masuk');
 
@@ -337,5 +338,13 @@ Route::prefix('posko')
             Route::get('/detail-laporan-penerimaan/edit/{id}', 'PenerimaanBarangController@edit')
                   ->name('detail-penerimaan-posko.edit');
       });
+
+// SSE
+Route::namespace('Donasi')
+      ->group(function () {
+            Route::get('/getEventStream', 'DetailDonasiController@getEventStream')
+                  ->name('getEventStream');
+      });
+
 // Auth::routes(['verify' => true]);
 Auth::routes();

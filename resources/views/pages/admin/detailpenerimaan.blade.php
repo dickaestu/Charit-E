@@ -44,7 +44,7 @@
         </tr>
     </table>
 
-    <a href="{{ route('print-detail-penerimaan-admin',$info->id_penerimaan_barang) }}" class="btn btn-sm btn-primary mb-2 shadow-sm">Cetak</a>
+    <a target="_blank" href="{{ route('print-detail-penerimaan-admin',$info->id_penerimaan_barang) }}" class="btn btn-sm btn-primary mb-2 shadow-sm">Cetak</a>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Detail Penerimaan</h6>

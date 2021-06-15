@@ -1941,7 +1941,13 @@ __webpack_require__.r(__webpack_exports__);
         _this.jumlahKorban = notification.jumlah_korban;
         _this.jumlahKorbanJiwa = notification.jumlah_korban_jiwa;
       }
-    });
+    }); // let evtSource = new EventSource("/getEventStream", {
+    //   withCredentials: true,
+    // });
+    // evtSource.onmessage = function (e) {
+    //   let data = JSON.parse(e.data);
+    //   console.log(data);
+    // };
   }
 });
 

@@ -63,7 +63,7 @@
                                 <td>{{ $item->permintaanbarang->infoposko->alamat_posko }}</td>
                                 <td>{{ $item->permintaanbarang->infoposko->jenis_bencana->nama_bencana }}</td>
                                 <td>{{ $item->keterangan_pengiriman }}</td>
-                                <td><a target="_blank" href="{{ route('print-detail-pengiriman',$item->id_pengiriman_barang) }}" class="btn btn-sm btn-info">Print Detail</a></td>
+                                <td><a target="_blank" href="{{ route('print-detail-pengiriman',$item->id_pengiriman_barang) }}" class="btn btn-sm btn-info">Cetak Detail</a></td>
                             </tr>
                         @endforeach
 

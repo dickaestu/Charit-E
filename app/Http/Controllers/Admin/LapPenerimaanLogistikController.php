@@ -61,7 +61,8 @@ class LapPenerimaanLogistikController extends Controller
     {
         $items = PenerimaanBarang::with('pengirimanbarang')->get();
         $pdf = PDF::loadView('exports.admin.penerimaan-logistik', ['items' => $items]);
-        return $pdf->download('penerimaan-logistik.pdf');
+        // return $pdf->download('penerimaan-logistik.pdf');
+        return $pdf->stream();
     }
 
     public function exportBulan(Request $request)
@@ -74,7 +75,8 @@ class LapPenerimaanLogistikController extends Controller
             'startDate' => $startDate,
             'endDate' => $endDate
         ]);
-        return $pdf->download('penerimaan-logistik.pdf');
+        // return $pdf->download('penerimaan-logistik.pdf');
+        return $pdf->stream();
     }
 
     public function exportDetail($id)
@@ -82,6 +84,7 @@ class LapPenerimaanLogistikController extends Controller
         $items = DetailPenerimaanBarang::where('id_penerimaan_barang', $id)->get();
         $penerimaan = PenerimaanBarang::findOrFail($id);
         $pdf = PDF::loadView('exports.admin.detail.detail-penerimaan-logistik', ['items' => $items, 'penerimaan' => $penerimaan]);
-        return $pdf->download('detail-penerimaan-logistik.pdf');
+        // return $pdf->download('detail-penerimaan-logistik.pdf');
+        return $pdf->stream();
     }
 }

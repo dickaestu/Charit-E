@@ -56,7 +56,7 @@
                             <td>{{ $item->id_barang_masuk }}</td>
                             <td>{{ Carbon\Carbon::create($item->tanggal_barang_masuk)->format('d-M-Y') }}</td>
                             <td>{{ $item->user->name }}</td>
-                            <td><a target="_blank" href="{{ route('print-detail-barang-masuk',$item->id_barang_masuk) }}" class="btn btn-sm btn-info">Print</a></td>
+                            <td><a target="_blank" href="{{ route('print-detail-barang-masuk',$item->id_barang_masuk) }}" class="btn btn-sm btn-info">Cetak</a></td>
                         </tr>
                         
                         @endforeach

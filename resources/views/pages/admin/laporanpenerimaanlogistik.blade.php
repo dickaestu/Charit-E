@@ -9,8 +9,8 @@
 @section('content')
 <div class="container-fluid">
 
-    <a href="{{ route('export-penerimaan-logistik-admin') }}" class="btn btn-primary mb-2">Cetak Semua</a>
-    <form action="{{ route('export-penerimaan-logistik-admin-bulan') }}" method="post">
+    <a href="{{ route('export-penerimaan-logistik-admin') }}" target="_blank" class="btn btn-primary mb-2">Cetak Semua</a>
+    <form target="_blank" action="{{ route('export-penerimaan-logistik-admin-bulan') }}" method="post">
         @csrf
         <div class="col col-md-5">
             <div class="card mb-2">

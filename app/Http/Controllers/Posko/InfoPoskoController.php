@@ -9,6 +9,7 @@ use App\PoskoModel\InfoPosko;
 use illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class InfoPoskoController extends Controller
 {
@@ -110,6 +111,8 @@ class InfoPoskoController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $time = microtime(true) - $_SERVER["REQUEST_TIME_FLOAT"];
+
         $request->validate([
             'tanggal_kejadian' => ['required', 'date'],
             'alamat_posko' => ['required', 'max:180', 'string'],
@@ -137,7 +140,13 @@ class InfoPoskoController extends Controller
 
         $item->update($data);
 
+        $time_pre = hrtime(true);
         $item->notify(new InfoKorban($item));
+
+        $time_post = hrtime(true);
+        $exec_time = $time_post - $time_pre;
+
+        // dd($time);
 
         return redirect('posko/info-posko')->with('edit', 'Data Berhasil Di Ubah');
     }

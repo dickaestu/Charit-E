@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Donasi;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\AdminModel\AktivitasDonasi;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class DetailDonasiController extends Controller
 {
@@ -20,6 +21,36 @@ class DetailDonasiController extends Controller
             'items' => $items
         ]);
     }
+
+
+    public function getEventStream()
+    {
+        $time = microtime(true) - $_SERVER["REQUEST_TIME_FLOAT"];
+        $random_string = chr(rand(65, 90)) . chr(rand(65, 90)) . chr(rand(65, 90));
+
+
+        $data = AktivitasDonasi::where('is_active', true)->get();
+
+
+        $response = new StreamedResponse();
+
+        $response->setCallback(function () use ($data, $time) {
+            $data['execution_time'] = $time;
+            echo 'data: ' . json_encode($data) . "\n\n";
+            //echo "retry: 100\n\n"; // no retry would default to 3 seconds.
+            //echo "data: Hello There\n\n";
+            ob_flush();
+            flush();
+            //sleep(10);
+            usleep(200000);
+        });
+
+        $response->headers->set('Content-Type', 'text/event-stream');
+        $response->headers->set('X-Accel-Buffering', 'no');
+        $response->headers->set('Cach-Control', 'no-cache');
+        $response->send();
+    }
+
 
     /**
      * Show the form for creating a new resource.

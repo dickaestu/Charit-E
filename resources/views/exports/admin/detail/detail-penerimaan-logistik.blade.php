@@ -34,12 +34,13 @@
 </head>
 <body>
 	
-    <div>
-        <img style="" src="{{ltrim(public_path('donasi_assets/assets/img/logo.png'),'/')}}" height="auto" width="120">
-        <h2 style="text-align:center; margin-top:-30px">Laporan Detail Penerimaan Logistik</h2> 
+    <div style="display: flex; align-items: center; margin-bottom:-30px">
+        {{-- pakai ini kalau di hosting src="./donasi_assets/assets/img/logo.png" --}}
+        <img  src="{{ltrim(public_path('donasi_assets/assets/img/bpbd.jpg'),'/')}}" height="auto" width="100">
+        <h2 style="text-align:center;">Laporan Detail Penerimaan Logistik</h2> 
     </div>
     
-<table style="margin-bottom: 10px; margin-top:50px" cellpadding="5">
+<table style="margin-bottom: 10px;" cellpadding="5">
     <tbody>
         <tr><th align="left">ID Penerimaan</th><td>:</td><td>{{ $penerimaan->id_penerimaan_barang }}</td></tr>
         <tr><th align="left">Tanggal Penerimaan</th><td>:</td><td>{{ \Carbon\Carbon::create($penerimaan->tanggal_penerimaan)->format('d - m - Y') }}</td></tr>
@@ -66,7 +67,7 @@
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $item->stokbarang->nama_barang }}</td>
                 <td>{{ $item->stokbarang->satuan }}</td>
-                <td>{{$item->jumlah_penerimaan}}</td>
+                <td>{{$item->jumlah}}</td>
             </tr>
         
        @endforeach

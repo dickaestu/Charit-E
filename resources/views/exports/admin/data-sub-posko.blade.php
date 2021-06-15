@@ -34,14 +34,16 @@
 </head>
 <body>
     
-    <div>
-        <img style="" src="{{ltrim(public_path('donasi_assets/assets/img/logo.png'),'/')}}" height="auto" width="120">
-        <h2 style="text-align:center; margin-top:-30px">Laporan Sub Posko</h2> 
+
+    <div style="display: flex; align-items: center; margin-bottom:-50px">
+        {{-- pakai ini kalau di hosting src="./donasi_assets/assets/img/logo.png" --}}
+        <img  src="{{ltrim(public_path('donasi_assets/assets/img/bpbd.jpg'),'/')}}" height="auto" width="100">
+        <h2 style="text-align:center;">Laporan Sub Posko</h2> 
     </div>
     
     
     
-    <table style="margin-bottom: 10px; margin-top:50px;" cellpadding="5">
+    <table style="margin-bottom: 10px; " cellpadding="5">
         <tbody>
             <tr><th style="text-align:left">Nama Posko</th><td>:</td><td>{{ $infoPosko->user->name }}</td></tr>
             <tr><th style="text-align:left">Alamat Posko</th><td>:</td><td>{{ $infoPosko->alamat_posko }}</td></tr>
