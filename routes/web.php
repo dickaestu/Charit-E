@@ -60,7 +60,7 @@ Route::prefix('admin')
             Route::get('/data-permintaan/unverif', 'PermintaanLogistikController@permintaanUnverif')
                   ->name('permintaan-unverif');
 
-            Route::post('/data-permintaan/tolak/{id}', 'PermintaanLogistikController@tolak')
+            Route::put('/data-permintaan/tolak/{id}', 'PermintaanLogistikController@tolak')
                   ->name('tolak-permintaan');
             Route::get('/data-info-posko', 'InfoPoskoController@index')
                   ->name('data-info-posko');

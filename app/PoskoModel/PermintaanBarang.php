@@ -21,7 +21,7 @@ class PermintaanBarang extends Model
     public $incrementing = false;
     protected $fillable = [
         'id_permintaan_barang', 'id_info_posko', 'keterangan_permintaan', 'status_permintaan', 'status_pengiriman',
-        'tanggal_permintaan', 'status_penerimaan'
+        'tanggal_permintaan', 'status_penerimaan', 'keterangan_ditolak'
     ];
 
     public function infoposko()

@@ -42,9 +42,10 @@ class PermintaanLogistikController extends Controller
         return redirect('admin/data-permintaan')->with('sukses', 'Data Berhasil Di Verifikasi');
     }
 
-    public function tolak($id)
+    public function tolak(Request $request, $id)
     {
         $data['status_permintaan'] = 'BATAL';
+        $data['keterangan_ditolak'] = $request->keterangan_ditolak;
         $item = PermintaanBarang::findOrFail($id);
         $item->update($data);
         return redirect('admin/data-permintaan')->with('sukses', 'Permintaan Di Berhasil Tolak');

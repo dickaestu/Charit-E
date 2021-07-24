@@ -55,6 +55,7 @@
             <th>ID Pengiriman</th>
             <th>Tanggal Penerimaan</th>
             <th>Nama Posko</th>
+            <th>Nama Penanggung Jawab</th>
             <th>Alamat Posko</th>
             <th>Bencana</th>
             <th>Keterangan Penerimaan</th>
@@ -68,6 +69,7 @@
                 <td>{{ $item->id_pengiriman_barang }}</td>
                 <td>{{\Carbon\Carbon::create( $item->tanggal_penerimaan)->format('d - m - Y')}}</td>
                 <td>{{ $item->pengirimanbarang->permintaanbarang->infoposko->user->name }}</td>
+                <td>{{ $item->pengirimanbarang->permintaanbarang->infoposko->nama_penanggung_jawab }}</td>
                 <td>{{ $item->pengirimanbarang->permintaanbarang->infoposko->alamat_posko}}</td>
                 <td>{{ $item->pengirimanbarang->permintaanbarang->infoposko->jenis_bencana->nama_bencana }}</td>
                 <td>{{ $item->keterangan_penerimaan }}</td>
@@ -81,7 +83,7 @@
        
     </tbody>
 </table>
-<table style="margin-top: 30px" width="640px">
+<table style="margin-top: 30px" width="100%">
     <tr>
         <td align="right">Jakarta, {{ \Carbon\Carbon::now()->format('d - m - Y') }}</td>
     </tr>

@@ -39,8 +39,8 @@
                             <th>Tanggal Permintaan</th>
                             <th>ID Info Posko</th>
                             <th>Bencana - Lokasi Bencana</th>
-                            <th>Status Permintaan</th>
-                            <th>Status Pengiriman</th>
+                            {{-- <th>Verifikasi</th> --}}
+                            <th>Status</th>
                             <th>Aksi</th>
                             <th width="20">Laporan Penerimaan</th>
                             
@@ -53,7 +53,7 @@
                             <td>{{\Carbon\Carbon::create($item->tanggal_permintaan)->format('d - m - Y')}}</td>
                             <td>{{$item->id_info_posko}}</td>
                             <td>{{$item->infoposko->jenis_bencana->nama_bencana}} - {{$item->infoposko->lokasi_bencana}}</td>
-                            <td class="text-center">
+                            {{-- <td class="text-center">
                                 @if ($item->status_permintaan == 'BATAL')
                                 <span class="text-danger">DITOLAK</span>
                                 @elseif ($item->status_permintaan == 'VERIFIED')
@@ -61,8 +61,22 @@
                                 @elseif ($item->status_permintaan == 'PENDING')
                                 <span class="text-secondary">PENDING</span> 
                                 @endif
-                            </td>
-                            <td>{{$item->status_pengiriman ? 'DIKIRIM' : 'BELUM DIKIRIM'}} </td>
+                            </td> --}}
+                            <td>
+                                @if ($item->status_permintaan == 'BATAL')
+                                <span>Ditolak</span>
+                                @elseif ($item->status_permintaan == 'VERIFIED')
+                                    @if ( $item->status_pengiriman == false && $item->status_penerimaan == false)
+                                        <span>Terverifikasi</span> 
+                                    @elseif( $item->status_pengiriman == true && $item->status_penerimaan == false)
+                                        <span>Dikirim</span> 
+                                    @elseif( $item->status_pengiriman == true && $item->status_penerimaan == true)
+                                        <span>Diterima</span>
+                                    @endif
+                                @elseif ($item->status_permintaan == 'PENDING')
+                                <span>Pending</span> 
+                                @endif
+                             </td>
                             
                             <td>
                                 

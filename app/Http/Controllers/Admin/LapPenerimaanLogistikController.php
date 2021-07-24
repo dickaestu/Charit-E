@@ -60,7 +60,7 @@ class LapPenerimaanLogistikController extends Controller
     public function export()
     {
         $items = PenerimaanBarang::with('pengirimanbarang')->get();
-        $pdf = PDF::loadView('exports.admin.penerimaan-logistik', ['items' => $items]);
+        $pdf = PDF::loadView('exports.admin.penerimaan-logistik', ['items' => $items])->setPaper('a4', 'landscape');
         // return $pdf->download('penerimaan-logistik.pdf');
         return $pdf->stream();
     }
@@ -74,7 +74,7 @@ class LapPenerimaanLogistikController extends Controller
             'items' => $items,
             'startDate' => $startDate,
             'endDate' => $endDate
-        ]);
+        ])->setPaper('a4', 'landscape');
         // return $pdf->download('penerimaan-logistik.pdf');
         return $pdf->stream();
     }
