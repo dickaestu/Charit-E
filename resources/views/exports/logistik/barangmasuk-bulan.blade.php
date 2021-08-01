@@ -43,7 +43,7 @@
 <table style="margin-bottom: 10px; margin-top:50px;" cellpadding="5">
     <tbody>
         <tr><th>Periode</th><td>:</td><td>{{ \Carbon\Carbon::create($startDate)->format('d / m / Y') }}
-        - {{ \Carbon\Carbon::create($endDate)->format('d / m / Y') }}</td></tr>
+        s.d {{ \Carbon\Carbon::create($endDate)->format('d / m / Y') }}</td></tr>
     </tbody>
 </table>
 
